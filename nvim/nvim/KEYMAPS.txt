@@ -1,0 +1,137 @@
+#TODO: 
+
+                                        -- NVIM KEYMAP TRACKER --
+
+-- MODIFIER: <LEADER>
+
+    --MODE: <NORMAL>
+
+        -- NEOTREE
+        <t> = toggle tree on left sidebar
+
+        -- TELESCOPE
+        <pf> = open telescope project files
+        <gf> = open telescope git files
+        <ps> = grep search for string
+        
+        -- HARPOON
+        <e> = toggle harpoon gui
+        <a> = add buffer to harpoon
+        <1> = navigate to file 1
+        <2> = navigate to file 2
+        <3> = navigate to file 3
+
+        -- FUGITIVE
+        <gs> = open git menu
+
+        -- GENERAL
+        <.> = open netrw
+        <f> = format selected text
+        <s> = replace/edit/modify current word across the whole buffer
+        <x> = add user permission to execute in current repository
+        <y> = copy selection to system buffer
+        <p> =
+        <d> =
+        <k> =
+        <j> =
+
+
+    --MODE: <VISUAL>
+
+    --MODE: <INSERT>
+
+    --MODE: <COMMAND>
+
+
+
+-- MODIFIER: <CONTROL>
+
+    --MODE: <NORMAL>
+
+    --MODE: <VISUAL>
+
+    --MODE: <INSERT>
+
+    --MODE: <COMMAND>
+
+
+
+-- MODIFIER: <SHIFT>
+
+    --MODE: <NORMAL>
+
+    --MODE: <VISUAL>
+
+    --MODE: <INSERT>
+
+    --MODE: <COMMAND>
+
+
+
+-- MODIFIER: <NONE>
+
+    --MODE: <NORMAL>
+        <j> = cursor down
+        <k> = cursor up
+        <h> = cursor left
+        <l> = cursor right
+        <p> = paste
+
+    --MODE: <VISUAL>
+        <y> = yank (copy)
+        <p> = paste
+        <>
+
+
+    --MODE: <INSERT>
+
+    --MODE: <COMMAND>
+
+
+
+-- MISC:
+
+    --NEOTREE KEYBINDINGS
+
+        --GLOBAL
+        <A> = add directory 
+        <d> = delete
+        <r> = rename
+        <m> = move
+        <i> = show file details
+        <?> = show help:w
+
+        <q> = close window
+        <y> = copy to clipboard
+        <x> = cut to clipboard
+        <p> = paste from clipboard
+        
+        <<> = show previous source
+        <>> = show next source
+
+        <z> = close all nodes
+        <Z> = open all nodes
+        <R> = refresh
+
+        --FILESYSTEM
+
+        --BUFFERS
+
+        --GIT
+
+        
+        <> = 
+        <> = 
+        <> = 
+        <> = 
+        <> =
+        <> = 
+
+        <> = 
+        <> = 
+        <> =
+        <> = 
+
+
+    --GLOBAL LUA FUNCTIONS (:lua <function>)
+        <SetColors()> = update colorscheme application for nvim

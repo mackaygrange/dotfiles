@@ -1,0 +1,8 @@
+require("mgrange.config.colors")
+require("mgrange.config.fugitive")
+require("mgrange.config.harpoon")
+require("mgrange.config.lspzero")
+require("mgrange.config.lualine")
+require("mgrange.config.neotree")
+require("mgrange.config.telescope")
+require("mgrange.config.treesitter")
