@@ -15,8 +15,8 @@
 
 window#waybar 
 {
-    background: rgba(38, 35, 58, 0.67);
-    border: 3px solid rgba(110, 106, 134, 0.67);
+    background: rgba(38, 35, 58, 0.40);
+    border: 3px solid rgba(110, 106, 134, 0.40);
     border-radius: 5px;
 }
 
@@ -116,7 +116,7 @@ tooltip
 
 #tray menu separator 
 {
-    min-height: 10px
+    min-height: 10px;
 }
 
 #custom-spacer
@@ -295,7 +295,6 @@ tooltip
 #custom-sr_end,
 #custom-rl_end,
 #cava,
-#upower,
 #headset,
 #upower
 {
