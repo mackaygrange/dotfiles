@@ -214,6 +214,55 @@ setup_config() {
 # Install packages if requested
 install_packages
 
+# Function to configure git global settings
+configure_git() {
+    echo ""
+    echo "[*] Configuring Git..."
+    
+    # Check if git is installed
+    if ! command -v git &> /dev/null; then
+        echo "[!] Git is not installed. Skipping Git configuration."
+        return 1
+    fi
+    
+    # Get current git config values
+    local current_user=$(git config --global user.name)
+    local current_email=$(git config --global user.email)
+    
+    # If already configured, ask if user wants to change
+    if [ -n "$current_user" ] && [ -n "$current_email" ]; then
+        echo "[+] Git already configured:"
+        echo "    Name:  $current_user"
+        echo "    Email: $current_email"
+        return 0
+    fi
+    
+    # Prompt for git user name
+    echo "Git configuration needed:"
+    read -p "Enter git user name (or press Enter to skip): " git_name
+    
+    if [ -z "$git_name" ]; then
+        echo "[!] Git user name not provided. Skipping Git configuration."
+        return 1
+    fi
+    
+    # Prompt for git email
+    read -p "Enter git email: " git_email
+    
+    if [ -z "$git_email" ]; then
+        echo "[!] Git email not provided. Skipping Git configuration."
+        return 1
+    fi
+    
+    # Set global git config
+    git config --global user.name "$git_name"
+    git config --global user.email "$git_email"
+    
+    echo "[+] Git configured:"
+    echo "    Name:  $git_name"
+    echo "    Email: $git_email"
+}
+
 # Configuration mapping: folder_name|destination|os_requirement|distro_requirement
 # os_requirement: empty=all, !Windows=exclude Windows, Windows=only Windows, Linux=only Linux
 # distro_requirement: empty=all distros, arch=only arch, !arch=exclude arch
@@ -324,6 +373,9 @@ for config_entry in "${config_list[@]}"; do
 done
 
 echo ""
+
+# Configure git global settings
+configure_git
 
 # User dirs configuration
 if [ -f "$DOTFILES_DIR/user-dirs.dirs" ]; then
