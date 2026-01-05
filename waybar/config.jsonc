@@ -29,7 +29,7 @@
     "format": "<span color='#021c18'>󰍿</span> <span color='#313436'></span> ",
     "format-alt": "󰍿 <span color='#bbc2c7'></span> ",
     "on-click": "~/mouse.sh",
-    "tooltip": false,
+    "tooltip": false
 },
 
 "upower": {
@@ -45,7 +45,7 @@
 "format": " {percentage}",
 "native-path": "/org/freedesktop/UPower/devices/headset_dev_A6_98_9A_0D_D3_49",
 "show-icon": false,
-"tooltip": false,
+"tooltip": false
 },
 
 "group/expand-4": {
@@ -60,7 +60,7 @@
    },
 
 "custom/smallspacer":{
-"format": " ",
+"format": " "
 },
 "memory": {
     "interval": 1,
@@ -71,7 +71,7 @@
 "cpu": {
     "interval": 1,
     "format": "{icon}",
-    "format-icons": ["󰝦","󰪞","󰪟","󰪠","󰪡","󰪢","󰪣","󰪤","󰪥"],
+    "format-icons": ["󰝦","󰪞","󰪟","󰪠","󰪡","󰪢","󰪣","󰪤","󰪥"]
 },
 
 
@@ -85,7 +85,7 @@
 	},
 	"status-icons": {
 		"paused": "▶" 
-	},
+	}
 	// "ignored-players": ["firefox"]
 },
 "tray": {
@@ -99,7 +99,7 @@
      "drawer": {
          "transition-duration": 600,
          "children-class": "not-power",
-       "transition-to-left": true,
+       "transition-to-left": true
        //  "click-to-reveal": true
      },
      "modules": ["custom/menu","custom/spacer","tray"]
@@ -107,7 +107,7 @@
 
  "custom/menu":{
  "format": "󰅃",
- "rotate": 90,
+ "rotate": 90
  },
  
 
@@ -137,7 +137,7 @@
 "format": "<span  weight='bold' >{class}</span>",
  "max-length": 120,
  "icon": false,
- "icon-size": 13,
+ "icon-size": 13
 },
 
     "custom/power": {
@@ -156,10 +156,10 @@
 	"format": "{icon}",
 	"format-icons": {
 	"default": "",
-	"active": "",
+	"active": ""
 	//"default": "○",
 	//"default": "●"
-	},
+	}
 },
 
 "wlr/workspaces": {
@@ -195,7 +195,7 @@
     
     "custom/script": {
     "on-click": "~/.config/waybar/volume.sh toggle",
-    "format": "",
+    "format": ""
     
     },
 
@@ -336,7 +336,7 @@
         //"format-icons": ["󰝦","󰪞","󰪟","󰪠","󰪡","󰪢","󰪣","󰪤","󰪥"],
         "format-icons": ["","","","","","","",""],  
         //"format-icons": ["󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
-        "on-click-right": "pkill waybar & hyprctl dispatch exec waybar",
+        "on-click-right": "pkill waybar & hyprctl dispatch exec waybar"
         //"format-icons": [<i class='fa-solid fa-wifi-slash'></i>],
     
     },
@@ -384,7 +384,7 @@
         "format-disconnected": "",
         "tooltip-format-disconnected": "Disconnected",
         "on-click": "/usr/local/bin/ags -t ControlPanel",
-        "interval": 2,
+        "interval": 2
     },
 
     "pulseaudio": {
@@ -418,7 +418,6 @@
     },
 
     "custom/notifications": {
-        "tooltip": false,
         "format": "{icon} {}",
         "rotate": 0,
         "format-icons": {
@@ -507,14 +506,15 @@
     "max": 100,
     "rotate": 0,
     "device": "intel_backlight",
-    "scroll-step": 1,
+    "scroll-step": 1
   },
   
-  "pulseaudio/slider": {
+  "pulseaudio/slider":
+  {
     "min": 5,
     "max": 100,
     "rotate": 0,
     "device": "pulseaudio",
-    "scroll-step": 1,
-  },
+    "scroll-step": 1
+  }
 }
