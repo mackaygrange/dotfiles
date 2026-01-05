@@ -14,4 +14,3 @@ vim.opt.rtp:prepend(lazypath)
 require("mgrange")
 require("lazy").setup("mgrange.modules")
 require("mgrange.config")
-
