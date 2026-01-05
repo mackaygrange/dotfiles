@@ -20,5 +20,4 @@ set completion-ignore-case On
 "\C-r":"cd /\n"
 "\C-b":"cd ..\n"
 "\C-h":"cd\n"
-"\C-u":"sudo pacman -Syyu\n"
 "\C-c":"cd ~/.config\n"

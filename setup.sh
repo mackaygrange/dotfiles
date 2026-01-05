@@ -156,7 +156,7 @@ install_packages() {
     echo ""
     
     # Common packages for all Linux distros
-    local common_packages=("lua" "luarocks" "neovim" "python3" "git" "neofetch" "vim" "openssh" "lsd" "less" "fzf" "cmake" "make" "grub" "ripgrep")
+    local common_packages=("lua" "luarocks" "neovim" "python3" "git" "neofetch" "vim" "openssh" "lsd" "less" "fzf" "cmake" "make" "grub" "ripgrep" "awesome")
     
     if [ "$DISTRO" = "arch" ]; then
         echo "[*] Installing packages for Arch Linux..."
@@ -214,77 +214,143 @@ setup_config() {
 # Install packages if requested
 install_packages
 
-# Kitty terminal configuration (Linux/macOS only)
-if [ "$OS" != "Windows" ]; then
-    setup_config "$DOTFILES_DIR/kitty/kitty.conf" "$CONFIG_DIR/kitty/kitty.conf"
-else
-    echo "[>>] Skipped kitty (Windows detected)"
-fi
+# Configuration mapping: folder_name|destination|os_requirement|distro_requirement
+# os_requirement: empty=all, !Windows=exclude Windows, Windows=only Windows, Linux=only Linux
+# distro_requirement: empty=all distros, arch=only arch, !arch=exclude arch
+declare -a config_list=(
+    "bash|$CONFIG_DIR/bash||"
+    "kitty|$CONFIG_DIR/kitty|!Windows|"
+    "nvim|$CONFIG_DIR/nvim|!Windows|"
+    "waybar|$CONFIG_DIR/waybar|!Windows|arch"
+    "hyprland|$CONFIG_DIR/hypr|!Windows|arch"
+    "wofi|$CONFIG_DIR/wofi|!Windows|arch"
+    "wezterm|$CONFIG_DIR/wezterm|Windows|"
+    "neofetch|$CONFIG_DIR/neofetch|!Windows|"
+    "git|$CONFIG_DIR/git||"
+    "uwsm|$CONFIG_DIR/uwsm||arch"
+    "fonts|$HOME/.fonts||"
+    "icons|$HOME/.icons|!Windows|arch"
+    "ssh|$HOME/.ssh|||special"
+)
 
-# Neovim configuration (all platforms)
-setup_config "$DOTFILES_DIR/nvim/init.lua" "$CONFIG_DIR/nvim/init.lua"
-if [ -d "$DOTFILES_DIR/nvim/lua" ]; then
-    mkdir -p "$CONFIG_DIR/nvim"
-    rsync -av --delete "$DOTFILES_DIR/nvim/lua/" "$CONFIG_DIR/nvim/lua/"
-    echo "[+] Synced: $CONFIG_DIR/nvim/lua"
-fi
+# Function to check if config should be installed
+should_install_config() {
+    local os_req="$1"
+    local distro_req="$2"
+    
+    # Check OS requirement
+    if [ -n "$os_req" ]; then
+        if [[ "$os_req" == !* ]]; then
+            # Exclude OS (e.g., !Windows)
+            local exclude_os="${os_req:1}"
+            if [ "$OS" = "$exclude_os" ]; then
+                return 1
+            fi
+        else
+            # Include only specific OS
+            if [ "$OS" != "$os_req" ]; then
+                return 1
+            fi
+        fi
+    fi
+    
+    # Check distro requirement
+    if [ -n "$distro_req" ]; then
+        if [[ "$distro_req" == !* ]]; then
+            # Exclude distro
+            local exclude_distro="${distro_req:1}"
+            if [ "$DISTRO" = "$exclude_distro" ]; then
+                return 1
+            fi
+        else
+            # Include only specific distro
+            if [ -z "$DISTRO" ] || [ "$DISTRO" != "$distro_req" ]; then
+                return 1
+            fi
+        fi
+    fi
+    
+    return 0
+}
 
-# Waybar configuration (Arch Linux only)
-if [ "$DISTRO" = "arch" ]; then
-    setup_config "$DOTFILES_DIR/waybar/config.jsonc" "$CONFIG_DIR/waybar/config.jsonc"
-    setup_config "$DOTFILES_DIR/waybar/style.css" "$CONFIG_DIR/waybar/style.css"
-else
-    echo "[>>] Skipped waybar (Arch Linux not detected)"
-fi
+# Function to setup configuration folder
+setup_config_folder() {
+    local src="$1"
+    local dest="$2"
+    local config_name="$3"
+    
+    if [ ! -d "$src" ]; then
+        echo "[!] Source folder not found: $src"
+        return 1
+    fi
+    
+    # Create destination directory if needed
+    mkdir -p "$dest"
+    
+    # Special handling for SSH (permissions)
+    if [ "$config_name" = "ssh" ]; then
+        rsync -av --delete "$src/" "$dest/"
+        chmod 700 "$dest"
+        chmod 600 "$dest"/* 2>/dev/null || true
+        echo "[+] Synced: $dest (with SSH permissions)"
+        return 0
+    fi
+    
+    # Standard rsync for other configs
+    rsync -av --delete "$src/" "$dest/"
+    echo "[+] Synced: $dest"
+}
 
-# Hyprland configuration (Arch Linux only)
-if [ "$DISTRO" = "arch" ]; then
-    [ -d "$CONFIG_DIR/hypr" ] || mkdir -p "$CONFIG_DIR/hypr"
-    setup_config "$DOTFILES_DIR/hypr/hyprland.conf" "$CONFIG_DIR/hypr/hyprland.conf"
-    setup_config "$DOTFILES_DIR/hypr/hyprpaper.conf" "$CONFIG_DIR/hypr/hyprpaper.conf"
-else
-    echo "[>>] Skipped hyprland (Arch Linux not detected)"
-fi
+# Process configuration list
+echo ""
+echo "[*] Setting up configuration folders..."
+echo ""
 
-# Wofi configuration (Arch Linux only)
-if [ "$DISTRO" = "arch" ]; then
-    setup_config "$DOTFILES_DIR/wofi/config" "$CONFIG_DIR/wofi/config"
-    setup_config "$DOTFILES_DIR/wofi/style.css" "$CONFIG_DIR/wofi/style.css"
-else
-    echo "[>>] Skipped wofi (Arch Linux not detected)"
-fi
+for config_entry in "${config_list[@]}"; do
+    IFS='|' read -r config_name dest os_req distro_req <<< "$config_entry"
+    
+    if should_install_config "$os_req" "$distro_req"; then
+        setup_config_folder "$DOTFILES_DIR/$config_name" "$dest" "$config_name"
+    else
+        reason=""
+        if [ -n "$os_req" ]; then
+            reason="$os_req"
+        fi
+        if [ -n "$distro_req" ]; then
+            reason="$reason $distro_req"
+        fi
+        echo "[>>] Skipped $config_name ($reason)"
+    fi
+done
 
-# Wezterm configuration (Windows only)
-if [ "$OS" = "Windows" ]; then
-    setup_config "$DOTFILES_DIR/wezterm/helpers.lua" "$CONFIG_DIR/wezterm/helpers.lua"
-else
-    echo "[>>] Skipped wezterm (Windows not detected)"
-fi
-
-# Neofetch configuration (Linux/macOS only)
-if [ "$OS" != "Windows" ]; then
-    setup_config "$DOTFILES_DIR/neofetch/config.conf" "$CONFIG_DIR/neofetch/config.conf"
-else
-    echo "[>>] Skipped neofetch (Windows detected)"
-fi
-
-# Bash configuration (optional)
-if [ -f "$DOTFILES_DIR/bash/bashrc" ]; then
-    echo "To use bash configs, manually source them in ~/.bashrc:"
-    echo "  source $DOTFILES_DIR/bash/bashrc"
-fi
+echo ""
 
 # User dirs configuration
 if [ -f "$DOTFILES_DIR/user-dirs.dirs" ]; then
     cp "$DOTFILES_DIR/user-dirs.dirs" "$CONFIG_DIR/user-dirs.dirs"
-    echo "✓ Installed: user-dirs.dirs"
+    echo "[+] Installed: user-dirs.dirs"
 fi
 
 echo ""
 echo "[OK] Dotfiles installation complete!"
 echo ""
+
+# Refresh shell environment
+echo "[*] Refreshing shell environment..."
+if [ -f "$HOME/.bashrc" ]; then
+    source "$HOME/.bashrc"
+    echo "[+] Sourced ~/.bashrc"
+fi
+
+if [ -f "$HOME/.zshrc" ]; then
+    source "$HOME/.zshrc"
+    echo "[+] Sourced ~/.zshrc"
+fi
+
+echo ""
+echo "[OK] Shell environment refreshed!"
+echo ""
 echo "Next steps:"
 echo "1. Review backup files (.bak) if needed"
-echo "2. Restart your shell or run: source ~/.bashrc (or ~/.zshrc)"
-echo "3. Restart your applications to load new configs"
+echo "2. Restart your applications to load new configs"
 
