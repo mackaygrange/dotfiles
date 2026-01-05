@@ -377,6 +377,39 @@ echo ""
 # Configure git global settings
 configure_git
 
+# Setup shell rc files in home directory
+echo ""
+echo "[*] Setting up shell rc files..."
+
+# Bash RC
+if [ -f "$DOTFILES_DIR/bash/.bashrc" ]; then
+    if [ -e "$HOME/.bashrc" ] || [ -L "$HOME/.bashrc" ]; then
+        mv "$HOME/.bashrc" "$HOME/.bashrc.bak"
+    fi
+    ln -s "$DOTFILES_DIR/bash/.bashrc" "$HOME/.bashrc"
+    echo "[+] Linked: $HOME/.bashrc"
+else
+    echo "[!] .bashrc not found"
+fi
+
+# Bash profile
+if [ -f "$DOTFILES_DIR/bash/.bash_profile" ]; then
+    if [ -e "$HOME/.bash_profile" ] || [ -L "$HOME/.bash_profile" ]; then
+        mv "$HOME/.bash_profile" "$HOME/.bash_profile.bak"
+    fi
+    ln -s "$DOTFILES_DIR/bash/.bash_profile" "$HOME/.bash_profile"
+    echo "[+] Linked: $HOME/.bash_profile"
+fi
+
+# Bash logout
+if [ -f "$DOTFILES_DIR/bash/.bash_logout" ]; then
+    if [ -e "$HOME/.bash_logout" ] || [ -L "$HOME/.bash_logout" ]; then
+        mv "$HOME/.bash_logout" "$HOME/.bash_logout.bak"
+    fi
+    ln -s "$DOTFILES_DIR/bash/.bash_logout" "$HOME/.bash_logout"
+    echo "[+] Linked: $HOME/.bash_logout"
+fi
+
 # User dirs configuration
 if [ -f "$DOTFILES_DIR/user-dirs.dirs" ]; then
     cp "$DOTFILES_DIR/user-dirs.dirs" "$CONFIG_DIR/user-dirs.dirs"

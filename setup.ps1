@@ -212,6 +212,48 @@ Write-Host ""
 # Initialize git global settings
 Initialize-GitConfig
 
+# Setup shell rc files in home directory
+Write-Host ""
+Write-Host "[*] Setting up shell rc files..."
+
+# Bash RC
+$bashrcSource = Join-Path $DOTFILES_DIR "bash\.bashrc"
+$bashrcDest = "$env:USERPROFILE\.bashrc"
+
+if (Test-Path $bashrcSource) {
+    if (Test-Path $bashrcDest) {
+        Move-Item -Path $bashrcDest -Destination "$bashrcDest.bak" -Force
+    }
+    Copy-Item -Path $bashrcSource -Destination $bashrcDest -Force
+    Write-Host "[+] Copied: $bashrcDest"
+} else {
+    Write-Host "[!] .bashrc not found"
+}
+
+# Bash profile
+$bashProfileSource = Join-Path $DOTFILES_DIR "bash\.bash_profile"
+$bashProfileDest = "$env:USERPROFILE\.bash_profile"
+
+if (Test-Path $bashProfileSource) {
+    if (Test-Path $bashProfileDest) {
+        Move-Item -Path $bashProfileDest -Destination "$bashProfileDest.bak" -Force
+    }
+    Copy-Item -Path $bashProfileSource -Destination $bashProfileDest -Force
+    Write-Host "[+] Copied: $bashProfileDest"
+}
+
+# Bash logout
+$bashLogoutSource = Join-Path $DOTFILES_DIR "bash\.bash_logout"
+$bashLogoutDest = "$env:USERPROFILE\.bash_logout"
+
+if (Test-Path $bashLogoutSource) {
+    if (Test-Path $bashLogoutDest) {
+        Move-Item -Path $bashLogoutDest -Destination "$bashLogoutDest.bak" -Force
+    }
+    Copy-Item -Path $bashLogoutSource -Destination $bashLogoutDest -Force
+    Write-Host "[+] Copied: $bashLogoutDest"
+}
+
 Write-Host ""
 Write-Host "[OK] Dotfiles installation complete!"
 Write-Host ""
