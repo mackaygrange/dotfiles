@@ -271,7 +271,7 @@ declare -a config_list=(
     "kitty|$CONFIG_DIR/kitty|!Windows|"
     "nvim|$CONFIG_DIR/nvim|!Windows|"
     "waybar|$CONFIG_DIR/waybar|!Windows|arch"
-    "hyprland|$CONFIG_DIR/hypr|!Windows|arch"
+    "hypr|$CONFIG_DIR/hypr|!Windows|arch"
     "wofi|$CONFIG_DIR/wofi|!Windows|arch"
     "wezterm|$CONFIG_DIR/wezterm|Windows|"
     "neofetch|$CONFIG_DIR/neofetch|!Windows|"
