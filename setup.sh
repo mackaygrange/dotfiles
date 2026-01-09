@@ -234,6 +234,19 @@ setup_config_folder() {
         return 0
     fi
 
+    # Special handling for Git - create symlink in home directory
+    if [ "$config_name" = "git" ]; then
+        rsync -av "$src/" "$dest/"
+        # Create symlink from ~/.gitconfig to ~/.config/git/gitconfig
+        if [ -f "$dest/gitconfig" ]; then
+            ln -sf "$dest/gitconfig" "$HOME/.gitconfig"
+            echo "[+] Synced: $dest and created symlink ~/.gitconfig"
+        else
+            echo "[+] Synced: $dest"
+        fi
+        return 0
+    fi
+
     # Standard rsync for other configs with --delete for clean sync
     rsync -av --delete "$src/" "$dest/"
     echo "[+] Synced: $dest"

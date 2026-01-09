@@ -33,7 +33,6 @@ export EDITOR="nvim -u ${XDG_CONFIG_HOME:-$HOME/.config}/nvim/init.lua"
 export VISUAL="nvim -u ${XDG_CONFIG_HOME:-$HOME/.config}/nvim/init.lua"
 export HISTFILE="${XDG_CONFIG_HOME:-$HOME/.config}/bash/.bash_history"
 export INPUTRC="${XDG_CONFIG_HOME:-$HOME/.config}/bash/.inputrc"
-export GIT_CONFIG_GLOBAL="${XDG_CONFIG_HOME:-$HOME/.config}/git/gitconfig"
 
 # Less/Man page colors
 export LESS_TERMCAP_mb=$'\e[1;36m'    # Begin bold
