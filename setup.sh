@@ -10,6 +10,39 @@ set -e  # Exit on error
 DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 CONFIG_DIR="${HOME}/.config"
 
+# ============================================================================
+# UPDATE GIT REPOSITORY
+# ============================================================================
+# Pull latest changes from git if this is a git repo
+if [ -d "$DOTFILES_DIR/.git" ]; then
+    echo "[*] Updating dotfiles repository..."
+    
+    # Check for uncommitted changes
+    if ! git -C "$DOTFILES_DIR" diff-index --quiet HEAD --; then
+        echo "[!] Warning: Uncommitted changes in dotfiles repo"
+        read -p "Continue anyway? (y/n): " -n 1 -r
+        echo
+        if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+            echo "Aborted"
+            exit 1
+        fi
+    fi
+    
+    # Pull latest changes
+    if git -C "$DOTFILES_DIR" pull; then
+        echo "[+] Repository updated successfully"
+    else
+        echo "[!] Warning: Failed to pull latest changes"
+        read -p "Continue with local version? (y/n): " -n 1 -r
+        echo
+        if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+            echo "Aborted"
+            exit 1
+        fi
+    fi
+    echo ""
+fi
+
 # Parse command line arguments
 while [[ $# -gt 0 ]]; do
     case $1 in
