@@ -30,12 +30,12 @@ done
 
 # Define package lists for each distro
 declare -A arch_packages=(
-    ["common"]="lua luarocks python3 git neofetch neovim vim openssh lsd less fzf cmake make ripgrep"
+    ["common"]="lua5.4 luarocks python3 git neofetch neovim vim ssh lsd less fzf cmake make ripgrep"
     ["arch_specific"]="wofi waybar hyprland hyprpaper uwsm"
 )
 
 declare -A ubuntu_packages=(
-    ["common"]="lua luarocks python3 git neofetch neovim vim openssh lsd less fzf cmake make ripgrep"
+    ["common"]="lua5.4 luarocks python3 git neofetch neovim vim ssh lsd less fzf cmake make ripgrep"
 )
 
 # Detect OS and Distro
