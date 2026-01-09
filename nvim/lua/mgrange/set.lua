@@ -1,61 +1,101 @@
-vim.opt.nu = true
-vim.opt.number = true
-vim.opt.relativenumber = true
-vim.opt.showmode = false
-vim.opt.hidden = true
-vim.opt.showmatch = true
-vim.opt.startofline = false
-vim.opt.scrolloff = 15
-vim.opt.virtualedit = "block"
-vim.opt.autoread = true
-vim.opt.timeoutlen = 500
-vim.opt.grepformat = "%f%l%c%m"
-vim.opt.winborder = "rounded"
+-- ============================================================================
+-- NEOVIM OPTIONS CONFIGURATION
+-- ============================================================================
+-- This file configures all Neovim options for editor behavior, appearance,
+-- and functionality. Each option is documented with its purpose.
 
-vim.opt.expandtab = true
-vim.opt.softtabstop = 2
-vim.opt.shiftwidth = 2
-vim.opt.shiftround = true
-vim.opt.tabstop = 4
-vim.opt.breakindent = true
-vim.smartindent = true
+-- ============================================================================
+-- LINE NUMBERING
+-- ============================================================================
+vim.opt.nu = true                   -- Enable absolute line numbers
+vim.opt.number = true               -- Same as 'nu', enables line numbers
+vim.opt.relativenumber = true       -- Show relative line numbers (useful for jumps and commands)
+vim.opt.startofline = false         -- When moving lines, keep cursor in same column instead of going to start
 
-vim.opt.wrap = true
-vim.opt.textwidth = 120
-vim.opt.colorcolumn = "+1"
+-- ============================================================================
+-- VISUAL FEEDBACK & DISPLAY
+-- ============================================================================
+vim.opt.showmode = false            -- Don't show mode (INSERT, VISUAL, etc.) in status line
+vim.opt.showmatch = true            -- Briefly jump to matching bracket when inserted
+vim.opt.scrolloff = 8               -- Minimum lines to keep above/below cursor when scrolling
+vim.opt.virtualedit = "block"       -- Allow cursor to move to non-existent places in block selection mode
+vim.opt.signcolumn = "yes"          -- Always show sign column (for diagnostics, breakpoints, etc.)
+vim.opt.winborder = "rounded"       -- Use rounded borders for split windows
+vim.opt.termguicolors = true        -- Enable 24-bit RGB colors in terminal
 
-vim.opt.swapfile = false
-vim.opt.backup = false
-vim.opt.undodir = vim.fn.expand("~/.config/nvim/undo")
-vim.opt.undolevels = 10000
-vim.opt.undofile = true
-vim.opt.spellfile = vim.fn.expand("~/.config/nvim/spell/dictionary.utf-8.add")
-vim.opt.spelllang = "en_us"
+-- ============================================================================
+-- LIST CHARACTERS & LINE WRAPPING
+-- ============================================================================
+vim.opt.list = true                 -- Display invisible characters
+vim.opt.listchars = "tab:⋮ ,extends:❯,precedes:❮,nbsp:␣"  -- Define what invisible chars look like
+vim.opt.linebreak = true            -- Break lines at word boundaries, not mid-word
+vim.opt.showbreak = "↪"             -- Character shown when line is wrapped
+vim.opt.wrap = true                 -- Enable visual line wrapping
+vim.opt.textwidth = 120             -- Hard wrap text at 120 characters
+vim.opt.colorcolumn = "+1"          -- Show visual guide at textwidth + 1
 
-vim.opt.splitbelow = true
-vim.opt.splitright = true
+-- ============================================================================
+-- INDENTATION & TABS
+-- ============================================================================
+vim.opt.expandtab = true            -- Convert tabs to spaces
+vim.opt.tabstop = 4                 -- How many spaces a tab character represents (display)
+vim.opt.softtabstop = 2             -- How many spaces soft tabs (insert) represent
+vim.opt.shiftwidth = 2              -- Number of spaces for auto-indent and shift operations
+vim.opt.shiftround = true           -- Round indent to multiple of shiftwidth
+vim.opt.breakindent = true          -- Preserve indentation when wrapping lines
+vim.opt.smartindent = true          -- Intelligently auto-indent based on code syntax
 
-vim.opt.listchars = "tab:⋮ ,extends:❯,precedes:❮,nbsp:␣"
-vim.opt.linebreak = true
-vim.opt.showbreak = "↪"
-vim.opt.signcolumn = "yes"
+-- ============================================================================
+-- FILE HANDLING & PERSISTENCE
+-- ============================================================================
+vim.opt.autoread = true             -- Auto-reload files changed outside of Neovim
+vim.opt.swapfile = false            -- Don't create swap files
+vim.opt.backup = false              -- Don't create backup files
+vim.opt.undofile = true             -- Enable persistent undo
+vim.opt.undolevels = 10000          -- Number of undo steps to remember
+vim.opt.undodir = vim.fn.expand("~/.config/nvim/undo")  -- Directory for undo files
+vim.opt.hidden = true               -- Allow switching buffers without saving
 
-vim.opt.list = true
+-- ============================================================================
+-- SPELL CHECKING
+-- ============================================================================
+vim.opt.spelllang = "en_us"         -- Language for spell checking
+vim.opt.spellfile = vim.fn.expand("~/.config/nvim/spell/dictionary.utf-8.add")  -- Custom dictionary
 
-vim.opt.ignorecase = true
-vim.opt.smartcase = true
-vim.opt.smartindent = true
-vim.opt.wrapscan = true
-vim.opt.hlsearch = false
-vim.opt.incsearch = true
+-- ============================================================================
+-- SPLIT BEHAVIOR
+-- ============================================================================
+vim.opt.splitbelow = true           -- New horizontal splits appear below current window
+vim.opt.splitright = true           -- New vertical splits appear to the right of current window
 
-vim.opt.termguicolors = true
+-- ============================================================================
+-- SEARCH BEHAVIOR
+-- ============================================================================
+vim.opt.ignorecase = true           -- Case-insensitive search by default
+vim.opt.smartcase = true            -- Case-sensitive if search contains uppercase letters
+vim.opt.wrapscan = true             -- Search wraps around end of file
+vim.opt.hlsearch = false            -- Don't highlight all search matches (can toggle with vim.opt.hlsearch)
+vim.opt.incsearch = true            -- Show matches while typing search pattern
 
-vim.opt.scrolloff = 8
-vim.opt.signcolumn = "yes"
-vim.opt.isfname:append("@-@")
+-- ============================================================================
+-- PERFORMANCE & TIMING
+-- ============================================================================
+vim.opt.timeoutlen = 500            -- Time (ms) to wait for mapped sequence to complete
+vim.opt.updatetime = 50             -- Time (ms) for swap file to be written and CursorHold event
 
-vim.opt.updatetime = 50
+-- ============================================================================
+-- FILENAME HANDLING
+-- ============================================================================
+vim.opt.isfname:append("@-@")       -- Treat '@' as part of filename for navigation
 
-vim.g.mapleader = " "
+-- ============================================================================
+-- MISCELLANEOUS
+-- ============================================================================
+vim.opt.grepformat = "%f%l%c%m"     -- Format for grep output parsing
+
+-- ============================================================================
+-- LEADER KEY
+-- ============================================================================
+vim.g.mapleader = " "               -- Set space as leader key
+
 

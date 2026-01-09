@@ -1,4 +1,5 @@
 require("mgrange.config.colors")
+require("mgrange.config.completion")
 require("mgrange.config.fugitive")
 require("mgrange.config.harpoon")
 require("mgrange.config.lspzero")
