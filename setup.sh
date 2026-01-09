@@ -28,16 +28,11 @@ if [ -d "$DOTFILES_DIR/.git" ]; then
         fi
     fi
 
-    # Pull latest changes with 10 second timeout
-    if timeout 10 git -C "$DOTFILES_DIR" pull 2>/dev/null; then
+    # Pull latest changes - show any errors
+    if git -C "$DOTFILES_DIR" pull; then
         echo "[+] Repository updated successfully"
     else
-        git_exit=$?
-        if [ $git_exit -eq 124 ]; then
-            echo "[!] Git pull timed out (likely waiting for password)"
-        else
-            echo "[!] Warning: Failed to pull latest changes"
-        fi
+        echo "[!] Warning: Failed to pull latest changes"
         read -p "Continue with local version? (y/n): " -n 1 -r
         echo
         if [[ ! $REPLY =~ ^[Yy]$ ]]; then
