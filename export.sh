@@ -3,8 +3,9 @@
 # ============================================================================
 # DOTFILES EXPORT SCRIPT
 # ============================================================================
-# This script creates a symlink to setup.sh in ~/.local/bin
-# making it available as 'dotfiles-setup' from anywhere
+# This script creates a wrapper script in ~/.local/bin that:
+# 1. Performs git pull
+# 2. Runs setup.sh
 
 set -e
 
@@ -12,8 +13,9 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 SETUP_SCRIPT="$SCRIPT_DIR/setup.sh"
 LOCAL_BIN_DIR="$HOME/.local/bin"
 INSTALL_PATH="$LOCAL_BIN_DIR/dotfiles-setup"
+REPO_DIR="$SCRIPT_DIR"
 
-echo "[*] Installing dotfiles setup command..."
+echo "[*] Creating dotfiles setup wrapper..."
 echo ""
 
 # Check if setup.sh exists
@@ -28,17 +30,57 @@ if [ ! -d "$LOCAL_BIN_DIR" ]; then
     mkdir -p "$LOCAL_BIN_DIR"
 fi
 
-# Create symlink to setup.sh
-if [ -e "$INSTALL_PATH" ]; then
-    echo "[!] $INSTALL_PATH already exists, removing..."
-    rm "$INSTALL_PATH"
+# Create wrapper script with git pull and setup
+cat > "$INSTALL_PATH" << 'EOF'
+#!/bin/bash
+set -e
+
+REPO_DIR="@REPO_DIR@"
+SETUP_SCRIPT="$REPO_DIR/setup.sh"
+
+# ============================================================================
+# UPDATE GIT REPOSITORY
+# ============================================================================
+if [ -d "$REPO_DIR/.git" ]; then
+    echo "[*] Updating dotfiles repository..."
+    
+    # Check for uncommitted changes
+    if ! git -C "$REPO_DIR" diff-index --quiet HEAD --; then
+        echo "[!] Warning: Uncommitted changes in dotfiles repo"
+        read -p "Continue anyway? (y/n): " -n 1 -r
+        echo
+        if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+            echo "Aborted"
+            exit 1
+        fi
+    fi
+    
+    # Pull latest changes
+    if git -C "$REPO_DIR" pull; then
+        echo "[+] Repository updated successfully"
+    else
+        echo "[!] Warning: Failed to pull latest changes"
+        read -p "Continue with local version? (y/n): " -n 1 -r
+        echo
+        if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+            echo "Aborted"
+            exit 1
+        fi
+    fi
+    echo ""
 fi
 
-echo "[*] Creating symlink to setup.sh..."
-ln -s "$SETUP_SCRIPT" "$INSTALL_PATH"
-chmod +x "$INSTALL_PATH"
+# ============================================================================
+# RUN SETUP SCRIPT
+# ============================================================================
+bash "$SETUP_SCRIPT" "$@"
+EOF
 
-echo "[+] Created: $INSTALL_PATH → $SETUP_SCRIPT"
+# Replace placeholder with actual repo directory
+sed -i "s|@REPO_DIR@|$REPO_DIR|g" "$INSTALL_PATH"
+
+chmod +x "$INSTALL_PATH"
+echo "[+] Created wrapper script: $INSTALL_PATH"
 echo ""
 
 # ============================================================================
@@ -66,13 +108,6 @@ echo ""
 echo "[OK] Installation complete!"
 echo ""
 echo "Usage:"
-echo "  dotfiles-setup"
-echo ""
-echo "What it does:"
-echo "  1. Finds repo location via DOTFILES_DIR"
-echo "  2. Updates via: git pull (from within setup.sh)"
-echo "  3. Syncs configuration files"
-echo ""
-echo "If the command is not found, run:"
-echo "  source ~/.bashrc"
+echo "  dotfiles-setup          # Updates repo via git pull, then runs setup"
+echo "  ./setup.sh              # Runs setup directly (no git pull)"
 echo ""
