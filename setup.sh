@@ -169,17 +169,33 @@ setup_config_folder() {
     # Create destination directory if needed
     mkdir -p "$dest"
     
-    # Special handling for SSH (permissions)
+    # Special handling for SSH - DO NOT use --delete to preserve private keys!
     if [ "$config_name" = "ssh" ]; then
-        rsync -av --delete "$src/" "$dest/"
+        rsync -av --exclude="id_*" --exclude="*.pem" "$src/" "$dest/"
         chmod 700 "$dest"
         chmod 600 "$dest"/* 2>/dev/null || true
-        echo "[+] Synced: $dest (with SSH permissions)"
+        echo "[+] Synced: $dest (with SSH permissions - keys preserved)"
         return 0
     fi
     
-    # Standard rsync for other configs, excluding lazy-lock.json from nvim
-    rsync -av --delete --exclude="lazy-lock.json" "$src/" "$dest/"
+    # Special handling for Neovim - DO NOT use --delete due to lock files and plugins!
+    # Nvim creates: lazy-lock.json, plugin cache, undo files, spell files, etc.
+    # We should never delete these, just sync config changes
+    if [ "$config_name" = "nvim" ]; then
+        rsync -av --exclude="lazy-lock.json" \
+            --exclude="*.lock" \
+            --exclude=".cache" \
+            --exclude="plugin" \
+            --exclude="undo" \
+            --exclude="shada" \
+            --exclude="spell" \
+            "$src/" "$dest/"
+        echo "[+] Synced: $dest (lock files & plugins preserved)"
+        return 0
+    fi
+
+    # Standard rsync for other configs with --delete for clean sync
+    rsync -av --delete "$src/" "$dest/"
     echo "[+] Synced: $dest"
 }
 
