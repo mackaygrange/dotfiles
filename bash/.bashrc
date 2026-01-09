@@ -17,9 +17,10 @@ HISTTIMEFORMAT="%F %T "
 
 # Custom Aliases:
 alias ..='cd ..'
-alias ls='lsd --color=auto --human-readable'
-alias la='lsd --color=auto --human-readable --all'
-alias ll='lsd --color=auto --human-readable --long'
+alias ls='lsd --color=auto --human-readable --group-directories-first --sort=extension'
+alias la='lsd --color=auto --human-readable --almost-all --group-directories-first --sort=extension'
+alias ll='lsd --color=auto --human-readable --almost-all --long --group-directories-first --sort=name'
+alias lt='lsd --color=auto --human-readable --almost-all --tree --group-directories-first --sort=name'
 alias grep='grep --color=auto'
 alias cls='clear'
 alias clr='clear'
@@ -43,7 +44,7 @@ export LESS_TERMCAP_ue=$'\e[0m'       # End underline
 export LESS_TERMCAP_us=$'\e[1;4;34m'  # Begin underline
 
 # Shell Colors:
-# Original PS1 - Uncomment if preferred:
+# Simple PS1:
 # export PS1='\[\e[0;36m\]\u\[\e[0m\]@\[\e[0;32m\]\h\[\e[0m\]:\[\e[0;35m\]\w\[\e[0m\]> '
 
 # Fancy PS1 with user-dependent prompt symbol and Git branch info (if available)

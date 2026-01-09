@@ -1,23 +1,8 @@
 # Windows dotfiles setup script
 # This script installs configuration files to their appropriate locations
-# Usage: .\setup.ps1 [-Packages]
-
-param(
-    [switch]$Packages = $false,
-    [switch]$Help = $false
-)
+# Usage: .\setup.ps1
 
 $ErrorActionPreference = "Stop"
-
-# Help message
-if ($Help) {
-    Write-Host "Usage: .\setup.ps1 [OPTIONS]"
-    Write-Host ""
-    Write-Host "Options:"
-    Write-Host "  -Packages    Install packages (requires package manager like Chocolatey or Scoop)"
-    Write-Host "  -Help        Show this help message"
-    exit 0
-}
 
 # Setup paths
 $DOTFILES_DIR = Split-Path -Parent $MyInvocation.MyCommand.Path
@@ -34,37 +19,13 @@ Write-Host "Installing dotfiles from $DOTFILES_DIR..."
 Write-Host "Detected OS: Windows"
 Write-Host ""
 
-# Function to check and install script dependencies
-function Test-Dependencies {
-    $scriptDependencies = @("git")
-    $missingDeps = @()
+# Function to prompt for optional package installation
+function Invoke-PackageInstallationPrompt {
+    Write-Host "[*] Package installation is optional."
+    $installChoice = Read-Host "Would you like to install recommended packages? (y/n)"
     
-    Write-Host "[*] Checking script dependencies..."
-    
-    foreach ($dep in $scriptDependencies) {
-        if (Get-Command $dep -ErrorAction SilentlyContinue) {
-            Write-Host "[+] Found: $dep"
-        } else {
-            Write-Host "[!] Missing dependency: $dep"
-            $missingDeps += $dep
-        }
-    }
-    
-    if ($missingDeps.Count -gt 0) {
-        Write-Host "[X] Error: Missing dependencies: $($missingDeps -join ', ')"
-        Write-Host "Please install the missing dependencies manually."
-        return $false
-    }
-    
-    Write-Host "[+] All dependencies found"
-    Write-Host ""
-    return $true
-}
-
-# Function to install packages (basic support for Chocolatey)
-function Install-Packages {
-    if (-not $Packages) {
-        Write-Host "Package installation disabled. Use -Packages to enable."
+    if ($installChoice -ne "y" -and $installChoice -ne "Y") {
+        Write-Host "[*] Skipping package installation."
         return
     }
     
@@ -80,7 +41,7 @@ function Install-Packages {
     
     Write-Host "[*] Installing packages with Chocolatey..."
     
-    $packages = @("neovim", "python3", "git", "vim", "cmake", "ripgrep")
+    $packages = @("neovim", "python3", "git", "vim", "cmake", "ripgrep", "lua", "nodejs")
     
     foreach ($package in $packages) {
         try {
@@ -93,56 +54,8 @@ function Install-Packages {
     
     Write-Host ""
 }
-
-# Function to initialize git global settings
-function Initialize-GitConfig {
-    Write-Host ""
-    Write-Host "[*] Configuring Git..."
-    
-    # Check if git is installed
-    if (-not (Get-Command git -ErrorAction SilentlyContinue)) {
-        Write-Host "[!] Git is not installed. Skipping Git configuration."
-        return
-    }
-    
-    # Get current git config values
-    $currentUser = git config --global user.name
-    $currentEmail = git config --global user.email
-    
-    # If already configured, display current settings
-    if ($currentUser -and $currentEmail) {
-        Write-Host "[+] Git already configured:"
-        Write-Host "    Name:  $currentUser"
-        Write-Host "    Email: $currentEmail"
-        return
-    }
-    
-    Write-Host "Git configuration needed:"
-    $gitName = Read-Host "Enter git user name (or press Enter to skip)"
-    
-    if (-not $gitName) {
-        Write-Host "[!] Git user name not provided. Skipping Git configuration."
-        return
-    }
-    
-    $gitEmail = Read-Host "Enter git email"
-    
-    if (-not $gitEmail) {
-        Write-Host "[!] Git email not provided. Skipping Git configuration."
-        return
-    }
-    
-    # Set global git config
-    git config --global user.name $gitName
-    git config --global user.email $gitEmail
-    
-    Write-Host "[+] Git configured:"
-    Write-Host "    Name:  $gitName"
-    Write-Host "    Email: $gitEmail"
-}
-
 # Function to sync configuration folder
-function Sync-ConfigFolder {
+function Invoke-ConfigurationSync {
     param(
         [string]$Source,
         [string]$Destination,
@@ -159,58 +72,15 @@ function Sync-ConfigFolder {
         New-Item -ItemType Directory -Path $Destination -Force | Out-Null
     }
     
-    # Special handling for SSH (permissions)
-    if ($ConfigName -eq "ssh") {
-        Copy-Item -Path "$Source\*" -Destination $Destination -Recurse -Force
-        Write-Host "[+] Synced: $Destination (SSH keys copied)"
-        return $true
-    }
-    
-    # Standard copy for other configs
+    # Copy configuration
     Copy-Item -Path "$Source\*" -Destination $Destination -Recurse -Force
     Write-Host "[+] Synced: $Destination"
     return $true
 }
 
-# Check dependencies first
-if (-not (Test-Dependencies)) {
-    exit 1
-}
+# Prompt for optional package installation
+Invoke-PackageInstallationPrompt
 
-# Install packages if requested
-Install-Packages
-
-# Configuration list for Windows
-# Format: @{name="folder_name"; dest="path"}
-$configList = @(
-    @{name = "bash"; dest = "$CONFIG_DIR\bash"}
-    @{name = "nvim"; dest = "$CONFIG_DIR\nvim"}
-    @{name = "wezterm"; dest = "$CONFIG_DIR\wezterm"}
-    @{name = "git"; dest = "$CONFIG_DIR\git"}
-    @{name = "fonts"; dest = "$env:USERPROFILE\.fonts"}
-    @{name = "ssh"; dest = "$env:USERPROFILE\.ssh"}
-)
-
-# Process configuration list
-Write-Host ""
-Write-Host "[*] Setting up configuration folders..."
-Write-Host ""
-
-foreach ($config in $configList) {
-    $source = Join-Path $DOTFILES_DIR $config.name
-    $dest = $config.dest
-    
-    if (Test-Path $source -PathType Container) {
-        Sync-ConfigFolder -Source $source -Destination $dest -ConfigName $config.name
-    } else {
-        Write-Host "[!] Skipped $($config.name) (folder not found)"
-    }
-}
-
-Write-Host ""
-
-# Initialize git global settings
-Initialize-GitConfig
 
 # Setup shell rc files in home directory
 Write-Host ""
@@ -252,6 +122,32 @@ if (Test-Path $bashLogoutSource) {
     }
     Copy-Item -Path $bashLogoutSource -Destination $bashLogoutDest -Force
     Write-Host "[+] Copied: $bashLogoutDest"
+}
+
+# Configuration list for Windows
+# Format: @{name="folder_name"; dest="path"}
+$configList = @(
+    @{name = "nvim"; dest = "$CONFIG_DIR\nvim"}
+    @{name = "wezterm"; dest = "$CONFIG_DIR\wezterm"}
+    @{name = "git"; dest = "$CONFIG_DIR\git"}
+    @{name = "fonts"; dest = "$env:USERPROFILE\.fonts"}
+    @{name = "ssh"; dest = "$env:USERPROFILE\.ssh"}
+)
+
+# Process configuration list
+Write-Host ""
+Write-Host "[*] Setting up configuration folders..."
+Write-Host ""
+
+foreach ($config in $configList) {
+    $source = Join-Path $DOTFILES_DIR $config.name
+    $dest = $config.dest
+    
+    if (Test-Path $source -PathType Container) {
+        Invoke-ConfigurationSync -Source $source -Destination $dest -ConfigName $config.name
+    } else {
+        Write-Host "[!] Skipped $($config.name) (folder not found)"
+    }
 }
 
 Write-Host ""
