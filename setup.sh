@@ -27,12 +27,17 @@ if [ -d "$DOTFILES_DIR/.git" ]; then
             exit 1
         fi
     fi
-    
-    # Pull latest changes
-    if git -C "$DOTFILES_DIR" pull; then
+
+    # Pull latest changes with 10 second timeout
+    if timeout 10 git -C "$DOTFILES_DIR" pull 2>/dev/null; then
         echo "[+] Repository updated successfully"
     else
-        echo "[!] Warning: Failed to pull latest changes"
+        git_exit=$?
+        if [ $git_exit -eq 124 ]; then
+            echo "[!] Git pull timed out (likely waiting for password)"
+        else
+            echo "[!] Warning: Failed to pull latest changes"
+        fi
         read -p "Continue with local version? (y/n): " -n 1 -r
         echo
         if [[ ! $REPLY =~ ^[Yy]$ ]]; then
@@ -47,16 +52,18 @@ fi
 while [[ $# -gt 0 ]]; do
     case $1 in
         -h|--help)
-            echo "Usage: ./setup.sh"
+            echo "Usage: ./setup.sh [options]"
             echo ""
             echo "This script will install dotfiles and automatically install packages for your distro."
             echo "Supported distros: Arch Linux, Ubuntu"
+            echo ""
+            echo "Options:"
+            echo "  -h, --help    Show this help message"
             exit 0
             ;;
         *)
-            echo "Unknown option: $1"
-            echo "Use -h or --help for usage information"
-            exit 1
+            # Silently ignore unknown options
+            shift
             ;;
     esac
 done
