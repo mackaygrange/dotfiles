@@ -211,7 +211,7 @@ if [ -f "$DOTFILES_DIR/bash/.bashrc" ]; then
     if [ -e "$HOME/.bashrc" ] || [ -L "$HOME/.bashrc" ]; then
         mv "$HOME/.bashrc" "$HOME/.bashrc.bak"
     fi
-    cp "$DOTFILES_DIR/bash/.bashrc" "$HOME/.bashrc"
+    cp -f "$DOTFILES_DIR/bash/.bashrc" "$HOME/.bashrc"
     echo "[+] Copied: $HOME/.bashrc"
 else
     echo "[!] .bashrc not found"
@@ -222,7 +222,7 @@ if [ -f "$DOTFILES_DIR/bash/.bash_profile" ]; then
     if [ -e "$HOME/.bash_profile" ] || [ -L "$HOME/.bash_profile" ]; then
         mv "$HOME/.bash_profile" "$HOME/.bash_profile.bak"
     fi
-    cp "$DOTFILES_DIR/bash/.bash_profile" "$HOME/.bash_profile"
+    cp -f "$DOTFILES_DIR/bash/.bash_profile" "$HOME/.bash_profile"
     echo "[+] Copied: $HOME/.bash_profile"
 fi
 
@@ -231,7 +231,7 @@ if [ -f "$DOTFILES_DIR/bash/.bash_logout" ]; then
     if [ -e "$HOME/.bash_logout" ] || [ -L "$HOME/.bash_logout" ]; then
         mv "$HOME/.bash_logout" "$HOME/.bash_logout.bak"
     fi
-    cp "$DOTFILES_DIR/bash/.bash_logout" "$HOME/.bash_logout"
+    cp -f "$DOTFILES_DIR/bash/.bash_logout" "$HOME/.bash_logout"
     echo "[+] Copied: $HOME/.bash_logout"
 fi
 
@@ -240,13 +240,13 @@ if [ -f "$DOTFILES_DIR/bash/.inputrc" ]; then
     if [ -e "$HOME/.inputrc" ] || [ -L "$HOME/.inputrc" ]; then
         mv "$HOME/.inputrc" "$HOME/.inputrc.bak"
     fi
-    cp "$DOTFILES_DIR/bash/.inputrc" "$HOME/.inputrc"
+    cp -f "$DOTFILES_DIR/bash/.inputrc" "$HOME/.inputrc"
     echo "[+] Copied: $HOME/.inputrc"
 fi
 
 # User dirs configuration
 if [ -f "$DOTFILES_DIR/user-dirs.dirs" ]; then
-    cp "$DOTFILES_DIR/user-dirs.dirs" "$CONFIG_DIR/user-dirs.dirs"
+    cp -f "$DOTFILES_DIR/user-dirs.dirs" "$CONFIG_DIR/user-dirs.dirs"
     echo "[+] Installed: user-dirs.dirs"
 fi
 
