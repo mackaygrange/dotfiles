@@ -34,10 +34,10 @@ vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>")
 -- <leader>f to format current buffer
 vim.keymap.set("n", "<leader>f", function() vim.lsp.buf.format() end)
 
--- <command>k and <command>j to navigate windows, <leader>k <and leader>j to navigate as well, not sure how it works
+-- <command>k and <command>j to navigate windows, <leader>k and <leader>j to navigate as well
 vim.keymap.set("n", "<C-k>", "<cmd>cnext<CR>zz")
 vim.keymap.set("n", "<C-j>", "<cmd>cprev<CR>zz")
-vim.keymap.set("n", "<leader>k>", "<cmd>lnext<CR>zz")
+vim.keymap.set("n", "<leader>k", "<cmd>lnext<CR>zz")
 vim.keymap.set("n", "<leader>j", "<cmd>lprev<CR>zz")
 
 -- <leader>s to replace or edit current cursor word
@@ -50,28 +50,55 @@ vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", {silent = true})
 vim.keymap.set("n", "<leader>t", ":Neotree action=show source=filesystem position=left toggle=true reveal=true<cr>", {silent = true})
 
 -- Run Current Python Script
-vim.api.nvim_set_keymap('n', '<F9>', ':w | !python %<cr>', {noremap = true, silent = true})
-vim.api.nvim_set_keymap('v', '<F9>', '<Esc>:w | !python %<cr>', {noremap = true, silent = true})
-vim.api.nvim_set_keymap('i', '<F9>', '<Esc>:w | !python %<cr>', {noremap = true, silent = true})
+-- Uses function callback for better control and error handling
+vim.keymap.set('n', '<F9>', function()
+  vim.cmd.write()
+  vim.fn.system('python ' .. vim.fn.expand('%'))
+end, {noremap = true, silent = true})
+
+vim.keymap.set('v', '<F9>', function()
+  vim.cmd.write()
+  vim.fn.system('python ' .. vim.fn.expand('%'))
+end, {noremap = true, silent = true})
+
+vim.keymap.set('i', '<F9>', function()
+  vim.cmd.write()
+  vim.fn.system('python ' .. vim.fn.expand('%'))
+end, {noremap = true, silent = true})
 
 -- Compile and Run C code with Makefile
-vim.api.nvim_set_keymap('n', '<F8>', ':w | !make &&' .. vim.fn.fnamemodify(vim.fn.expand('%:p:h'), ':t') .. '<cr>', {noremap = true, silent = true})
-vim.api.nvim_set_keymap('v', '<F8>', ':w | !make &&' .. vim.fn.fnamemodify(vim.fn.expand('%:p:h'), ':t').. '<cr>', {noremap = true, silent = true})
-vim.api.nvim_set_keymap('i', '<F8>', '<Esc>:w | !make &&' .. vim.fn.fnamemodify(vim.fn.expand('%:p:h'), ':t') .. '<cr>', {noremap = true, silent = true})
+-- Gets the directory name and runs make with the binary
+vim.keymap.set('n', '<F8>', function()
+  vim.cmd.write()
+  local dir_name = vim.fn.fnamemodify(vim.fn.expand('%:p:h'), ':t')
+  vim.fn.system('make && ' .. dir_name)
+end, {noremap = true, silent = true})
+
+vim.keymap.set('v', '<F8>', function()
+  vim.cmd.write()
+  local dir_name = vim.fn.fnamemodify(vim.fn.expand('%:p:h'), ':t')
+  vim.fn.system('make && ' .. dir_name)
+end, {noremap = true, silent = true})
+
+vim.keymap.set('i', '<F8>', function()
+  vim.cmd.write()
+  local dir_name = vim.fn.fnamemodify(vim.fn.expand('%:p:h'), ':t')
+  vim.fn.system('make && ' .. dir_name)
+end, {noremap = true, silent = true})
 
 -- Quick save file
-vim.api.nvim_set_keymap('n', '<leader>w', ':w<cr>', {noremap = true})
-vim.api.nvim_set_keymap('v', '<leader>w', '<Esc>:w<cr>', {noremap = true})
+vim.keymap.set('n', '<leader>w', function() vim.cmd.write() end, {noremap = true, silent = true})
+vim.keymap.set('v', '<leader>w', function() vim.cmd.write() end, {noremap = true, silent = true})
 
 -- Quick quit
-vim.api.nvim_set_keymap('n', '<leader>q', ':q<cr>', {noremap = true, silent = true})
-vim.api.nvim_set_keymap('v', '<leader>q', ':q<cr>', {noremap = true, silent = true})
+vim.keymap.set('n', '<leader>q', function() vim.cmd.quit() end, {noremap = true, silent = true})
+vim.keymap.set('v', '<leader>q', function() vim.cmd.quit() end, {noremap = true, silent = true})
 
 -- Quick savequit
-vim.api.nvim_set_keymap('n', '<leader>wq', ':wq<cr>', {noremap = true, silent = true})
-vim.api.nvim_set_keymap('v', '<leader>wq', '<Esc>:wq<cr>', {noremap = true, silent = true})
+vim.keymap.set('n', '<leader>wq', function() vim.cmd.wq() end, {noremap = true, silent = true})
+vim.keymap.set('v', '<leader>wq', function() vim.cmd.wq() end, {noremap = true, silent = true})
 
 -- Quick savequit all
-vim.api.nvim_set_keymap('n', '<leader>wqa', ':wqa<cr>', {noremap = true, silent = true})
-vim.api.nvim_set_keymap('v', '<leader>wqa', '<Esc>:wqa<cr>', {noremap = true, silent = true})
+vim.keymap.set('n', '<leader>wqa', function() vim.cmd.wqa() end, {noremap = true, silent = true})
+vim.keymap.set('v', '<leader>wqa', function() vim.cmd.wqa() end, {noremap = true, silent = true})
 
