@@ -3,24 +3,18 @@
 # ============================================================================
 # DOTFILES EXPORT SCRIPT
 # ============================================================================
-# This script installs the dotfiles setup script to ~/.local/bin
-# making it available locally as 'dotfiles-setup'
+# This script installs a wrapper script to ~/.local/bin that:
+# 1. Locates the dotfiles repo
+# 2. Runs setup.sh (which handles git pull)
 
 set -e
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-SETUP_SCRIPT="$SCRIPT_DIR/setup.sh"
 LOCAL_BIN_DIR="$HOME/.local/bin"
 INSTALL_PATH="$LOCAL_BIN_DIR/dotfiles-setup"
 
-echo "[*] Installing dotfiles setup script..."
+echo "[*] Creating dotfiles setup wrapper script..."
 echo ""
-
-# Check if setup.sh exists
-if [ ! -f "$SETUP_SCRIPT" ]; then
-    echo "[X] Error: setup.sh not found at $SCRIPT_DIR"
-    exit 1
-fi
 
 # Create ~/.local/bin if it doesn't exist
 if [ ! -d "$LOCAL_BIN_DIR" ]; then
@@ -28,18 +22,73 @@ if [ ! -d "$LOCAL_BIN_DIR" ]; then
     mkdir -p "$LOCAL_BIN_DIR"
 fi
 
-# Create symlink (preferred - always runs latest version)
-if [ -e "$INSTALL_PATH" ]; then
-    echo "[!] $INSTALL_PATH already exists, backing up..."
-    mv "$INSTALL_PATH" "${INSTALL_PATH}.bak"
+# Create wrapper script that finds repo, pulls, and runs setup
+cat > "$INSTALL_PATH" << 'EOF'
+#!/bin/bash
+
+# ============================================================================
+# DOTFILES SETUP WRAPPER
+# ============================================================================
+# This wrapper script:
+# 1. Locates the dotfiles repository
+# 2. Runs the setup.sh script (which handles git pull)
+
+set -e
+
+# ============================================================================
+# FIND DOTFILES REPOSITORY
+# ============================================================================
+find_dotfiles_repo() {
+    # Check common locations for dotfiles repo
+    local possible_paths=(
+        "$HOME/repos/dotfiles"
+        "$HOME/dev/repos/dotfiles"
+        "$HOME/.dotfiles"
+        "$HOME/dotfiles"
+    )
+    
+    for path in "${possible_paths[@]}"; do
+        if [ -d "$path" ] && [ -f "$path/setup.sh" ]; then
+            echo "$path"
+            return 0
+        fi
+    done
+    
+    return 1
+}
+
+# Find the repository
+DOTFILES_DIR=$(find_dotfiles_repo)
+
+if [ -z "$DOTFILES_DIR" ]; then
+    echo "[X] Error: Could not find dotfiles repository"
+    echo ""
+    echo "Checked locations:"
+    echo "  - $HOME/repos/dotfiles"
+    echo "  - $HOME/dev/repos/dotfiles"
+    echo "  - $HOME/.dotfiles"
+    echo "  - $HOME/dotfiles"
+    echo ""
+    echo "Please ensure your dotfiles repo exists in one of these locations"
+    exit 1
 fi
 
-echo "[*] Creating symlink to setup.sh in $LOCAL_BIN_DIR..."
-ln -sf "$SETUP_SCRIPT" "$INSTALL_PATH"
+echo "[+] Found dotfiles repo: $DOTFILES_DIR"
+echo ""
+
+# ============================================================================
+# RUN SETUP SCRIPT
+# ============================================================================
+echo "[*] Running setup.sh from $DOTFILES_DIR..."
+echo ""
+
+bash "$DOTFILES_DIR/setup.sh" "$@"
+EOF
+
+# Make the wrapper executable
 chmod +x "$INSTALL_PATH"
 
-echo "[+] Installed: $INSTALL_PATH"
-echo "[+] Symlink points to: $SETUP_SCRIPT"
+echo "[+] Created wrapper script: $INSTALL_PATH"
 echo ""
 
 # ============================================================================
@@ -69,7 +118,10 @@ echo ""
 echo "Usage:"
 echo "  dotfiles-setup"
 echo ""
+echo "What it does:"
+echo "  1. Finds your dotfiles repo in: ~/repos/dotfiles, ~/dev/repos/dotfiles, etc."
+echo "  2. Runs: setup.sh (which handles git pull and syncing configs)"
+echo ""
 echo "If the command is not found, run:"
 echo "  source ~/.bashrc"
 echo ""
-
