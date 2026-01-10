@@ -70,7 +70,7 @@ declare -A arch_packages=(
 )
 
 declare -A ubuntu_packages=(
-    ["common"]="lua5.4 luarocks python3 git neofetch neovim vim ssh lsd less fzf cmake make ripgrep"
+    ["common"]="lua5.4 luarocks python3 git neofetch vim ssh lsd less fzf cmake make ripgrep snap"
 )
 
 # Detect OS and Distro
@@ -139,11 +139,21 @@ install_packages_for_distro() {
                 echo "[X] Error: Failed to install packages on Ubuntu"
                 return 1
             }
+            # Install neovim via snap for latest version
+            echo "[*] Installing neovim via snap..."
+            sudo snap install nvim --classic || {
+                echo "[!] Warning: Failed to install neovim via snap, skipping"
+            }
         else
             apt update || true
             apt install -y $packages || {
                 echo "[X] Error: Failed to install packages on Ubuntu"
                 return 1
+            }
+            # Install neovim via snap for latest version
+            echo "[*] Installing neovim via snap..."
+            snap install nvim --classic || {
+                echo "[!] Warning: Failed to install neovim via snap, skipping"
             }
         fi
         echo "[+] Ubuntu packages installed"
@@ -251,6 +261,31 @@ mkdir -p "$CONFIG_DIR"
 detect_os_and_distro
 validate_os_and_distro
 install_packages_for_distro
+
+# Clean up lazy.nvim cache and plugin directories to avoid conflicts
+echo "[*] Cleaning up lazy.nvim cache..."
+LAZY_DIR="$HOME/.local/share/nvim/lazy"
+if [ -d "$LAZY_DIR" ]; then
+    # Remove all plugin directories to force lazy.nvim to reinstall clean copies
+    rm -rf "$LAZY_DIR" 2>/dev/null || true
+    echo "[+] Cleaned lazy.nvim cache"
+fi
+
+# Warn if nvim is running
+if pgrep -x "nvim" > /dev/null; then
+    echo "[!] WARNING: Neovim is currently running"
+    echo "[!] Close all nvim instances before running setup to avoid config reload issues"
+    echo "[!] lazy.nvim does not support re-sourcing config"
+    echo ""
+    read -p "Continue anyway? (y/n): " -n 1 -r
+    echo
+    if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+        echo "Aborted"
+        exit 1
+    fi
+    echo ""
+fi
+
 echo "Installing dotfiles from $DOTFILES_DIR..."
 echo "Detected OS: $OS"
 if [ -n "$DISTRO" ]; then
