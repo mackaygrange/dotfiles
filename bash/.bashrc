@@ -17,10 +17,10 @@ HISTTIMEFORMAT="%F %T "
 
 # Custom Aliases:
 alias ..='cd ..'
-alias ls='lsd --color=auto --human-readable --group-directories-first --sort=name'
-alias la='lsd --color=auto --human-readable --almost-all --group-directories-first --sort=name'
-alias ll='lsd --color=auto --human-readable --almost-all --long --group-directories-first --sort=name'
-alias lt='lsd --color=auto --human-readable --almost-all --tree --group-directories-first --sort=name'
+alias ls='lsd --color=auto --human-readable --group-directories-first --sort=extension'
+alias la='lsd --color=auto --human-readable --almost-all --group-directories-first --sort=extension'
+alias ll='lsd --color=auto --human-readable --almost-all --long --group-directories-first --sort=extension'
+alias lt='lsd --color=auto --human-readable --almost-all --tree --group-directories-first --sort=extension'
 alias grep='grep --color=auto'
 alias cls='clear'
 alias clr='clear'

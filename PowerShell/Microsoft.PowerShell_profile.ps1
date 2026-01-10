@@ -16,9 +16,15 @@ function lt { lsd --color auto --human-readable --group-directories-first --sort
 
 # Git branch in prompt
 function __ps1_git_branch {
-    $branch = & git rev-parse --abbrev-ref HEAD 2>$null
-    if ($null -ne $branch) {
-        Write-Host " ($branch)" -ForegroundColor Yellow
+    try {
+        $branch = & git rev-parse --abbrev-ref HEAD 2>$null
+        if ($null -ne $branch -and $branch -ne "HEAD") {
+            Write-Host " (" -NoNewline -ForegroundColor Cyan
+            Write-Host $branch -NoNewline -ForegroundColor Yellow
+            Write-Host ")" -NoNewline -ForegroundColor Cyan
+        }
+    } catch {
+        # Silently ignore git errors
     }
 }
 
@@ -31,7 +37,7 @@ function prompt {
     Write-Host "] " -NoNewline -ForegroundColor Cyan
     Write-Host (Get-Location) -ForegroundColor Magenta
     __ps1_git_branch
-    Write-Host "└─> " -NoNewline -ForegroundColor Cyan
+    Write-Host "`n└─> " -NoNewline -ForegroundColor Cyan
     return " "
 }
 
