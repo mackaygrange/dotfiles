@@ -62,13 +62,7 @@ require('mason').setup({})
 require('mason-lspconfig').setup({
   -- Servers to automatically install
   ensure_installed = {
-    "spellcheck",           -- Spell checking
-    "code-spell",           -- Code spell checker
-    "shfmt",                -- Shell script formatter
-    "stylua",               -- Lua formatter
-    "pyright",              -- Python language server
-    "lua-language-server",  -- Lua language server
-    "vtsls"                 -- TypeScript/JavaScript language server
+
   },
   
   -- Custom handlers for each server
