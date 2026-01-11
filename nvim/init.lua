@@ -12,12 +12,6 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("mgrange")
-require("lazy").setup("mgrange.modules")
-require("mgrange.config")
-
-local spec = {
-  { import = "plugins" },
-}
 
 -- Custom setup copied from LazyVim starter
 -- https://github.com/LazyVim/starter/blob/main/lua/config/lazy.lua
@@ -25,7 +19,9 @@ require("lazy").setup({
   defaults = {
     version = false,
   },
-  spec = spec,
+  spec = {
+    { import = "mgrange.modules" },
+  },
   ui = {
     icons = {
       cmd = "⌘",
@@ -48,3 +44,6 @@ require("lazy").setup({
     },
   },
 })
+
+require("mgrange.config")
+
