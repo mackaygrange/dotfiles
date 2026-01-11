@@ -16,10 +16,9 @@ return
             { "github/copilot.vim" },
             { "nvim-lua/plenary.nvim", branch = "master" },
         },
-        build = "make tiktoken",
         opts =
         {
-            model = 'claude-3-5-sonnet-20241022',
+            model = 'claude-haiku-4.5',
             temperature = 0.1,           -- Lower = focused, higher = creative
             window =
             {
