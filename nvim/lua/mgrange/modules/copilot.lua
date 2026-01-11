@@ -1,5 +1,3 @@
-require('fzf-lua').register_ui_select()
-
 return 
 {
     {
