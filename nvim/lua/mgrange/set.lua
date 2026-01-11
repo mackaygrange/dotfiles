@@ -89,6 +89,13 @@ vim.opt.updatetime = 50             -- Time (ms) for swap file to be written and
 vim.opt.isfname:append("@-@")       -- Treat '@' as part of filename for navigation
 
 -- ============================================================================
+-- COMPLETION OPTIONS
+-- ============================================================================
+-- For Neovim < 0.11.0: use 'noinsert' or 'noselect' for chat autocompletion
+-- 'popup' provides best autocompletion experience with CopilotChat
+vim.opt.completeopt = { "menuone", "noselect", "popup" }
+
+-- ============================================================================
 -- MISCELLANEOUS
 -- ============================================================================
 vim.opt.grepformat = "%f%l%c%m"     -- Format for grep output parsing

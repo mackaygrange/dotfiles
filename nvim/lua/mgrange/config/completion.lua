@@ -2,7 +2,11 @@
 -- COMPLETION & SNIPPET CONFIGURATION
 -- ============================================================================
 -- This file configures nvim-cmp for autocompletion and integrates with
--- LuaSnip for snippet expansion.
+-- LuaSnip for snippet expansion, and is compatible with CopilotChat.nvim.
+--
+-- Note: completeopt is configured in set.lua as:
+--   vim.opt.completeopt = { "menuone", "noselect", "popup" }
+-- This includes "noselect" for chat autocompletion and "popup" for best UX.
 
 local cmp = require('cmp')
 local luasnip = require('luasnip')
