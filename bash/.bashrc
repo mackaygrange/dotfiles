@@ -47,7 +47,7 @@ alias cls='clear'
 alias clr='clear'
 alias vim='nvim'
 alias tmux-attach='source ~/scripts/tmux-attach.sh'
-alias dotfiles-setup='bash ~/repos/dotfiles/setup.sh'
+alias dotfiles-setup='bash ~/repos/dotfiles/scripts/setup.sh'
 
 # Exports:
 export EDITOR="nvim -u ${XDG_CONFIG_HOME:-$HOME/.config}/nvim/init.lua"

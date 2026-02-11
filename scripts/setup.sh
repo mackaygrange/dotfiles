@@ -1,19 +1,18 @@
 #!/bin/bash
 
 # Linux dotfiles setup script
-# This script installs configuration files to their appropriate locations
-# Supported: Arch Linux, Ubuntu
+# This script creates symlinks for configuration files
 # Usage: ./setup.sh
 
 set -e  # Exit on error
 
-DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/.."
 CONFIG_DIR="${HOME}/.config"
+BACKUP_DIR="${HOME}/.dotfiles_backup_$(date +%Y%m%d_%H%M%S)"
 
 # ============================================================================
 # UPDATE GIT REPOSITORY
 # ============================================================================
-# Pull latest changes from git if this is a git repo
 if [ -d "$DOTFILES_DIR/.git" ]; then
     echo "[*] Updating dotfiles repository..."
     
@@ -28,7 +27,7 @@ if [ -d "$DOTFILES_DIR/.git" ]; then
         fi
     fi
 
-    # Pull latest changes - show any errors
+    # Pull latest changes
     if git -C "$DOTFILES_DIR" pull; then
         echo "[+] Repository updated successfully"
     else
@@ -49,29 +48,18 @@ while [[ $# -gt 0 ]]; do
         -h|--help)
             echo "Usage: ./setup.sh [options]"
             echo ""
-            echo "This script will install dotfiles and automatically install packages for your distro."
-            echo "Supported distros: Arch Linux, Ubuntu"
+            echo "This script creates symlinks for dotfiles in your home directory."
+            echo "Existing configurations will be backed up to a timestamped directory."
             echo ""
             echo "Options:"
             echo "  -h, --help    Show this help message"
             exit 0
             ;;
         *)
-            # Silently ignore unknown options
             shift
             ;;
     esac
 done
-
-# Define package lists for each distro
-declare -A arch_packages=(
-    ["common"]="lua5.4 luarocks python3 git neofetch neovim vim ssh lsd less fzf cmake make ripgrep"
-    ["arch_specific"]="wofi waybar hyprland hyprpaper uwsm"
-)
-
-declare -A ubuntu_packages=(
-    ["common"]="lua5.4 luarocks python3 git neofetch vim ssh lsd less fzf cmake make ripgrep snap"
-)
 
 # Detect OS and Distro
 detect_os_and_distro()
@@ -81,7 +69,6 @@ detect_os_and_distro()
     case "$OS" in
         Linux*)
             if [ -f /etc/os-release ]; then
-                # Modern standard for Linux distro detection
                 . /etc/os-release
                 DISTRO="${ID}"
             elif [ -f /etc/arch-release ]; then
@@ -91,84 +78,7 @@ detect_os_and_distro()
     esac
 }
 
-# Validate OS and Distro support
-validate_os_and_distro()
-{
-    if [ "$OS" != "Linux" ]; then
-        echo "[X] Error: This script only supports Linux"
-        echo "Detected OS: $OS"
-        exit 1
-    fi
-
-    if [ "$DISTRO" != "arch" ] && [ "$DISTRO" != "ubuntu" ]; then
-        echo "[X] Error: Unsupported distro: $DISTRO"
-        echo "Supported distros: Arch Linux, Ubuntu"
-        exit 1
-    fi
-}
-
-# Function to automatically install packages for detected distro
-install_packages_for_distro() {
-    echo "[*] Installing packages for detected distro..."
-    echo ""
-
-    if [ "$DISTRO" = "arch" ]; then
-        echo "[*] Installing packages for Arch Linux..."
-        local packages="${arch_packages[common]} ${arch_packages[arch_specific]}"
-
-        if command -v sudo &> /dev/null; then
-            sudo pacman -S --noconfirm $packages || {
-                echo "[X] Error: Failed to install packages on Arch Linux"
-                return 1
-            }
-        else
-            pacman -S --noconfirm $packages || {
-                echo "[X] Error: Failed to install packages on Arch Linux"
-                return 1
-            }
-        fi
-        echo "[+] Arch Linux packages installed"
-
-    elif [ "$DISTRO" = "ubuntu" ]; then
-        echo "[*] Installing packages for Ubuntu..."
-        local packages="${ubuntu_packages[common]}"
-
-        if command -v sudo &> /dev/null; then
-            sudo apt update || true
-            sudo apt install -y $packages || {
-                echo "[X] Error: Failed to install packages on Ubuntu"
-                return 1
-            }
-            # Install neovim via snap for latest version
-            echo "[*] Installing neovim via snap..."
-            sudo snap install nvim --classic || {
-                echo "[!] Warning: Failed to install neovim via snap, skipping"
-            }
-        else
-            apt update || true
-            apt install -y $packages || {
-                echo "[X] Error: Failed to install packages on Ubuntu"
-                return 1
-            }
-            # Install neovim via snap for latest version
-            echo "[*] Installing neovim via snap..."
-            snap install nvim --classic || {
-                echo "[!] Warning: Failed to install neovim via snap, skipping"
-            }
-        fi
-        echo "[+] Ubuntu packages installed"
-
-    else
-        echo "[!] Package installation not supported for distro: $DISTRO"
-        echo "Please install the following packages manually if needed:"
-        return 0
-    fi
-
-    echo ""
-}
-
-# Configuration mapping: folder_name|destination|distro_requirement
-# distro_requirement: empty=all distros, arch=only arch
+# Configuration mapping: source_folder|destination|distro_requirement
 declare -a config_list=(
     "kitty|$CONFIG_DIR/kitty|"
     "nvim|$CONFIG_DIR/nvim|"
@@ -180,19 +90,25 @@ declare -a config_list=(
     "uwsm|$CONFIG_DIR/uwsm|arch"
     "fonts|$HOME/.fonts|"
     "icons|$HOME/.icons|arch"
-    "ssh|$HOME/.ssh|special"
 )
 
-# Function to check if config should be installed based on distro requirement
+# Home directory files: source_file|destination
+declare -a home_files=(
+    "bash/.bashrc|$HOME/.bashrc"
+    "bash/.bash_profile|$HOME/.bash_profile"
+    "bash/.bash_logout|$HOME/.bash_logout"
+    "bash/.inputrc|$HOME/.inputrc"
+    "user-dirs.dirs|$CONFIG_DIR/user-dirs.dirs"
+)
+
+# Check if config should be installed based on distro requirement
 should_install_config() {
     local distro_req="$1"
 
-    # If distro requirement is empty or special, install for all
-    if [ -z "$distro_req" ] || [ "$distro_req" = "special" ]; then
+    if [ -z "$distro_req" ]; then
         return 0
     fi
 
-    # Check if distro matches requirement
     if [ "$DISTRO" = "$distro_req" ]; then
         return 0
     fi
@@ -200,82 +116,128 @@ should_install_config() {
     return 1
 }
 
-# Function to setup configuration folder
-setup_config_folder() {
+# Backup existing file or directory
+backup_if_exists() {
+    local path="$1"
+    
+    if [ -e "$path" ] || [ -L "$path" ]; then
+        # Create backup directory if it doesn't exist
+        mkdir -p "$BACKUP_DIR"
+        
+        local basename="$(basename "$path")"
+        local backup_path="$BACKUP_DIR/$basename"
+        
+        # Handle duplicate names in backup
+        local counter=1
+        while [ -e "$backup_path" ]; do
+            backup_path="$BACKUP_DIR/${basename}.${counter}"
+            ((counter++))
+        done
+        
+        mv "$path" "$backup_path"
+        echo "[~] Backed up: $path -> $backup_path"
+        return 0
+    fi
+    return 1
+}
+
+# Create symlink for configuration
+create_symlink() {
     local src="$1"
     local dest="$2"
-    local config_name="$3"
+    local name="$3"
     
-    if [ ! -d "$src" ]; then
-        echo "[!] Source folder not found: $src"
+    if [ ! -e "$src" ]; then
+        echo "[!] Source not found: $src"
         return 1
     fi
     
-    # Create destination directory if needed
-    mkdir -p "$dest"
+    # Create parent directory if needed
+    mkdir -p "$(dirname "$dest")"
     
-    # Special handling for SSH - DO NOT use --delete to preserve private keys!
-    if [ "$config_name" = "ssh" ]; then
-        rsync -av --exclude="id_*" --exclude="*.pem" "$src/" "$dest/"
-        chmod 700 "$dest"
-        chmod 600 "$dest"/* 2>/dev/null || true
-        echo "[+] Synced: $dest (with SSH permissions - keys preserved)"
-        return 0
+    # Backup existing file/directory/symlink
+    backup_if_exists "$dest"
+    
+    # Create symlink
+    ln -sf "$src" "$dest"
+    echo "[+] Linked: $dest -> $src"
+    
+    # Special handling for SSH permissions
+    if [ "$name" = "ssh" ]; then
+        chmod 700 "$dest" 2>/dev/null || true
+        echo "[*] Set SSH directory permissions"
     fi
     
-    # Special handling for Neovim - DO NOT use --delete due to lock files and plugins!
-    # Nvim creates: lazy-lock.json, plugin cache, undo files, spell files, etc.
-    # We should never delete these, just sync config changes
-    if [ "$config_name" = "nvim" ]; then
-        rsync -av --exclude="lazy-lock.json" \
-            --exclude="*.lock" \
-            --exclude=".cache" \
-            --exclude="plugin" \
-            --exclude="undo" \
-            --exclude="shada" \
-            --exclude="spell" \
-            "$src/" "$dest/"
-        echo "[+] Synced: $dest (lock files & plugins preserved)"
-        return 0
-    fi
-
-    # Special handling for Git - create symlink in home directory
-    if [ "$config_name" = "git" ]; then
-        rsync -av "$src/" "$dest/"
-        # Create symlink from ~/.gitconfig to ~/.config/git/gitconfig
-        if [ -f "$dest/gitconfig" ]; then
-            ln -sf "$dest/gitconfig" "$HOME/.gitconfig"
-            echo "[+] Synced: $dest and created symlink ~/.gitconfig"
-        else
-            echo "[+] Synced: $dest"
-        fi
-        return 0
-    fi
-
-    # Standard rsync for other configs with --delete for clean sync
-    rsync -av --delete "$src/" "$dest/"
-    echo "[+] Synced: $dest"
+    return 0
 }
+
+# Special handling for git config
+setup_git_config() {
+    local git_config_dir="$DOTFILES_DIR/git"
+    local dest_dir="$CONFIG_DIR/git"
+    
+    if [ ! -d "$git_config_dir" ]; then
+        echo "[!] Git config directory not found"
+        return 1
+    fi
+    
+    # Backup and create symlink for git config directory
+    backup_if_exists "$dest_dir"
+    mkdir -p "$(dirname "$dest_dir")"
+    ln -sf "$git_config_dir" "$dest_dir"
+    echo "[+] Linked: $dest_dir -> $git_config_dir"
+    
+    # Create symlink from ~/.gitconfig to the gitconfig in the dotfiles
+    if [ -f "$git_config_dir/gitconfig" ]; then
+        backup_if_exists "$HOME/.gitconfig"
+        ln -sf "$git_config_dir/gitconfig" "$HOME/.gitconfig"
+        echo "[+] Linked: $HOME/.gitconfig -> $git_config_dir/gitconfig"
+    fi
+}
+
+# Special handling for SSH config
+setup_ssh_config() {
+    local ssh_dir="$DOTFILES_DIR/ssh"
+    
+    if [ ! -d "$ssh_dir" ]; then
+        echo "[!] SSH directory not found"
+        return 1
+    fi
+    
+    # For SSH, we only symlink the config file, NOT private keys
+    # This preserves your keys while managing your config
+    mkdir -p "$HOME/.ssh"
+    
+    if [ -f "$ssh_dir/config" ]; then
+        backup_if_exists "$HOME/.ssh/config"
+        ln -sf "$ssh_dir/config" "$HOME/.ssh/config"
+        chmod 600 "$HOME/.ssh/config"
+        echo "[+] Linked: $HOME/.ssh/config -> $ssh_dir/config"
+    fi
+    
+    # Ensure proper SSH directory permissions
+    chmod 700 "$HOME/.ssh"
+    echo "[*] Set SSH directory permissions"
+}
+
+# ============================================================================
+# MAIN SETUP
+# ============================================================================
 
 mkdir -p "$CONFIG_DIR"
 detect_os_and_distro
-validate_os_and_distro
-install_packages_for_distro
 
-# Clean up lazy.nvim cache and plugin directories to avoid conflicts
-echo "[*] Cleaning up lazy.nvim cache..."
-LAZY_DIR="$HOME/.local/share/nvim/lazy"
-if [ -d "$LAZY_DIR" ]; then
-    # Remove all plugin directories to force lazy.nvim to reinstall clean copies
-    rm -rf "$LAZY_DIR" 2>/dev/null || true
-    echo "[+] Cleaned lazy.nvim cache"
+echo "Installing dotfiles from $DOTFILES_DIR..."
+echo "Detected OS: $OS"
+if [ -n "$DISTRO" ]; then
+    echo "Detected Distro: $DISTRO"
 fi
+echo ""
 
 # Warn if nvim is running
 if pgrep -x "nvim" > /dev/null; then
     echo "[!] WARNING: Neovim is currently running"
-    echo "[!] Close all nvim instances before running setup to avoid config reload issues"
-    echo "[!] lazy.nvim does not support re-sourcing config"
+    echo "[!] Close all nvim instances to avoid config reload issues"
     echo ""
     read -p "Continue anyway? (y/n): " -n 1 -r
     echo
@@ -286,76 +248,66 @@ if pgrep -x "nvim" > /dev/null; then
     echo ""
 fi
 
-echo "Installing dotfiles from $DOTFILES_DIR..."
-echo "Detected OS: $OS"
-if [ -n "$DISTRO" ]; then
-    echo "Detected Distro: $DISTRO"
-fi
 echo "[*] Setting up configuration folders..."
 
 for config_entry in "${config_list[@]}"; do
     IFS='|' read -r config_name dest distro_req <<< "$config_entry"
     
+    # Skip git and ssh as they have special handling
+    if [ "$config_name" = "git" ]; then
+        continue
+    fi
+    
     if should_install_config "$distro_req"; then
-        setup_config_folder "$DOTFILES_DIR/$config_name" "$dest" "$config_name"
+        create_symlink "$DOTFILES_DIR/$config_name" "$dest" "$config_name"
     else
         echo "[>>] Skipped $config_name (distro: $distro_req)"
     fi
 done
 
-echo "[*] Setting up shell rc files..."
+echo ""
+echo "[*] Setting up special configurations..."
 
-# Bash RC
-if [ -f "$DOTFILES_DIR/bash/.bashrc" ]; then
-    if [ -e "$HOME/.bashrc" ] || [ -L "$HOME/.bashrc" ]; then
-        mv "$HOME/.bashrc" "$HOME/.bashrc.bak"
+# Git config (special handling)
+setup_git_config
+
+# SSH config (special handling)
+if [ -d "$DOTFILES_DIR/ssh" ]; then
+    setup_ssh_config
+fi
+
+echo ""
+echo "[*] Setting up home directory files..."
+
+for file_entry in "${home_files[@]}"; do
+    IFS='|' read -r src_file dest <<< "$file_entry"
+    
+    if [ -f "$DOTFILES_DIR/$src_file" ]; then
+        backup_if_exists "$dest"
+        mkdir -p "$(dirname "$dest")"
+        ln -sf "$DOTFILES_DIR/$src_file" "$dest"
+        echo "[+] Linked: $dest -> $DOTFILES_DIR/$src_file"
+    else
+        echo "[!] Not found: $DOTFILES_DIR/$src_file"
     fi
-    cp -f "$DOTFILES_DIR/bash/.bashrc" "$HOME/.bashrc"
-    echo "[+] Copied: $HOME/.bashrc"
-else
-    echo "[!] .bashrc not found"
-fi
+done
 
-# Bash profile
-if [ -f "$DOTFILES_DIR/bash/.bash_profile" ]; then
-    if [ -e "$HOME/.bash_profile" ] || [ -L "$HOME/.bash_profile" ]; then
-        mv "$HOME/.bash_profile" "$HOME/.bash_profile.bak"
-    fi
-    cp -f "$DOTFILES_DIR/bash/.bash_profile" "$HOME/.bash_profile"
-    echo "[+] Copied: $HOME/.bash_profile"
-fi
-
-# Bash logout
-if [ -f "$DOTFILES_DIR/bash/.bash_logout" ]; then
-    if [ -e "$HOME/.bash_logout" ] || [ -L "$HOME/.bash_logout" ]; then
-        mv "$HOME/.bash_logout" "$HOME/.bash_logout.bak"
-    fi
-    cp -f "$DOTFILES_DIR/bash/.bash_logout" "$HOME/.bash_logout"
-    echo "[+] Copied: $HOME/.bash_logout"
-fi
-
-# Inputrc
-if [ -f "$DOTFILES_DIR/bash/.inputrc" ]; then
-    if [ -e "$HOME/.inputrc" ] || [ -L "$HOME/.inputrc" ]; then
-        mv "$HOME/.inputrc" "$HOME/.inputrc.bak"
-    fi
-    cp -f "$DOTFILES_DIR/bash/.inputrc" "$HOME/.inputrc"
-    echo "[+] Copied: $HOME/.inputrc"
-fi
-
-# User dirs configuration
-if [ -f "$DOTFILES_DIR/user-dirs.dirs" ]; then
-    cp -f "$DOTFILES_DIR/user-dirs.dirs" "$CONFIG_DIR/user-dirs.dirs"
-    echo "[+] Installed: user-dirs.dirs"
-fi
-
+echo ""
 echo "[OK] Dotfiles installation complete!"
 
+if [ -d "$BACKUP_DIR" ]; then
+    echo ""
+    echo "[*] Backups saved to: $BACKUP_DIR"
+fi
+
 # Refresh shell environment
+echo ""
 echo "[*] Refreshing shell environment..."
 if [ -f "$HOME/.bashrc" ]; then
-    source "$HOME/.bashrc"
+    source "$HOME/.bashrc" 2>/dev/null || true
     echo "[+] Sourced ~/.bashrc"
 fi
 
-echo "[OK] Shell environment refreshed!"
+echo ""
+echo "[OK] Setup complete! Your dotfiles are now symlinked."
+echo "[*] Any changes you make will be reflected in both locations."
