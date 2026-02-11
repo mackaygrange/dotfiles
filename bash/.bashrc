@@ -9,23 +9,44 @@
 # If not running interactively, don't do anything:
 [[ $- != *i* ]] && return
 
+source "$HOME/.config/bash/.inputrc"
+
 # History Configuration
 HISTSIZE=10000
 HISTFILESIZE=20000
 HISTCONTROL=ignoreboth:erasedups
 HISTTIMEFORMAT="%F %T "
 
+# Shell Options:
+shopt -s autocd
+shopt -s histappend
+shopt -s checkwinsize
+shopt -s globstar
+
+# enable programmable completion features (you don't need to enable
+# this, if it's already enabled in /etc/bash.bashrc and /etc/profile
+# sources /etc/bash.bashrc).
+if ! shopt -oq posix; then
+  if [ -f /usr/share/bash-completion/bash_completion ]; then
+    . /usr/share/bash-completion/bash_completion
+  elif [ -f /etc/bash_completion ]; then
+    . /etc/bash_completion
+  fi
+fi
+
 # Custom Aliases:
 alias ..='cd ..'
-alias ls='lsd --color=auto --human-readable --group-directories-first --sort=extension'
-alias la='lsd --color=auto --human-readable --almost-all --group-directories-first --sort=extension'
-alias ll='lsd --color=auto --human-readable --almost-all --long --group-directories-first --sort=extension'
-alias lt='lsd --color=auto --human-readable --almost-all --tree --group-directories-first --sort=extension'
-alias grep='grep --color=auto'
+alias ls='lsd --color=auto --human-readable --group-dirs first'
+alias la='lsd --color=auto --human-readable --almost-all --group-dirs first'
+alias ll='lsd --color=auto --human-readable --almost-all --long --group-dirs first'
+alias lt='lsd --color=auto --human-readable --almost-all --tree --group-dirs first'
+alias ld='lsd --color=auto --human-readable --almost-all --tree --group-dirs first --depth'
+
+alias grep='grep --color auto'
 alias cls='clear'
 alias clr='clear'
 alias vim='nvim'
-alias grub='sudo grub-mkconfig -o /boot/grub/grub.cfg'
+alias tmux-attach='source ~/scripts/tmux-attach.sh'
 alias dotfiles-setup='bash ~/repos/dotfiles/setup.sh'
 
 # Exports:
@@ -43,26 +64,19 @@ export LESS_TERMCAP_so=$'\e[01;34m'   # Begin standout
 export LESS_TERMCAP_ue=$'\e[0m'       # End underline
 export LESS_TERMCAP_us=$'\e[1;4;34m'  # Begin underline
 
-# Shell Colors:
-# Simple PS1:
-# export PS1='\[\e[0;36m\]\u\[\e[0m\]@\[\e[0;32m\]\h\[\e[0m\]:\[\e[0;35m\]\w\[\e[0m\]> '
-
-# Fancy PS1 with user-dependent prompt symbol and Git branch info (if available)
-# Color codes: 36m=cyan, 32m=green, 35m=magenta, 33m=yellow, 31m=red, 0m=reset
+# Show the current Git branch (no color/escape sequences).
+# Outputs " (branch)" or nothing if not in a Git repo.
 __ps1_git_branch() {
-    local branch=$(git rev-parse --abbrev-ref HEAD 2>/dev/null)
+    local branch
+    # Prefer symbolic branch name; fall back to short SHA if detached or no branch
+    branch=$(git symbolic-ref --short -q HEAD 2>/dev/null) || branch=$(git rev-parse --short HEAD 2>/dev/null)
     if [ -n "$branch" ]; then
-        echo " \[\e[0;33m\]($branch)\[\e[0m\]"
+        printf ' (%s)' "$branch"
     fi
 }
 
-export PS1='\n\[\e[0;36m\]┌─[\[\e[0;32m\]\u\[\e[0;36m\]@\[\e[0;32m\]\h\[\e[0;36m\]]\[\e[0m\] \[\e[0;35m\]\w\[\e[0m\]$(__ps1_git_branch)\n\[\e[0;36m\]└─>\[\e[0m\] '
-
-# Shell Options:
-shopt -s autocd
-shopt -s histappend
-shopt -s checkwinsize
-shopt -s globstar
+# Prompt: user@host [cwd] (branch) on two lines with colors handled in PS1.
+export PS1='\n\[\e[0;36m\]┌─[\[\e[0;32m\]\u\[\e[0;36m\]@\[\e[0;32m\]\h\[\e[0;36m\]]\[\e[0m\] \[\e[0;35m\]\w\[\e[0m\]\[\e[0;33m\]$(__ps1_git_branch)\[\e[0m\]\n\[\e[0;36m\]└─>\[\e[0m\] '
 
 if command -v uwsm &>/dev/null && uwsm check may-start && uwsm select; then
     exec systemd-cat -t uwsm_start uwsm start default

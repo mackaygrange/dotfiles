@@ -15,9 +15,3 @@ set colored-completion-prefix On
 # Completion Settings:
 set show-all-if-ambiguous On
 set completion-ignore-case On
-
-# Bash Keybindings:
-"\C-r":"cd /\n"
-"\C-b":"cd ..\n"
-"\C-h":"cd\n"
-"\C-c":"cd ~/.config\n"

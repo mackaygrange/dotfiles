@@ -20,7 +20,6 @@ vim.opt.showmatch = true            -- Briefly jump to matching bracket when ins
 vim.opt.scrolloff = 8               -- Minimum lines to keep above/below cursor when scrolling
 vim.opt.virtualedit = "block"       -- Allow cursor to move to non-existent places in block selection mode
 vim.opt.signcolumn = "yes"          -- Always show sign column (for diagnostics, breakpoints, etc.)
-vim.opt.winborder = "rounded"       -- Use rounded borders for split windows
 vim.opt.termguicolors = true        -- Enable 24-bit RGB colors in terminal
 
 -- ============================================================================

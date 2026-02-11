@@ -20,37 +20,8 @@ return {
 
     null_ls.setup({
       sources = {
-        -- Lua formatting
-        formatting.stylua.with({
-          extra_args = { '--indent-type', 'Spaces', '--indent-width', '2' },
-        }),
-
         -- Shell script formatting
-        formatting.shfmt.with({
-          extra_args = { '-i', '2' },  -- 2-space indentation
-        }),
-
-        -- Python formatting (Black)
-        formatting.black.with({
-          extra_args = { '--line-length', '120' },
-        }),
-
-        -- Python import sorting (isort)
-        formatting.isort,
-
-        -- JSON formatting
-        formatting.prettier.with({
-          extra_filetypes = { 'json', 'jsonc' },
-          extra_args = { '--parser', 'json' },
-        }),
-
-        -- YAML formatting
-        formatting.yamlfmt,
-
-        -- Markdown formatting
-        formatting.prettier.with({
-          extra_filetypes = { 'markdown' },
-        }),
+            extra_filetypes = { 'markdown' },
       },
 
       -- ====================================================================
