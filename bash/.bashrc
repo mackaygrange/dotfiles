@@ -10,6 +10,7 @@
 [[ $- != *i* ]] && return
 
 source "$HOME/.config/bash/.inputrc"
+source "$HOME/repos/dotfiles/bash/work-env.sh"
 
 # History Configuration
 HISTSIZE=10000
@@ -64,6 +65,8 @@ export LESS_TERMCAP_so=$'\e[01;34m'   # Begin standout
 export LESS_TERMCAP_ue=$'\e[0m'       # End underline
 export LESS_TERMCAP_us=$'\e[1;4;34m'  # Begin underline
 
+export GCC_COLORS='error=01;31:warning=01;35:note=-1;36:caret=-1;32:locus=01:quote=01'
+
 # Show the current Git branch (no color/escape sequences).
 # Outputs " (branch)" or nothing if not in a Git repo.
 __ps1_git_branch() {
@@ -80,6 +83,10 @@ export PS1='\n\[\e[0;36m\]┌─[\[\e[0;32m\]\u\[\e[0;36m\]@\[\e[0;32m\]\h\[\e[0
 
 if command -v uwsm &>/dev/null && uwsm check may-start && uwsm select; then
     exec systemd-cat -t uwsm_start uwsm start default
+fi
+
+if [ -x /usr/bin/dircolors ]; then
+  test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
 fi
 
 # Pretty Boot:
