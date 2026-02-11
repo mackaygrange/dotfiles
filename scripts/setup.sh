@@ -269,14 +269,14 @@ echo ""
 echo "[*] Setting up special configurations..."
 
 # Git config (special handling)
-setup_git_config
+# setup_git_config
 
 # SSH config (special handling)
-if [ -d "$DOTFILES_DIR/ssh" ]; then
-    setup_ssh_config
-fi
+# if [ -d "$DOTFILES_DIR/ssh" ]; then
+#     setup_ssh_config
+# fi
 
-echo ""
+# echo ""
 echo "[*] Setting up home directory files..."
 
 for file_entry in "${home_files[@]}"; do
