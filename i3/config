@@ -184,10 +184,6 @@ assign [title="i3-projects"] 1
 assign [window_role="browser"] 2
 for_window [class="obsidian"] move container to workspace $ws3
 exec --no-startup-id i3-msg 'exec microsoft-edge'
-for_window [class="Spotify"] move scratchpad
-exec --no-startup-id i3-msg 'exec spotify-launcher'
-exec --no-startup-id i3-msg 'exec feh --bg-scale ~/devenv-setup/assets/background.jpg'
-exec --no-startup-id i3-msg 'exec picom'
 
 # set primary Rosé Pine Moon colorscheme colors
 # set $base           #232136
