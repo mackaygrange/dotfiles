@@ -88,6 +88,10 @@ declare -a config_list=(
     "neofetch|$CONFIG_DIR/neofetch|"
     "git|$CONFIG_DIR/git|"
     "uwsm|$CONFIG_DIR/uwsm|arch"
+    "i3|$CONFIG_DIR/i3|"
+    "i3status|$CONFIG_DIR|i3status|"
+    "tmux|$CONFIG_DIR|tmux"
+
     "fonts|$HOME/.fonts|"
     "icons|$HOME/.icons|arch"
 )
