@@ -72,7 +72,6 @@ local config = function ()
         popup_border_style = "rounded",
         enable_git_status = true,
         enable_diagnostics = true,
-        --enable_normal_mode_for_inputs = false, -- Enable normal mode for input dialogs.
         open_files_do_not_replace_types = { "terminal", "trouble", "qf" }, -- when opening files, do not use windows containing these filetypes or buftypes
         sort_case_insensitive = true, -- used when sorting files and directories in the tree
         sort_function = nil,
@@ -168,7 +167,7 @@ local config = function ()
         },
         window =
         {
-            position = "left",
+            position = "right",
             width = 40,
             mapping_options =
             {
@@ -243,7 +242,7 @@ local config = function ()
         {
             filtered_items =
             {
-                visible = false, -- when true, they will just be displayed differently than normal items
+                visible = true, -- when true, they will just be displayed differently than normal items
                 hide_dotfiles = false,
                 hide_gitignored = true,
                 hide_hidden = false, -- only works on Windows for hidden files/directories

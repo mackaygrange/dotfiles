@@ -57,7 +57,7 @@ vim.keymap.set("n", "<leader>s", ":%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left>
 vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", {silent = true})
 
 -- Neotree Keymaps
-vim.keymap.set("n", "<leader>t", ":Neotree action=show source=filesystem position=left toggle=true reveal=true<cr>", {silent = true})
+vim.keymap.set("n", "<leader>t", ":Neotree action=show source=filesystem toggle=true reveal=true<cr>", {silent = true})
 
 -- Run Current Python Script
 -- Uses function callback for better control and error handling
