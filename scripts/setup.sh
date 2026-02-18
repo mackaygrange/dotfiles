@@ -108,17 +108,7 @@ declare -a home_files=(
 
 # Check if config should be installed based on distro requirement
 should_install_config() {
-    local distro_req="$1"
-
-    if [ -z "$distro_req" ]; then
-        return 0
-    fi
-
-    if [ "$DISTRO" = "$distro_req" ]; then
-        return 0
-    fi
-
-    return 1
+    return 0
 }
 
 # Backup existing file or directory
