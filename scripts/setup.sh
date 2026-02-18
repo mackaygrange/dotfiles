@@ -82,19 +82,19 @@ detect_os_and_distro()
 declare -a config_list=(
     "kitty|$CONFIG_DIR/kitty|"
     "nvim|$CONFIG_DIR/nvim|"
-    "waybar|$CONFIG_DIR/waybar|arch"
-    "hypr|$CONFIG_DIR/hypr|arch"
-    "wofi|$CONFIG_DIR/wofi|arch"
+    "waybar|$CONFIG_DIR/waybar|"
+    "hypr|$CONFIG_DIR/hypr|"
+    "wofi|$CONFIG_DIR/wofi|"
     "rofi|$CONFIG_DIR/rofi|"
     "neofetch|$CONFIG_DIR/neofetch|"
     "git|$CONFIG_DIR/git|"
-    "uwsm|$CONFIG_DIR/uwsm|arch"
+    "uwsm|$CONFIG_DIR/uwsm|"
     "i3|$CONFIG_DIR/i3|"
     "i3status|$CONFIG_DIR/i3status|"
     "tmux|$CONFIG_DIR/tmux|"
 
     "fonts|$HOME/.fonts|"
-    "icons|$HOME/.icons|arch"
+    "icons|$HOME/.icons|"
 )
 
 # Home directory files: source_file|destination
