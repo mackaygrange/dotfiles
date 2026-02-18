@@ -116,4 +116,4 @@ vim.g.clipboard = {
 -- ============================================================================
 vim.g.mapleader = " "               -- Set space as leader key
 
-
+vim.lsp.set_log_level("off")
