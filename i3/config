@@ -172,12 +172,9 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
-bindsym Mod4+m exec dmenu_man
-bindsym Mod4+t exec dmenu_todo
 bindsym Mod4+l exec i3lock --color=3B4252
-bindsym Mod4+Shift+s exec flameshot gui -c -s
 
-for_window [all] border pixel 3
+for_window [all] border pixel 2
 
 # initial startup layout
 assign [title="i3-projects"] 1
@@ -243,12 +240,28 @@ client.background       $base
 # finds out, if available)
 bar {
     status_command i3status -c /home/$USER/.config/i3status/i3status.conf
-    
-    separator_symbol " | "
+ 
+    font pango:Cascadia Code NF Semibold 8
+    separator_symbol " ❱❱ "
+#   separator_symbol " ✞ "
+   
+    workspace_buttons yes 
+    workspace_min_width 50
+
+    position bottom 
+
+    tray_output none
+    tray_padding 5
 
     colors {
       background $base
-      separator $rose
+      statusline $text
+      separator $gold
+     
+      focused_background $surface
+      focused_statusline $text
+      focused_separator $gold
+
       #                       border          background      text
       focused_workspace       $base           $base           $text
       inactive_workspace      $muted          $muted          $text
@@ -257,15 +270,13 @@ bar {
 }
 
 # workspace_layout default
-# title_align center
-# default_border pixel 2  
+title_align center
+default_border pixel 2  
 
-# workspace_layout default
-# workspace_layout default
-# default_border pixel 2px  
 # default_floating_border pixel 2px 
 # gaps inner 5px 
 # gaps outer 5px
 
 exec_always xrandr --output HDMI-1 --mode 1920x1080
 exec_always xrandr --output HDMI-2 --mode 3440x1440
+
