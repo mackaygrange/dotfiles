@@ -16,6 +16,34 @@ set $mod Mod4
 font pango:Jetbrains Mono, Semibold 12
 font pango:Cascadia Code NF 8
 
+# set primary Rosé Pine Moon colorscheme colors
+set $base           #232136
+set $base-rgba      #433236A8
+set $surface        #2a273f
+set $overlay        #393552
+set $muted          #6e6a86
+set $muted-rgba     #6e6a8654
+set $subtle         #908caa
+set $text           #e0def4
+set $love           #eb6f92
+set $gold           #f6c177
+set $rose           #ea9a97
+set $pine           #3e8fb0
+set $foam           #9ccfd8
+set $iris           #c4a7e7
+set $highlightlow   #2a283e
+set $highlightmed   #44415a
+set $highlighthigh  #56526e
+
+# Teming border and Windows --------------
+# target                title          bg             text     indicator border
+client.focused          $highlightlow  $highlightlow  $text    $iris     $highlightlow
+client.focused_inactive $muted         $muted         $subtle  $muted    $muted
+client.unfocused        $muted         $muted         $subtle  $muted    $muted
+client.urgent           $love          $love          $text    $love     $love
+client.placeholder      $base          $base          $text    $base     $base
+client.background       $base
+
 # Start XDG autostart .desktop files using dex. See also
 # https://wiki.archlinux.org/index.php/XDG_Autostart
 exec --no-startup-id dex --autostart --environment i3
@@ -101,12 +129,15 @@ bindsym $mod+a focus parent
 # focus the child container
 #bindsym $mod+d focus child
 
+# Rename workspace using Mod+r
+bindsym $mod+t exec i3-input -F "rename workspace to \"%s\"" -P "New workspace name: "
+
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
-set $ws1 "1"
-set $ws2 "2"
-set $ws3 "3"
-set $ws4 "4"
+set $ws1 "1: Browser"
+set $ws2 "2: Local-Terminal"
+set $ws3 "3: SSH-Terminal"
+set $ws4 "4: Misc"
 set $ws5 "5"
 set $ws6 "6"
 set $ws7 "7"
@@ -172,69 +203,9 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
-bindsym Mod4+l exec i3lock --color=3B4252
+bindsym Mod4+l exec i3lock --color=$base
 
 for_window [all] border pixel 2
-
-# initial startup layout
-assign [title="i3-projects"] 1
-assign [window_role="browser"] 2
-for_window [class="obsidian"] move container to workspace $ws3
-exec --no-startup-id i3-msg 'exec microsoft-edge'
-
-# set primary Rosé Pine Moon colorscheme colors
-# set $base           #232136
-# set $surface        #2a273f
-# set $overlay        #393552
-# set $muted          #6e6a86
-# set $subtle         #908caa
-# set $text           #e0def4
-# set $love           #eb6f92
-# set $gold           #f6c177
-# set $rose           #ea9a97
-# set $pine           #3e8fb0
-# set $foam           #9ccfd8
-# set $iris           #c4a7e7
-# set $highlightlow   #2a283e
-# set $highlightmed   #44415a
-# set $highlighthigh  #56526e
-#
-# # Teming border and Windows --------------
-# # target                 title     bg    text   indicator  border
-# client.focused           $rose     $base $text  $rose      $rose
-# client.focused_inactive  $text     $base $text  $subtle    $surface
-# client.unfocused         $text     $base $text  $overlay   $overlay
-# client.urgent            $text     $base $text  $love      $love
-# client.placeholder       $base     $base $text  $overlay   $overlay
-# client.background        $base
-
-# set primary Rosé Pine Moon colorscheme colors
-set $base           #232136
-set $base-rgba      #433236A8
-set $surface        #2a273f
-set $overlay        #393552
-set $muted          #6e6a86
-set $muted-rgba     #6e6a8654
-set $subtle         #908caa
-set $text           #e0def4
-set $love           #eb6f92
-set $gold           #f6c177
-set $rose           #ea9a97
-set $pine           #3e8fb0
-set $foam           #9ccfd8
-set $iris           #c4a7e7
-set $highlightlow   #2a283e
-set $highlightmed   #44415a
-set $highlighthigh  #56526e
-
-# Teming border and Windows --------------
-# target                title          bg             text     indicator border
-client.focused          $highlightlow  $highlightlow  $text    $iris     $highlightlow
-client.focused_inactive $muted         $muted         $subtle  $muted    $muted
-client.unfocused        $muted         $muted         $subtle  $muted    $muted
-client.urgent           $love          $love          $text    $love     $love
-client.placeholder      $base          $base          $text    $base     $base
-client.background       $base
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
@@ -269,9 +240,6 @@ bar {
     }
 }
 
-# workspace_layout default
-title_align center
-default_border pixel 2  
 
 # default_floating_border pixel 2px 
 # gaps inner 5px 
