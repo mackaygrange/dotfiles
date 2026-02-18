@@ -85,6 +85,7 @@ declare -a config_list=(
     "waybar|$CONFIG_DIR/waybar|arch"
     "hypr|$CONFIG_DIR/hypr|arch"
     "wofi|$CONFIG_DIR/wofi|arch"
+    "rofi|$CONFIG_DIR/rofi|"
     "neofetch|$CONFIG_DIR/neofetch|"
     "git|$CONFIG_DIR/git|"
     "uwsm|$CONFIG_DIR/uwsm|arch"

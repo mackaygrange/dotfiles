@@ -13,7 +13,7 @@ set $mod Mod4
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
-font pango:Jetbrains Mono, Semibold 12
+# font pango:Jetbrains Mono, Semibold 12
 font pango:Cascadia Code NF 8
 
 # set primary Rosé Pine Moon colorscheme colors
@@ -35,18 +35,19 @@ set $highlightlow   #2a283e
 set $highlightmed   #44415a
 set $highlighthigh  #56526e
 
+# Start XDG autostart .desktop files using dex. See also
+# https://wiki.archlinux.org/index.php/XDG_Autostart
+exec --no-statrup-id xsetroot --solid "#232136"
+exec --no-startup-id dex --autostart --environment i3
+
 # Teming border and Windows --------------
 # target                title          bg             text     indicator border
 client.focused          $highlightlow  $highlightlow  $text    $iris     $highlightlow
 client.focused_inactive $muted         $muted         $subtle  $muted    $muted
 client.unfocused        $muted         $muted         $subtle  $muted    $muted
-client.urgent           $love          $love          $text    $love     $love
+client.urgent           $love          $highlightlow  $text    $base     $base
 client.placeholder      $base          $base          $text    $base     $base
 client.background       $base
-
-# Start XDG autostart .desktop files using dex. See also
-# https://wiki.archlinux.org/index.php/XDG_Autostart
-exec --no-startup-id dex --autostart --environment i3
 
 # The combination of xss-lock, nm-applet and pactl is a popular choice, so
 # they are included here as an example. Modify as you see fit.
@@ -57,7 +58,7 @@ exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
 
 # NetworkManager is the most popular way to manage wireless networks on Linux,
 # and nm-applet is a desktop environment-independent system tray GUI for it.
-exec --no-startup-id nm-applet
+# exec --no-startup-id nm-applet
 
 # Use pactl to adjust volume in PulseAudio.
 set $refresh_i3status killall -SIGUSR1 i3status
@@ -72,18 +73,14 @@ floating_modifier $mod
 set $terminal kitty
 
 # start a terminal
-bindsym $mod+Return exec $terminal -e 'tmux'
+bindsym $mod+Return exec $terminal
 
 # kill focused window
 bindsym $mod+Shift+q kill
 
 # start dmenu (a program launcher)
-bindsym $mod+d exec --no-startup-id dmenu_run
-# A more modern dmenu replacement is rofi:
-# bindcode $mod+40 exec "rofi -modi drun,run -show drun"
-# There also is i3-dmenu-desktop which only displays applications shipping a
-# .desktop file. It is a wrapper around dmenu, so you need that installed.
-# bindcode $mod+40 exec --no-startup-id i3-dmenu-desktop
+bindsym $mod+r exec --no-startup-id rofi -show drun
+bindsym $mod+w exec --no-startup-id rofi -show window
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Left focus left
@@ -114,7 +111,7 @@ bindsym $mod+f fullscreen toggle
 
 # change container layout (stacked, tabbed, toggle split)
 bindsym $mod+s layout stacking
-bindsym $mod+w layout tabbed
+bindsym $mod+b layout tabbed
 bindsym $mod+e layout toggle split
 
 # toggle tiling / floating
@@ -130,20 +127,20 @@ bindsym $mod+a focus parent
 #bindsym $mod+d focus child
 
 # Rename workspace using Mod+r
-bindsym $mod+t exec i3-input -F "rename workspace to \"%s\"" -P "New workspace name: "
+bindsym $mod+t exec i3-input -F "rename workspace to \"%s\"" -P "New workspace name: " -f "Cascadia Code NF 8"
 
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
-set $ws1 "1: Browser"
-set $ws2 "2: Local-Terminal"
-set $ws3 "3: SSH-Terminal"
-set $ws4 "4: Misc"
-set $ws5 "5"
-set $ws6 "6"
-set $ws7 "7"
-set $ws8 "8"
-set $ws9 "9"
-set $ws10 "10"
+set $ws1 "1:_Browser"
+set $ws2 "2:_Local-Terminal"
+set $ws3 "3:_SSH-Terminal"
+set $ws4 "4:_Misc"
+set $ws5 "5:_"
+set $ws6 "6:_"
+set $ws7 "7:_"
+set $ws8 "8:_"
+set $ws9 "9:_"
+set $ws10 "10:_"
 
 # switch to workspace
 bindsym $mod+1 workspace number $ws1; bar mode dock
@@ -198,10 +195,10 @@ mode "resize" {
         # back to normal: Enter or Escape or $mod+r
         bindsym Return mode "default"
         bindsym Escape mode "default"
-        bindsym $mod+r mode "default"
+        binddsym $mod+m mode "default"
 }
 
-bindsym $mod+r mode "resize"
+bindsym $mod+m mode "resize"
 
 bindsym Mod4+l exec i3lock --color=$base
 
