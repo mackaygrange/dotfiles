@@ -253,11 +253,7 @@ for config_entry in "${config_list[@]}"; do
         continue
     fi
     
-    if should_install_config "$distro_req"; then
-        create_symlink "$DOTFILES_DIR/$config_name" "$dest" "$config_name"
-    else
-        echo "[>>] Skipped $config_name (distro: $distro_req)"
-    fi
+      create_symlink "$DOTFILES_DIR/$config_name" "$dest" "$config_name"
 done
 
 echo ""
