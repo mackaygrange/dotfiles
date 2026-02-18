@@ -87,7 +87,6 @@ declare -a config_list=(
     "wofi|$CONFIG_DIR/wofi|"
     "rofi|$CONFIG_DIR/rofi|"
     "neofetch|$CONFIG_DIR/neofetch|"
-    "git|$CONFIG_DIR/git|"
     "uwsm|$CONFIG_DIR/uwsm|"
     "i3|$CONFIG_DIR/i3|"
     "i3status|$CONFIG_DIR/i3status|"
