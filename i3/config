@@ -258,7 +258,7 @@ bar {
       statusline $text
       separator $gold
      
-      focused_background $surface
+      focused_background $overlay
       focused_statusline $text
       focused_separator $gold
 
