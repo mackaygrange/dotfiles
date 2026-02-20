@@ -99,6 +99,7 @@ vim.opt.completeopt = { "menuone", "noselect", "popup" }
 -- ============================================================================
 vim.opt.grepformat = "%f%l%c%m"     -- Format for grep output parsing
 
+<<<<<<< HEAD
 vim.g.clipboard = {
   name = 'OSC 52',
   copy = {
@@ -112,9 +113,16 @@ vim.g.clipboard = {
 }
 vim.opt.clipboard:append({'unnamed', 'unnamedplus'})
 
+=======
+>>>>>>> fac870f50fe2305d7cc7b60d4814b04222a2e1c8
 -- ============================================================================
 -- LEADER KEY
 -- ============================================================================
 vim.g.mapleader = " "               -- Set space as leader key
 
-vim.lsp.set_log_level("off")
+local my_group = vim.api.nvim_create_augroup("MG", { clear = true })
+
+vim.api.nvim_create_autocmd({"BufWrite"}, {  
+  callback = function() vim.lsp.buf.format() end,
+  desc = "Format Rust Files on Save",          
+})
