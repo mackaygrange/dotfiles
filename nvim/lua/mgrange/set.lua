@@ -99,22 +99,8 @@ vim.opt.completeopt = { "menuone", "noselect", "popup" }
 -- ============================================================================
 vim.opt.grepformat = "%f%l%c%m"     -- Format for grep output parsing
 
-<<<<<<< HEAD
-vim.g.clipboard = {
-  name = 'OSC 52',
-  copy = {
-    ['+'] = require('vim.ui.clipboard.osc52').copy('+'),
-    ['*'] = require('vim.ui.clipboard.osc52').copy('*'),
-  },
-  paste = {
-    ['+'] = require('vim.ui.clipboard.osc52').paste('+'),
-    ['*'] = require('vim.ui.clipboard.osc52').paste('*'),
-  },
-}
 vim.opt.clipboard:append({'unnamed', 'unnamedplus'})
 
-=======
->>>>>>> fac870f50fe2305d7cc7b60d4814b04222a2e1c8
 -- ============================================================================
 -- LEADER KEY
 -- ============================================================================
