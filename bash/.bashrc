@@ -91,6 +91,8 @@ if [ -x /usr/bin/dircolors ]; then
   test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
 fi
 
+eval "$(zoxide init bash --cmd cd)"
+
 # Pretty Boot:
 if command -v neofetch &>/dev/null; then
     neofetch
