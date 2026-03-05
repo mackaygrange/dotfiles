@@ -99,7 +99,6 @@ declare -a config_list=(
 declare -a home_files=(
     "bash/.bashrc|$HOME/.bashrc"
     "bash/.bash_profile|$HOME/.bash_profile"
-    "bash/.bash_logout|$HOME/.bash_logout"
     "bash/.inputrc|$HOME/.inputrc"
     "user-dirs.dirs|$CONFIG_DIR/user-dirs.dirs"
     "tmux/.tmux.conf|$HOME/.tmux.conf"
