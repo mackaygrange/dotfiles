@@ -90,7 +90,6 @@ declare -a config_list=(
     "uwsm|$CONFIG_DIR/uwsm|"
     "i3|$CONFIG_DIR/i3|"
     "i3status|$CONFIG_DIR/i3status|"
-    "tmux|$HOME|"
 
     "fonts|$HOME/.fonts|"
     "icons|$HOME/.icons|"
@@ -103,6 +102,7 @@ declare -a home_files=(
     "bash/.bash_logout|$HOME/.bash_logout"
     "bash/.inputrc|$HOME/.inputrc"
     "user-dirs.dirs|$CONFIG_DIR/user-dirs.dirs"
+    "tmux/.tmux.conf|$HOME/.tmux.conf"
 )
 
 # Check if config should be installed based on distro requirement
