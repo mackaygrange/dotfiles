@@ -49,6 +49,8 @@ alias clr='clear'
 alias vim='nvim'
 alias tmux-attach='source ~/scripts/tmux-attach.sh'
 alias dotfiles-setup='bash ~/repos/dotfiles/scripts/setup.sh'
+alias gsu="git submodule update --init --recursive"
+
 
 # Exports:
 export EDITOR="nvim -u ${XDG_CONFIG_HOME:-$HOME/.config}/nvim/init.lua"
