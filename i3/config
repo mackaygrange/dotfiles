@@ -37,10 +37,8 @@ set $highlighthigh  #56526e
 
 # Start XDG autostart .desktop files using dex. See also
 # https://wiki.archlinux.org/index.php/XDG_Autostart
-# exec --no-statrup-id xsetroot --solid "#232136"
-exec --no-startup-id xsetroot -bitmap "$HOME/repos/bitmap-walls/bw-bgnd/pipes.xbm" -bg $base -fg $rose
-
 exec --no-startup-id dex --autostart --environment i3
+exec --no-startup-id picom --config ~/repos/dotfiles/picom/picom.conf -b
 
 # Teming border and Windows --------------
 # target                title          bg             text     indicator border
@@ -244,6 +242,8 @@ bar {
 # gaps inner 5px 
 # gaps outer 5px
 
+exec --no-startup-id xsetroot -bitmap ~/repos/bitmap-walls/bw-bgnd/pipes.xbm 
+# -bg $base -fg $rose
 exec_always xrandr --output HDMI-1 --mode 1920x1080
 exec_always xrandr --output HDMI-2 --mode 3440x1440
 
