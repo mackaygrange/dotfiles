@@ -250,7 +250,7 @@ for config_entry in "${config_list[@]}"; do
 		continue
 	fi
 
-	if [ ! -d "$dest"]; then
+	if [ ! -d "$dest" ]; then
 		mkdir $dest
 	fi
 	create_symlink "$DOTFILES_DIR/$config_name" "$dest" "$config_name"
