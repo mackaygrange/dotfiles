@@ -200,7 +200,7 @@ mode "resize" {
 
 bindsym $mod+m mode "resize"
 
-bindsym Mod4+l exec i3lock --color=$base
+bindsym Mod4+l exec "$HOME/repos/dotfiles/i3/lock.sh"
 
 for_window [all] border pixel 2
 
