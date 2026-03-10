@@ -1,6 +1,6 @@
 * {
-	bg: #232136;
-	cur: #2a273f;
+	bg: #232136A8;
+	cur: #2a273fA8;
 	fgd: #e0def4;
 	cmt: #6e6a86;
 	cya: #9ccfd8;
