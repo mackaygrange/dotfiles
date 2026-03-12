@@ -1,0 +1,40 @@
+==== Necessary Prerequisites: ====
+  == apt: == 
+    - ossh
+    - git
+    - curl
+    - make
+    - cmake
+    - gcc
+    - g++
+    - hsetroot
+    - xclip
+    - scrot
+    - kitty
+    - neofetch
+    - minicom
+    - picom
+    - rofi
+    - wofi
+    - hyprland
+    - python / python3
+    - python-is-python3
+    - python-pip
+    - tmux
+    - wireshark
+    - tshark
+    - 
+    - snap
+    - lsd
+    - lua*.* (latest version)
+    - luarocks
+    - vim
+    - i3
+    
+
+
+== snap: ==
+neovim (nvim)
+
+== cargo: ==
+zoxide
