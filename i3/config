@@ -112,7 +112,7 @@ bindsym $mod+v split v
 bindsym $mod+f fullscreen toggle
 
 # change container layout (stacked, tabbed, toggle split)
-bindsym $mod+s layout stacking
+# bindsym $mod+s layout stacking
 bindsym $mod+b layout tabbed
 bindsym $mod+e layout toggle split
 
@@ -127,6 +127,11 @@ bindsym $mod+a focus parent
 
 # focus the child container
 #bindsym $mod+d focus child
+
+# various screenshot variations
+bindsym --release $mod+Shift+s exec --no-startup-id scrot -s '%Y-%m-%d_$wx$h.png' -e 'mv $f ~/screenshots' 
+bindsym --release $mod+s exec --no-startup-id scrot -s - | xclip -selection clipboard -target image/png
+
 
 # Rename workspace using Mod+r
 bindsym $mod+t exec i3-input -F "rename workspace to \"%s\"" -P "New workspace name: " -f "Cascadia Code NF 8"
