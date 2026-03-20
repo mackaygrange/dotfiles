@@ -90,6 +90,7 @@ declare -a config_list=(
 	"i3|$CONFIG_DIR/i3|"
 	"i3status|$CONFIG_DIR/i3status|"
 	"picom|$CONFIG_DIR/picom|"
+    "dunst|$CONFIG_DIR/dunst|"
 
 	"fonts|$HOME/.fonts|"
 	"icons|$HOME/.icons|"
