@@ -13,7 +13,7 @@
     vertical_alignment = center
     word_wrap = true
     icon_position = off
-    corner_radius = 0
+    corner_radius = 5
     enable_recursive_icon_lookup = true
     icon_theme = "Adwaita"
     background = "#393552"
