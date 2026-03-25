@@ -162,7 +162,7 @@ create_symlink() {
 mkdir -p "$CONFIG_DIR"
 detect_os_and_distro
 
-echo "Installing dotfiles from $DOTFILES_DIR..."
+echo "Installing dotfiles from \'$DOTFILES_DIR\'..."
 echo "Detected OS: $OS"
 if [ -n "$DISTRO" ]; then
 	echo "Detected Distro: $DISTRO"
