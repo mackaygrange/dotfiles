@@ -94,6 +94,6 @@ fi
 eval "$(zoxide init bash --cmd cd)"
 
 # Pretty Boot:
-if command -v neofetch &>/dev/null; then
+if command -v neofetch &>/dev/null 2>&1; then
 	neofetch
 fi

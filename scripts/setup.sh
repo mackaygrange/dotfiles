@@ -192,6 +192,30 @@ for file_entry in "${home_files[@]}"; do
 	fi
 done
 
+# Install tpm 
+echo ""
+echo "[*] Installing tmux package mangager from github..."
+if [ ! -d "$HOME/.tmux/plugins/tpm" ]; then
+  git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+  echo "[+] Installed tmux package manager!"
+else 
+  echo "[-] Tmux package manager already installed!"
+fi
+
+# Install zoxide
+echo ""
+echo "[*] Installing zoxide from cargo..."
+if command -v cargo &>/dev/null 2>&1; then
+  if command -v zoxide &>/dev/null 2>&1; then
+    echo "[-] Zoxide is already installed!" 
+  else  
+    cargo install zoxide
+  echo "[+] Installed zoxide!"
+  fi
+else
+  echo "[!] Cargo / Rustup not installed! Skipping Install."
+fi
+
 echo ""
 echo "[OK] Dotfiles installation complete!"
 
@@ -208,6 +232,8 @@ if [ -f "$HOME/.bashrc" ]; then
 	echo "[+] Sourced ~/.bashrc"
 fi
 
+
+
 echo ""
 echo "[OK] Setup complete! Your dotfiles are now symlinked."
-echo "[*] Any changes you make will be reflected in both locations."
+echo "[*] Any changnes you make will be reflected in both locations."
