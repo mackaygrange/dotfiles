@@ -78,7 +78,7 @@ detect_os_and_distro() {
 }
 
 # Configuration mapping: source_folder|destination|distro_requirement
-declare -a config_list=(
+declare -a config_dirs=(
 	"kitty|$CONFIG_DIR/kitty|"
 	"nvim|$CONFIG_DIR/nvim|"
 	"waybar|$CONFIG_DIR/waybar|"
@@ -91,7 +91,6 @@ declare -a config_list=(
 	"i3status|$CONFIG_DIR/i3status|"
 	"picom|$CONFIG_DIR/picom|"
     "dunst|$CONFIG_DIR/dunst|"
-
 	"fonts|$HOME/.fonts|"
 	"icons|$HOME/.icons|"
 )
@@ -99,14 +98,13 @@ declare -a config_list=(
 # Home directory files: source_file|destination
 declare -a home_files=(
 	"bash/.bashrc|$HOME/.bashrc"
+    "bash/.inputrc|$HOME/.inputrc"
+    "bash/.bash_profile|$HOME/.bash_profile"
+    "bash/.bash_logout|$HOME/.bash_logout"
+    "git/.gitconfig|$HOME/.gitconfig"
 	"user-dirs.dirs|$CONFIG_DIR/user-dirs.dirs"
 	"tmux/.tmux.conf|$HOME/.tmux.conf"
 )
-
-# Check if config should be installed based on distro requirement
-should_install_config() {
-	return 0
-}
 
 # Backup existing file or directory
 backup_if_exists() {
@@ -154,62 +152,7 @@ create_symlink() {
 	ln -sf "$src" "$dest"
 	echo "[+] Linked: $dest -> $src"
 
-	# Special handling for SSH permissions
-	if [ "$name" = "ssh" ]; then
-		chmod 700 "$dest" 2>/dev/null || true
-		echo "[*] Set SSH directory permissions"
-	fi
-
 	return 0
-}
-
-# Special handling for git config
-setup_git_config() {
-	local git_config_dir="$DOTFILES_DIR/git"
-	local dest_dir="$CONFIG_DIR/git"
-
-	if [ ! -d "$git_config_dir" ]; then
-		echo "[!] Git config directory not found"
-		return 1
-	fi
-
-	# Backup and create symlink for git config directory
-	backup_if_exists "$dest_dir"
-	mkdir -p "$(dirname "$dest_dir")"
-	ln -sf "$git_config_dir" "$dest_dir"
-	echo "[+] Linked: $dest_dir -> $git_config_dir"
-
-	# Create symlink from ~/.gitconfig to the gitconfig in the dotfiles
-	if [ -f "$git_config_dir/gitconfig" ]; then
-		backup_if_exists "$HOME/.gitconfig"
-		ln -sf "$git_config_dir/gitconfig" "$HOME/.gitconfig"
-		echo "[+] Linked: $HOME/.gitconfig -> $git_config_dir/gitconfig"
-	fi
-}
-
-# Special handling for SSH config
-setup_ssh_config() {
-	local ssh_dir="$DOTFILES_DIR/ssh"
-
-	if [ ! -d "$ssh_dir" ]; then
-		echo "[!] SSH directory not found"
-		return 1
-	fi
-
-	# For SSH, we only symlink the config file, NOT private keys
-	# This preserves your keys while managing your config
-	mkdir -p "$HOME/.ssh"
-
-	if [ -f "$ssh_dir/config" ]; then
-		backup_if_exists "$HOME/.ssh/config"
-		ln -sf "$ssh_dir/config" "$HOME/.ssh/config"
-		chmod 600 "$HOME/.ssh/config"
-		echo "[+] Linked: $HOME/.ssh/config -> $ssh_dir/config"
-	fi
-
-	# Ensure proper SSH directory permissions
-	chmod 700 "$HOME/.ssh"
-	echo "[*] Set SSH directory permissions"
 }
 
 # ============================================================================
@@ -224,58 +167,24 @@ echo "Detected OS: $OS"
 if [ -n "$DISTRO" ]; then
 	echo "Detected Distro: $DISTRO"
 fi
+
 echo ""
-
-# Warn if nvim is running
-if pgrep -x "nvim" >/dev/null; then
-	echo "[!] WARNING: Neovim is currently running"
-	echo "[!] Close all nvim instances to avoid config reload issues"
-	echo ""
-	read -p "Continue anyway? (y/n): " -n 1 -r
-	echo
-	if [[ ! $REPLY =~ ^[Yy]$ ]]; then
-		echo "Aborted"
-		exit 1
-	fi
-	echo ""
-fi
-
 echo "[*] Setting up configuration folders..."
-
-for config_entry in "${config_list[@]}"; do
+for config_entry in "${config_dirs[@]}"; do
 	IFS='|' read -r config_name dest distro_req <<<"$config_entry"
-
-	# Skip git and ssh as they have special handling
-	if [ "$config_name" = "git" ]; then
-		continue
-	fi
-
 	if [ ! -d "$dest" ]; then
 		mkdir $dest
 	fi
 	create_symlink "$DOTFILES_DIR/$config_name" "$dest" "$config_name"
 done
 
+
 echo ""
-echo "[*] Setting up special configurations..."
-
-# Git config (special handling)
-# setup_git_config
-
-# SSH config (special handling)
-# if [ -d "$DOTFILES_DIR/ssh" ]; then
-#     setup_ssh_config
-# fi
-
-# echo ""
 echo "[*] Setting up home directory files..."
-
 for file_entry in "${home_files[@]}"; do
 	IFS='|' read -r src_file dest <<<"$file_entry"
 
 	if [ -f "$DOTFILES_DIR/$src_file" ]; then
-		backup_if_exists "$dest"
-		mkdir -p "$(dirname "$dest")"
 		ln -sf "$DOTFILES_DIR/$src_file" "$dest"
 		echo "[+] Linked: $dest -> $DOTFILES_DIR/$src_file"
 	else
