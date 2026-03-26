@@ -44,13 +44,14 @@ alias ll='lsd --color=auto --human-readable --almost-all --long --group-dirs fir
 alias lt='lsd --color=auto --human-readable --almost-all --tree --group-dirs first'
 alias ld='lsd --color=auto --human-readable --almost-all --tree --group-dirs first --depth'
 
-alias grep='grep --color auto'
+alias grep='grep --color=auto'
 alias cls='clear'
 alias clr='clear'
 alias vim='nvim'
-alias tmux-attach='source ~/scripts/tmux-attach.sh'
-alias dotfiles-setup='bash ~/repos/dotfiles/scripts/setup.sh'
+alias tmux-attach='~/scripts/tmux-attach.sh'
+alias dotfiles-setup='~/repos/dotfiles/scripts/setup.sh'
 alias gsu="git submodule update --init --recursive"
+alias brc="source ~/.bashrc"
 
 # Exports:
 export EDITOR="nvim -u ${XDG_CONFIG_HOME:-$HOME/.config}/nvim/init.lua"
@@ -83,14 +84,24 @@ __ps1_git_branch() {
 # Prompt: user@host [cwd] (branch) on two lines with colors handled in PS1.
 export PS1='\n\[\e[0;36m\]┌─[\[\e[0;32m\]\u\[\e[0;36m\]@\[\e[0;32m\]\h\[\e[0;36m\]]\[\e[0m\] \[\e[0;35m\]\w\[\e[0m\]\[\e[0;33m\]$(__ps1_git_branch)\[\e[0m\]\n\[\e[0;36m\]└─>\[\e[0m\] '
 
+# If we have uwsm installed and we are using it as a session manager we can start the daemon.
 if command -v uwsm &>/dev/null && uwsm check may-start && uwsm select; then
 	exec systemd-cat -t uwsm_start uwsm start default
 fi
 
+# Make sure colors are set
 if [ -x /usr/bin/dircolors ]; then
 	test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
 fi
 
+# If shell is being accessed via SSH, make sure our DISPLAY var is set correctly to forward X11.
+# This is supposed to work automatically but I have had issues and this fixes it.
+if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_CLIENT" ]; then
+	export DISPLAY='localhost:10.0'
+fi
+
+# Use zoxide as opposed to cd. Need to add a check to make sure that we have zoxide installed to avoid annoying
+# situations.
 eval "$(zoxide init bash --cmd cd)"
 
 # Pretty Boot:
