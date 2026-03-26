@@ -1,6 +1,6 @@
 ==== Necessary Prerequisites: ====
   == apt: == 
-    - ossh
+    - ssh
     - git
     - curl
     - make
@@ -23,18 +23,22 @@
     - tmux
     - wireshark
     - tshark
-    - 
+    - rustup
+    - cargo
     - snap
     - lsd
     - lua*.* (latest version)
     - luarocks
     - vim
     - i3
-    
+    - i3status
 
+  == snap: ==
+    - neovim (nvim) (snap install neovim --classic)
 
-== snap: ==
-neovim (nvim)
+  == cargo: ==
+    - zoxide (cargo install zoxide)
 
-== cargo: ==
-zoxide
+  == misc: ==
+    - tpm (tmux package manager) (github)
+      [ git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm ]
