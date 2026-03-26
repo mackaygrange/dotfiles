@@ -38,57 +38,41 @@ fi
 
 # Custom Aliases:
 alias ..='cd ..'
-<<<<<<< HEAD
-alias ls='lsd --color=auto --human-readable --group-dirs first'
-alias la='lsd --color=auto --human-readable --almost-all --group-dirs first'
-alias ll='lsd --color=auto --human-readable --almost-all --long --group-dirs first'
-alias lt='lsd --color=auto --human-readable --almost-all --tree --group-dirs first'
-alias ld='lsd --color=auto --human-readable --almost-all --tree --group-dirs first --depth'
-
-alias grep='grep --color=auto'
-alias cls='clear'
-alias clr='clear'
-alias vim='nvim'
-alias tmux-attach='~/scripts/tmux-attach.sh'
-alias dotfiles-setup='~/repos/dotfiles/scripts/setup.sh'
-alias gsu="git submodule update --init --recursive"
 alias brc="source ~/.bashrc"
-=======
-alias grep='grep --color auto'
+alias grep='grep --color=auto'
 alias cls='clear'
 alias clr='clear'
 
 # Use lsd instead of ls if lsd is installed:
 if command -v lsd &>/dev/null 2>&1; then
-  alias ls='lsd --color=auto --human-readable --group-dirs first'
-  alias la='lsd --color=auto --human-readable --almost-all --group-dirs first'
-  alias ll='lsd --color=auto --human-readable --almost-all --long --group-dirs first'
-  alias lt='lsd --color=auto --human-readable --almost-all --tree --group-dirs first'
-  alias ld='lsd --color=auto --human-readable --almost-all --tree --group-dirs first --depth'
+	alias ls='lsd --color=auto --human-readable --group-dirs first'
+	alias la='lsd --color=auto --human-readable --almost-all --group-dirs first'
+	alias ll='lsd --color=auto --human-readable --almost-all --long --group-dirs first'
+	alias lt='lsd --color=auto --human-readable --almost-all --tree --group-dirs first'
+	alias ld='lsd --color=auto --human-readable --almost-all --tree --group-dirs first --depth'
 fi
 
 # Use neovim instead of vim if vim is installed:
 if command -v nvim &>/dev/null 2>&1; then
-  alias vim='nvim'
-  export EDITOR="nvim -u ${XDG_CONFIG_HOME:-$HOME/.config}/nvim/init.lua"
-  export VISUAL="nvim -u ${XDG_CONFIG_HOME:-$HOME/.config}/nvim/init.lua" 
+	alias vim='nvim'
+	export EDITOR="nvim -u ${XDG_CONFIG_HOME:-$HOME/.config}/nvim/init.lua"
+	export VISUAL="nvim -u ${XDG_CONFIG_HOME:-$HOME/.config}/nvim/init.lua"
 fi
 
 # Only useful if we have tmux:
 if command -v tmux &>/dev/null 2>&1; then
-  alias tmux-attach='source ~/scripts/tmux-attach.sh'
+	alias tmux-attach='source ~/scripts/tmux-attach.sh'
 fi
 
 # Only useful if our config repo is installed:
 if [ -d "$HOME/repos/dotfiles" ]; then
-  alias dotfiles-setup='bash ~/repos/dotfiles/scripts/setup.sh'
+	alias dotfiles-setup='bash ~/repos/dotfiles/scripts/setup.sh'
 fi
 
 # Hopefully we always have git but just in case:
 if command -v tmux &>/dev/null 2>&1; then
-  alias gsu="git submodule update --init --recursive"
+	alias gsu="git submodule update --init --recursive"
 fi
->>>>>>> 0cb9beb71838c4c3f724e28b2ce9c21b020afcb7
 
 # Exports:
 export HISTFILE="${XDG_CONFIG_HOME:-$HOME/.config}/bash/.bash_history"
@@ -120,40 +104,26 @@ __ps1_git_branch() {
 # Prompt: user@host [cwd] (branch) on two lines with colors handled in PS1:
 export PS1='\n\[\e[0;36m\]┌─[\[\e[0;32m\]\u\[\e[0;36m\]@\[\e[0;32m\]\h\[\e[0;36m\]]\[\e[0m\] \[\e[0;35m\]\w\[\e[0m\]\[\e[0;33m\]$(__ps1_git_branch)\[\e[0m\]\n\[\e[0;36m\]└─>\[\e[0m\] '
 
-<<<<<<< HEAD
 # If we have uwsm installed and we are using it as a session manager we can start the daemon.
-=======
-# Start uwsm if we are using it as a window manager:
->>>>>>> 0cb9beb71838c4c3f724e28b2ce9c21b020afcb7
 if command -v uwsm &>/dev/null && uwsm check may-start && uwsm select; then
 	exec systemd-cat -t uwsm_start uwsm start default
 fi
 
-<<<<<<< HEAD
-# Make sure colors are set
-=======
 # Make sure dircolors are set:
->>>>>>> 0cb9beb71838c4c3f724e28b2ce9c21b020afcb7
 if [ -x /usr/bin/dircolors ]; then
 	test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
 fi
 
-<<<<<<< HEAD
 # If shell is being accessed via SSH, make sure our DISPLAY var is set correctly to forward X11.
 # This is supposed to work automatically but I have had issues and this fixes it.
 if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_CLIENT" ]; then
 	export DISPLAY='localhost:10.0'
 fi
 
-# Use zoxide as opposed to cd. Need to add a check to make sure that we have zoxide installed to avoid annoying
-# situations.
-eval "$(zoxide init bash --cmd cd)"
-=======
 # If zoxide is installed, remap cd to zoxide:
-if [ -n which zoxide &>/dev/null 2>&1 ]; then
-  eval "$(zoxide init bash --cmd cd)"
+if [ -n which zoxide ] &>/dev/null 2>&1; then
+	eval "$(zoxide init bash --cmd cd)"
 fi
->>>>>>> 0cb9beb71838c4c3f724e28b2ce9c21b020afcb7
 
 # Pretty Boot:
 if command -v neofetch &>/dev/null 2>&1; then
