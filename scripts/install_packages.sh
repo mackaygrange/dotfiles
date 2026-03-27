@@ -7,6 +7,10 @@ set -e # Exit on error
 
 DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/.."
 CONFIG_DIR="${HOME}/.config"
+HELP_FLAG=0
+INSTALL_FLAG=0
+
+
 
 # ============================================================================
 # UTILITY FUNCTIONS
@@ -128,44 +132,49 @@ install_arch_packages() {
 # MAIN SETUP
 # ============================================================================
 
-# Parse command line arguments
-while [[ $# -gt 0 ]]; do
-	case $1 in
-	-h | --help)
-		echo "Usage: ./install_packages.sh [options]"
-		echo ""
-		echo "Options:"
-		echo "  -h, --help    Show this help message"
-		exit 0
-		;;
-	*)
-		shift
-		;;
-	esac
+
+
+while getopts "hi" flag; do
+  case "${flag}" in
+    h) HELP_FLAG=1 ;;
+    i) INSTALL_FLAG=1 ;;
+  esac
 done
+
+if [[ "$HELP_FLAG" == 1 ]]; then
+  echo "Usage: ./install_packages.sh [options]"
+  echo ""
+  echo "Options:"
+  echo "  -h, --help    Show this help message"
+  echo "  -i, --install Install Packages"
+  exit 0
+fi
 
 detect_os_and_distro
 
 echo "[== [+] RUNNING PACKAGE INSTALLATION SCRIPT ==]"
 echo "  Detected OS: $OS"
 if [ -n "$DISTRO" ]; then
-	echo "  Detected Distro: $DISTRO"
+  echo "  Detected Distro: $DISTRO"
 fi
 echo ""
 
 # Install packages depending on the distro being used:
 # TODO: Add support for more distros and complete arch package list:
 if [ $EUID -ne 0 ]; then
-  echo "[!] Run this script with sudo privledges if you would like to install packages"
+  if [ "$INSTALL_FLAG" == 1  ]; then
+    echo "[*] Installing packages..."
+    if [ "$DISTRO" == "ubuntu" ]; then 
+      install_ubuntu_packages
+    elif [ "$DISTRO" == "arch" ]; then 
+      install_arch_packages
+    else 
+      echo "[!] $DISTRO distribution is not yet supported!" 
+    fi
+  fi 
 else
-  echo "[*] Installing packages..."
-  if [ "$DISTRO" == "ubuntu" ]; then 
-    install_ubuntu_packages
-  elif [ "$DISTRO" == "arch" ]; then 
-    install_arch_packages
-  else 
-    echo "[!] $DISTRO distribution is not yet supported!" 
-  fi
+  echo "[!] Do not run this script with sudo privledges, unexpected behaviour will occur"
+  exit 1
 fi
 
 # These can be installed regardless of distro:
