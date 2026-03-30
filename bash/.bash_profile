@@ -9,3 +9,4 @@
 #                                           \/______/ \/_/                                        
 
 [[ -f ~/.bashrc ]] && . ~/.bashrc
+. "$HOME/.cargo/env"

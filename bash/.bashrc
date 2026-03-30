@@ -9,7 +9,6 @@
 # If not running interactively, don't do anything:
 [[ $- != *i* ]] && return
 
-source "$HOME/.config/bash/.inputrc"
 source "$HOME/repos/dotfiles/bash/work-env.sh"
 export PATH="/home/mgrange/.luarocks/bin/:$PATH"
 
@@ -121,7 +120,7 @@ if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_CLIENT" ]; then
 fi
 
 # If zoxide is installed, remap cd to zoxide:
-if [ -n which zoxide ] &>/dev/null 2>&1; then
+if command -v zoxide &>/dev/null 2>&1; then
 	eval "$(zoxide init bash --cmd cd)"
 fi
 

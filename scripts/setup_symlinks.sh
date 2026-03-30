@@ -23,7 +23,7 @@ declare -a config_dirs=(
 	"i3|$CONFIG_DIR/i3|"
 	"i3status|$CONFIG_DIR/i3status|"
 	"picom|$CONFIG_DIR/picom|"
-    "dunst|$CONFIG_DIR/dunst|"
+        "dunst|$CONFIG_DIR/dunst|"
 	"fonts|$HOME/.fonts|"
 	"icons|$HOME/.icons|"
 )
@@ -31,10 +31,10 @@ declare -a config_dirs=(
 # Home directory files: source_file|destination
 declare -a home_files=(
 	"bash/.bashrc|$HOME/.bashrc"
-    "bash/.inputrc|$HOME/.inputrc"
-    "bash/.bash_profile|$HOME/.bash_profile"
-    "bash/.bash_logout|$HOME/.bash_logout"
-    "git/.gitconfig|$HOME/.gitconfig"
+        "bash/.inputrc|$HOME/.inputrc"
+        "bash/.bash_profile|$HOME/.bash_profile"
+        "bash/.bash_logout|$HOME/.bash_logout"
+        "git/.gitconfig|$HOME/.gitconfig"
 	"user-dirs.dirs|$CONFIG_DIR/user-dirs.dirs"
 	"tmux/.tmux.conf|$HOME/.tmux.conf"
 )
