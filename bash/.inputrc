@@ -15,3 +15,11 @@ set colored-completion-prefix On
 # Completion Settings:
 set show-all-if-ambiguous On
 set completion-ignore-case On
+
+# Misc Settings: 
+set bell-style none
+set editing-mode vi
+# set keymap vi-command
+# set show-mode-in-prompt on 
+# set vi-ins-mode-string "+"
+# set vi-cmd-mode-string ":"

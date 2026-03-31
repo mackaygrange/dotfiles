@@ -74,8 +74,8 @@ if command -v tmux &>/dev/null 2>&1; then
 fi
 
 # Exports:
-export HISTFILE="${XDG_CONFIG_HOME:-$HOME/.config}/bash/.bash_history"
-export INPUTRC="${XDG_CONFIG_HOME:-$HOME/.config}/bash/.inputrc"
+export HISTFILE="${XDG_CONFIG_HOME:-$HOME}/.bash_history"
+export INPUTRC="${XDG_CONFIG_HOME:-$HOME}/.inputrc"
 
 # Less/Man page colors:
 export LESS_TERMCAP_mb=$'\e[1;36m'   # Begin bold

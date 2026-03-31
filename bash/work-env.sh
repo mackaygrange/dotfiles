@@ -27,7 +27,7 @@ if [ -d "$HOME/repos/KIP/" ]; then
 	alias kix-full="~/repos/KIP/scripts/kix-runtime-setup/compile-kix-runtime.sh --features nic-forensics \
         && ~/repos/KIP/scripts/kix-runtime-setup/launch-kix-runtime.sh \
         && kix-tests"
-	alias kix-tests="~/repos/KIP/e2etests/run-tests.sh 172.26.72.1 172.26.72.100 hardware enx00e04c682293 enp2s0"
+	alias kix-tests="~/repos/KIP/e2etests/run-tests.sh 172.26.72.1 172.26.72.100 hardware enx00e04c682293 enx00e04c351a8d"
 	alias kix-unit-tests="~/repos/KIP/e2etests/JTAG-RPU-Tests.sh"
 fi
 
