@@ -40,10 +40,10 @@ vim.diagnostic.config({
 lsp_zero.on_attach(function(client, bufnr)
   -- Use lsp-zero's default keybindings for the current buffer
   -- These include: gd (goto definition), gr (goto references), etc.
-  lsp_zero.default_keymaps({buffer = bufnr})
+  lsp_zero.default_keymaps({ buffer = bufnr })
 
   -- Additional helpful keybindings
-  local opts = {buffer = bufnr, remap = false}
+  local opts = { buffer = bufnr, remap = false }
   vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
   vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, opts)
   vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, opts)
@@ -64,21 +64,21 @@ require('mason-lspconfig').setup({
   ensure_installed = {
 
   },
-  
+
   -- Custom handlers for each server
   handlers = {
     -- Default handler: setup all servers with default config
     function(server_name)
       require('lspconfig')[server_name].setup({})
     end,
-    
+
     -- Lua LS custom setup with enhanced settings
     lua_ls = function()
       require('lspconfig').lua_ls.setup({
         settings = {
           Lua = {
             diagnostics = {
-              globals = { 'vim' }  -- Recognize 'vim' global
+              globals = { 'vim' } -- Recognize 'vim' global
             }
           }
         }

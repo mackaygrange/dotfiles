@@ -35,10 +35,10 @@ cmp.setup({
   -- COMPLETION SOURCES (ordered by priority)
   -- ========================================================================
   sources = cmp.config.sources({
-    { name = 'nvim_lsp' },        -- LSP completions (highest priority)
-    { name = 'luasnip' },         -- Snippet completions
-    { name = 'buffer' },          -- Buffer text completions
-    { name = 'path' },            -- File path completions
+    { name = 'nvim_lsp' }, -- LSP completions (highest priority)
+    { name = 'luasnip' },  -- Snippet completions
+    { name = 'buffer' },   -- Buffer text completions
+    { name = 'path' },     -- File path completions
   }),
 
   -- ========================================================================

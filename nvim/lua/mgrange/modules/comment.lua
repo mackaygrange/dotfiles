@@ -6,4 +6,3 @@ return
   },
   lazy = false, -- or set an event like "BufEnter" or "VeryLazy" for lazy loading
 }
-

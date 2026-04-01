@@ -8,4 +8,3 @@ return
     -- DAP configurations
   end,
 }
-
