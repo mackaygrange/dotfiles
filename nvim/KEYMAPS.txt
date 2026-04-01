@@ -24,16 +24,41 @@
         -- FUGITIVE
         <gs> = open git menu
 
+        -- LSP NAVIGATION & ACTIONS
+        <rn> = rename symbol under cursor
+        <ca> = code action (normal and visual)
+        <vd> = show diagnostic in floating window
+        <dl> = send diagnostics to location list
+        <ds> = document symbols (outline)
+        <ws> = workspace symbol search
+        <wa> = add workspace folder
+        <wr> = remove workspace folder
+        <wl> = list workspace folders
+        <ci> = incoming calls (who calls this function)
+        <co> = outgoing calls (what does this function call)
+        <gs> = signature help
+
+        -- RUST-SPECIFIC (rustaceanvim)
+        <rm> = expand macro recursively
+        <rp> = go to parent module
+        <rc> = open Cargo.toml
+        <rj> = smart join lines
+        <rh> = hover actions (Rust-enhanced)
+        <re> = explain error under cursor
+        <rd> = render full diagnostic
+        <rr> = run runnables (tests, binaries)
+        <rb> = run debuggables
+
         -- GENERAL
         <.> = open netrw
         <f> = format selected text
         <s> = replace/edit/modify current word across the whole buffer
         <x> = add user permission to execute in current repository
         <y> = copy selection to system buffer
-        <p> =
-        <d> =
-        <k> =
-        <j> =
+        <p> = paste without overwriting register
+        <d> = delete without overwriting register
+        <k> = navigate to next location list item
+        <j> = navigate to previous location list item
 
 
     --MODE: <VISUAL>
@@ -51,6 +76,7 @@
     --MODE: <VISUAL>
 
     --MODE: <INSERT>
+        <C-s> = signature help (in insert mode)
 
     --MODE: <COMMAND>
 
@@ -76,12 +102,21 @@
         <h> = cursor left
         <l> = cursor right
         <p> = paste
+        <K> = LSP hover documentation
+
+        -- LSP CODE NAVIGATION (no modifier)
+        <gd> = go to definition
+        <gD> = go to declaration
+        <gi> = go to implementation
+        <gt> = go to type definition
+        <gr> = list all references
+        <]d> = next diagnostic
+        <[d> = previous diagnostic
 
     --MODE: <VISUAL>
         <y> = yank (copy)
         <p> = paste
         <>
-
 
     --MODE: <INSERT>
 
