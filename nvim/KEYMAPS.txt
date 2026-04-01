@@ -36,7 +36,7 @@
         <wl> = list workspace folders
         <ci> = incoming calls (who calls this function)
         <co> = outgoing calls (what does this function call)
-        <gs> = signature help
+        <sh> = signature help
 
         -- RUST-SPECIFIC (rustaceanvim)
         <rm> = expand macro recursively

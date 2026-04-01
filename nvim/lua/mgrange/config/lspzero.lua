@@ -41,17 +41,19 @@ vim.diagnostic.config({
 -- ============================================================================
 -- Override LSP handlers to display hover, signature help, and other popups
 -- with rounded borders (similar to telescope/harpoon style)
+local lsp_float_max_width = 80
+
 vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(
   vim.lsp.handlers.hover, {
     border = 'rounded',
-    max_width = 80,
+    max_width = lsp_float_max_width,
   }
 )
 
 vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(
   vim.lsp.handlers.signature_help, {
     border = 'rounded',
-    max_width = 80,
+    max_width = lsp_float_max_width,
   }
 )
 
@@ -72,7 +74,7 @@ lsp_zero.on_attach(function(client, bufnr)
   -- HOVER & DOCUMENTATION
   -- ========================================================================
   vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts('LSP: Hover documentation'))
-  vim.keymap.set('n', '<leader>gs', vim.lsp.buf.signature_help, opts('LSP: Signature help'))
+  vim.keymap.set('n', '<leader>sh', vim.lsp.buf.signature_help, opts('LSP: Signature help'))
   vim.keymap.set('i', '<C-s>', vim.lsp.buf.signature_help, opts('LSP: Signature help (insert)'))
 
   -- ========================================================================
