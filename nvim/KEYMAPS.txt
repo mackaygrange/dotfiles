@@ -1,6 +1,6 @@
 ╔══════════════════════════════════════════════════════════════════════════════╗
-║                         NEOVIM KEYMAP REFERENCE                            ║
-║                         Leader key: <Space>                                ║
+║                         NEOVIM KEYMAP REFERENCE                              ║
+║                         Leader key: <Space>                                  ║
 ╚══════════════════════════════════════════════════════════════════════════════╝
 
 
@@ -249,7 +249,7 @@
   │ <leader>Y       │ Yank line to system clipboard            │ Normal   │
   │ <C-a>           │ Select all & copy to system clipboard    │ N/V/I    │
   │ gcc             │ Toggle line comment                      │ Normal   │
-  │ gc              │ Toggle comment on selection               │ Visual   │
+  │ gc              │ Toggle comment on selection              │ Visual   │
   └─────────────────┴──────────────────────────────────────────┴──────────┘
 
 
@@ -376,7 +376,7 @@
   │ f               │ Filter on submit                         │
   │ <C-x>           │ Clear filter                             │
   │ [g / ]g         │ Prev / next git modified file            │
-  │ o + c/d/g/m/n/… │ Order by created/diag/git/mod/name/…    │
+  │ o + c/d/g/m/n/… │ Order by created/diag/git/mod/name/…     │
   └─────────────────┴──────────────────────────────────────────┘
 
   Git Status panel ──────────────────────────────────────────────────────
@@ -397,12 +397,12 @@
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
   ┌──────────────────────────┬─────────────────────────────────────────┐
-  │ :lua SetColors()         │ Reset colorscheme (rose-pine moon)     │
-  │ :lua SetColors("name")   │ Switch to colorscheme "name"           │
-  │ :LazyGit                 │ Open LazyGit                           │
-  │ :CopilotChat             │ Open Copilot Chat                      │
+  │ :lua SetColors()         │ Reset colorscheme (rose-pine moon)      │
+  │ :lua SetColors("name")   │ Switch to colorscheme "name"            │
+  │ :LazyGit                 │ Open LazyGit                            │
+  │ :CopilotChat             │ Open Copilot Chat                       │
   │ :Lazy                    │ Open Lazy plugin manager                │
   │ :Mason                   │ Open Mason LSP/tool manager             │
   │ :Trouble                 │ Open Trouble diagnostics panel          │
-  │ :TodoTelescope           │ Search TODO/FIXME/HACK comments        │
+  │ :TodoTelescope           │ Search TODO/FIXME/HACK comments         │
   └──────────────────────────┴─────────────────────────────────────────┘
