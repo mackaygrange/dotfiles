@@ -1,5 +1,13 @@
 #!/bin/bash
 
+# Verify required dependencies are installed
+for cmd in scrot convert i3lock; do
+	if ! command -v "$cmd" &>/dev/null; then
+		echo "[!] $cmd is not installed. Cannot lock screen." >&2
+		exit 1
+	fi
+done
+
 img="$HOME/.cache/i3lock.png"
 scrot -o $img
 

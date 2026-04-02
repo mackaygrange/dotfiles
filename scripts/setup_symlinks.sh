@@ -119,9 +119,6 @@ echo ""
 echo "[*] Setting up configuration folders..."
 for config_entry in "${config_dirs[@]}"; do
 	IFS='|' read -r config_name dest distro_req <<<"$config_entry"
-	if [ ! -d "$dest" ]; then
-		mkdir $dest
-	fi
 	create_symlink "$DOTFILES_DIR/$config_name" "$dest" "$config_name"
 done
 
@@ -157,4 +154,4 @@ fi
 
 echo ""
 echo "[== [-] SYMLINK SETUP SCRIPT COMPLETE ==]"
-echo "[*] Any changnes you make will be reflected in both locations."
+echo "[*] Any changes you make will be reflected in both locations."

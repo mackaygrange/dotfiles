@@ -3,7 +3,7 @@
     shrink = false
     transparency = 25
     notification_height = 50
-    seperator_height = 10 
+    separator_height = 10 
     padding = 10
     horizontal_padding = 10
     frame_width = 0

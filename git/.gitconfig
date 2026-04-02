@@ -3,3 +3,21 @@
 # Please adapt and uncomment the following lines:
 name = Mackay Grange
 email = mackay.grange@gmail.com
+
+[core]
+editor = nvim
+
+[init]
+defaultBranch = main
+
+[pull]
+rebase = true
+
+[alias]
+st = status
+co = checkout
+br = branch
+cm = commit
+lg = log --oneline --graph --decorate --all
+df = diff
+ds = diff --staged

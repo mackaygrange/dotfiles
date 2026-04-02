@@ -40,10 +40,10 @@ exec --no-startup-id picom --config ~/repos/dotfiles/picom/picom.conf -b
 exec --no-startup-id dunst -config ~/.config/dunst/dunstrc &
 
 # Set background: 
-# Possible to play with these settings to acheive a desired effect.
+# Possible to play with these settings to achieve a desired effect.
 exec convert -size 5360x1440 -define gradient:radii=2440,720 -define gradient:angle=20 radial-gradient:"#c4a7e7"-"#232136" $HOME/repos/dotfiles/wallpapers/gradient.png && hsetroot -root -fill $HOME/repos/dotfiles/wallpapers/gradient.png
 
-# Teming border and Windows --------------
+# Theming border and Windows --------------
 # target                title          bg             text     indicator border
 client.focused          $highlightlow  $highlightlow  $text    $iris     $highlightlow
 client.focused_inactive $muted         $muted         $subtle  $muted    $muted
@@ -203,7 +203,7 @@ mode "resize" {
         # back to normal: Enter or Escape or $mod+r
         bindsym Return mode "default"
         bindsym Escape mode "default"
-        binddsym $mod+m mode "default"
+        bindsym $mod+m mode "default"
 }
 
 bindsym $mod+m mode "resize"
@@ -259,6 +259,6 @@ default_floating_border pixel 0px
 gaps inner 5px 
 gaps outer 5px
 
-exec_always xrandr --output HDMI-1 --mode 1920x1080 
-exec_always xrandr --output HDMI-2 --mode 3440x1440 --primary
+exec xrandr --output HDMI-1 --mode 1920x1080 
+exec xrandr --output HDMI-2 --mode 3440x1440 --primary
 
