@@ -58,6 +58,20 @@ organic reds — like a walk through old-growth woodland at dusk.
 | color8    | Muted     | `#7A6E60` |
 | color9–15 | (repeat bright variants) |    |
 
+## i3 Background Gradient
+
+The i3 config generates a radial gradient wallpaper using ImageMagick.
+`apply-theme.sh` maps the gradient center to **Iris** and the edge to **Base**.
+
+| Position | Role  | Hex       | Result                             |
+|----------|-------|-----------|------------------------------------|
+| Center   | Iris  | `#9775b8` | Soft purple wildflower glow        |
+| Edge     | Base  | `#1a1714` | Fades into deep forest-floor brown |
+
+```
+radial-gradient:"#9775b8"-"#1a1714"
+```
+
 ## Neovim Syntax Mapping
 
 | Syntax Element | Color  | Rationale                              |
