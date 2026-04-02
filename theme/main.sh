@@ -1,0 +1,39 @@
+#!/bin/bash
+# Rosé Pine — Main variant
+# https://rosepinetheme.com/palette/
+
+VARIANT="main"
+
+# Base colors
+BASE="191724"
+SURFACE="1f1d2e"
+OVERLAY="26233a"
+MUTED="6e6a86"
+SUBTLE="908caa"
+TEXT="e0def4"
+
+# Accent colors
+LOVE="eb6f92"
+GOLD="f6c177"
+ROSE="ebbcba"
+PINE="31748f"
+FOAM="9ccfd8"
+IRIS="c4a7e7"
+
+# Highlight colors
+HIGHLIGHT_LOW="21202e"
+HIGHLIGHT_MED="403d52"
+HIGHLIGHT_HIGH="524f67"
+
+# Terminal-specific mappings (ANSI color slots)
+TERM_BG="191724"
+TERM_FG="E0DEF4"
+TERM_BLACK="191724"
+TERM_RED="EB6F92"
+TERM_GREEN="9CCFD8"
+TERM_YELLOW="F6C177"
+TERM_BLUE="31748F"
+TERM_MAGENTA="C4A7E7"
+TERM_CYAN="EBBCBA"
+TERM_WHITE="E0DEF4"
+TERM_BRIGHT_BLACK="6E6A86"

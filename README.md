@@ -21,6 +21,7 @@ Personal configuration files for Linux (i3/Hyprland) and Windows (PowerShell) en
 | `PowerShell/`   | Windows PowerShell profile             |
 | `rofi/`         | Application launcher (X11)             |
 | `scripts/`      | Setup, symlink, and package install scripts |
+| `theme/`        | Centralized color palette and `apply-theme.sh` script |
 | `tmux/`         | tmux terminal multiplexer              |
 | `uwsm/`        | Universal Wayland Session Manager      |
 | `wallpapers/`   | Desktop wallpapers                     |
@@ -50,7 +51,20 @@ Personal configuration files for Linux (i3/Hyprland) and Windows (PowerShell) en
 
 ## Color Palette
 
-All configurations use the **Rosé Pine Moon** theme. See [`rosepine-palette.md`](rosepine-palette.md) for the full color reference.
+All configurations use the **Rosé Pine** colorscheme. See [`rosepine-palette.md`](rosepine-palette.md) for the full color reference.
+
+### Switching Themes
+
+A single script applies any Rosé Pine variant across **all** config files at once:
+
+```bash
+# Available variants: moon (default), main, dawn
+bash theme/apply-theme.sh moon   # dark – muted
+bash theme/apply-theme.sh main   # dark – vivid
+bash theme/apply-theme.sh dawn   # light
+```
+
+The script updates: i3, i3status, kitty, dunst, hyprland, picom, rofi, wofi, waybar, Neovim, and tmux. Palette definitions live in `theme/<variant>.sh`.
 
 ## Notes
 
