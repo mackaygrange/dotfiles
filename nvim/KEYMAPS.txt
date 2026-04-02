@@ -129,9 +129,112 @@
   │ <leader>lg      │ Open LazyGit                             │ Normal   │
   └─────────────────┴──────────────────────────────────────────┴──────────┘
 
+  Gitsigns (in-buffer git indicators) ───────────────────────────────────
+
+  ┌─────────────────┬──────────────────────────────────────────┬──────────┐
+  │ ]h              │ Next git hunk                            │ Normal   │
+  │ [h              │ Previous git hunk                        │ Normal   │
+  │ <leader>hs      │ Stage hunk                               │ N / V    │
+  │ <leader>hr      │ Reset hunk                               │ N / V    │
+  │ <leader>hS      │ Stage entire buffer                      │ Normal   │
+  │ <leader>hR      │ Reset entire buffer                      │ Normal   │
+  │ <leader>hu      │ Undo stage hunk                          │ Normal   │
+  │ <leader>hp      │ Preview hunk                             │ Normal   │
+  │ <leader>hb      │ Blame line (full)                        │ Normal   │
+  │ <leader>hd      │ Diff this file                           │ Normal   │
+  │ <leader>hD      │ Diff against ~                           │ Normal   │
+  │ <leader>tb      │ Toggle inline blame                      │ Normal   │
+  └─────────────────┴──────────────────────────────────────────┴──────────┘
+
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
- §6  EDITING & TEXT MANIPULATION
+ §6  TROUBLE — diagnostics & quickfix panel
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ┌─────────────────┬──────────────────────────────────────────┬──────────┐
+  │ Key             │ Action                                   │ Mode     │
+  ├─────────────────┼──────────────────────────────────────────┼──────────┤
+  │ <leader>xx      │ Toggle diagnostics (all files)           │ Normal   │
+  │ <leader>xX      │ Toggle diagnostics (current buffer)      │ Normal   │
+  │ <leader>xs      │ Toggle symbols                           │ Normal   │
+  │ <leader>xl      │ Toggle location list                     │ Normal   │
+  │ <leader>xq      │ Toggle quickfix list                     │ Normal   │
+  │ <leader>xt      │ Toggle todo comments list                │ Normal   │
+  └─────────────────┴──────────────────────────────────────────┴──────────┘
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ §7  TREESITTER TEXT OBJECTS — structural code navigation
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  Selection ─────────────────────────────────────────────────────────────
+
+  ┌─────────────────┬──────────────────────────────────────────┬──────────┐
+  │ Key             │ Action                                   │ Mode     │
+  ├─────────────────┼──────────────────────────────────────────┼──────────┤
+  │ af              │ Select around function                   │ V / O    │
+  │ if              │ Select inside function                   │ V / O    │
+  │ ac              │ Select around class                      │ V / O    │
+  │ ic              │ Select inside class                      │ V / O    │
+  │ aa              │ Select around argument/parameter         │ V / O    │
+  │ ia              │ Select inside argument/parameter         │ V / O    │
+  └─────────────────┴──────────────────────────────────────────┴──────────┘
+
+  Movement ──────────────────────────────────────────────────────────────
+
+  ┌─────────────────┬──────────────────────────────────────────┬──────────┐
+  │ ]m              │ Next function start                      │ Normal   │
+  │ ]M              │ Next function end                        │ Normal   │
+  │ ]]              │ Next class start                         │ Normal   │
+  │ ][              │ Next class end                           │ Normal   │
+  │ [m              │ Previous function start                  │ Normal   │
+  │ [M              │ Previous function end                    │ Normal   │
+  │ [[              │ Previous class start                     │ Normal   │
+  │ []              │ Previous class end                       │ Normal   │
+  └─────────────────┴──────────────────────────────────────────┴──────────┘
+
+  Swap ──────────────────────────────────────────────────────────────────
+
+  ┌─────────────────┬──────────────────────────────────────────┬──────────┐
+  │ <leader>sn      │ Swap parameter with next                 │ Normal   │
+  │ <leader>sp      │ Swap parameter with previous             │ Normal   │
+  └─────────────────┴──────────────────────────────────────────┴──────────┘
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ §8  CRATES (Cargo.toml) — only active in Cargo.toml
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ┌─────────────────┬──────────────────────────────────────────┬──────────┐
+  │ Key             │ Action                                   │ Mode     │
+  ├─────────────────┼──────────────────────────────────────────┼──────────┤
+  │ <leader>ct      │ Toggle crate info                        │ Normal   │
+  │ <leader>cr      │ Reload crate data                        │ Normal   │
+  │ <leader>cv      │ Show versions popup                      │ Normal   │
+  │ <leader>cf      │ Show features popup                      │ Normal   │
+  │ <leader>cd      │ Show dependencies popup                  │ Normal   │
+  │ <leader>cu      │ Update crate / selected crates           │ N / V    │
+  │ <leader>cU      │ Upgrade crate / selected crates          │ N / V    │
+  └─────────────────┴──────────────────────────────────────────┴──────────┘
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ §9  TODO COMMENTS & ILLUMINATE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ┌─────────────────┬──────────────────────────────────────────┬──────────┐
+  │ Key             │ Action                                   │ Mode     │
+  ├─────────────────┼──────────────────────────────────────────┼──────────┤
+  │ ]t              │ Next TODO comment                        │ Normal   │
+  │ [t              │ Previous TODO comment                    │ Normal   │
+  │ <leader>st      │ Search TODOs with Telescope              │ Normal   │
+  │ <leader>]       │ Next illuminated reference               │ Normal   │
+  │ <leader>[       │ Previous illuminated reference           │ Normal   │
+  └─────────────────┴──────────────────────────────────────────┴──────────┘
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ §10  EDITING & TEXT MANIPULATION
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
   ┌─────────────────┬──────────────────────────────────────────┬──────────┐
@@ -151,7 +254,7 @@
 
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
- §7  MOVEMENT & SCROLLING
+ §11  MOVEMENT & SCROLLING
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
   ┌─────────────────┬──────────────────────────────────────────┬──────────┐
@@ -168,7 +271,7 @@
 
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
- §8  FILE OPERATIONS & MISC
+ §12  FILE OPERATIONS & MISC
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
   ┌─────────────────┬──────────────────────────────────────────┬──────────┐
@@ -187,7 +290,7 @@
 
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
- §9  BUILD & RUN
+ §13  BUILD & RUN
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
   ┌─────────────────┬──────────────────────────────────────────┬──────────┐
@@ -199,7 +302,7 @@
 
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
- §10  COMPLETION (nvim-cmp) — active in insert mode
+ §14  COMPLETION (nvim-cmp) — active in insert mode
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
   ┌─────────────────┬──────────────────────────────────────────┬──────────┐
@@ -216,7 +319,7 @@
 
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
- §11  NEO-TREE — keybindings inside the tree window
+ §15  NEO-TREE — keybindings inside the tree window
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
   General ───────────────────────────────────────────────────────────────
@@ -290,7 +393,7 @@
 
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
- §12  COMMANDS & LUA FUNCTIONS
+ §16  COMMANDS & LUA FUNCTIONS
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
   ┌──────────────────────────┬─────────────────────────────────────────┐
@@ -300,4 +403,6 @@
   │ :CopilotChat             │ Open Copilot Chat                      │
   │ :Lazy                    │ Open Lazy plugin manager                │
   │ :Mason                   │ Open Mason LSP/tool manager             │
+  │ :Trouble                 │ Open Trouble diagnostics panel          │
+  │ :TodoTelescope           │ Search TODO/FIXME/HACK comments        │
   └──────────────────────────┴─────────────────────────────────────────┘
