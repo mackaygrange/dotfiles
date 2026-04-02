@@ -25,6 +25,9 @@ HIGHLIGHT_LOW="2a283e"
 HIGHLIGHT_MED="44415a"
 HIGHLIGHT_HIGH="56526e"
 
+# i3 gradient wallpaper — center color (defaults to IRIS if unset)
+GRADIENT_CENTER="$IRIS"
+
 # Terminal-specific mappings (ANSI color slots)
 # These may differ slightly from the semantic palette above
 TERM_BG="26233A"

@@ -113,10 +113,12 @@ if [[ -f "$I3_CONFIG" ]]; then
         '^set \$highlighthigh .*' \
         "set \$highlighthigh  #${HIGHLIGHT_HIGH}66"
 
-    # Gradient wallpaper generation command uses iris and base
+    # Gradient wallpaper generation command — center color is per-theme
+    # (GRADIENT_CENTER defaults to IRIS if the palette file doesn't set it)
+    : "${GRADIENT_CENTER:=$IRIS}"
     sed_replace "$I3_CONFIG" \
         'radial-gradient:"#[0-9a-fA-F]\{6\}"-"#[0-9a-fA-F]\{6\}"' \
-        "radial-gradient:\"#${IRIS}\"-\"#${BASE}\""
+        "radial-gradient:\"#${GRADIENT_CENTER}\"-\"#${BASE}\""
 fi
 
 # =====================================================================
@@ -469,16 +471,44 @@ if [[ -f "$PALETTE_MD" ]]; then
 fi
 
 # =====================================================================
-# Done
+# Done — reload running programs
 # =====================================================================
 echo ""
 echo "[OK] Theme '$VARIANT' applied to all configuration files."
 echo ""
-echo "To reload active sessions:"
-echo "  • i3:       \$mod+Shift+r"
-echo "  • Hyprland: (auto-reloads on save)"
-echo "  • tmux:     prefix + I  (to reinstall plugins)"
-echo "  • Neovim:   :source \$MYVIMRC  or restart"
-echo "  • kitty:    ctrl+shift+f5"
-echo "  • dunst:    killall dunst && dunst &"
-echo "  • waybar:   killall waybar && waybar &"
+
+# --- i3 (send reload via IPC if i3 is running) ---
+if command -v i3-msg &>/dev/null && i3-msg -t get_version &>/dev/null; then
+    i3-msg reload &>/dev/null && echo "  [↻] i3 reloaded"
+fi
+
+# --- Hyprland (auto-reloads on config save — no action needed) ---
+
+# --- dunst (restart notification daemon) ---
+if command -v dunst &>/dev/null && pgrep -x dunst &>/dev/null; then
+    pkill -x dunst
+    nohup dunst -config "${DOTFILES_DIR}/dunst/dunstrc" &>/dev/null &
+    disown
+    echo "  [↻] dunst restarted"
+fi
+
+# --- waybar (restart status bar) ---
+if command -v waybar &>/dev/null && pgrep -x waybar &>/dev/null; then
+    pkill -x waybar
+    nohup waybar &>/dev/null &
+    disown
+    echo "  [↻] waybar restarted"
+fi
+
+# --- kitty (send SIGUSR1 to reload config) ---
+if pgrep -x kitty &>/dev/null; then
+    pkill -USR1 -x kitty && echo "  [↻] kitty config reloaded"
+fi
+
+# --- tmux (source config if server is running) ---
+if command -v tmux &>/dev/null && tmux list-sessions &>/dev/null 2>&1; then
+    tmux source-file "${DOTFILES_DIR}/tmux/.tmux.conf" &>/dev/null && echo "  [↻] tmux config reloaded"
+fi
+
+echo ""
+echo "Note: Neovim must be reloaded from within each session (:source \$MYVIMRC or restart)."
