@@ -258,8 +258,8 @@ if [[ -f "$WOFI" ]]; then
         -v surf_r="$(printf '%d' "0x${SURFACE:0:2}")" \
         -v surf_g="$(printf '%d' "0x${SURFACE:2:2}")" \
         -v surf_b="$(printf '%d' "0x${SURFACE:4:2}")" \
-        -v text_hex="'"${TEXT}"'" \
-        -v subtle_hex="'"${SUBTLE}"'" '
+        -v text_hex="${TEXT}" \
+        -v subtle_hex="${SUBTLE}" '
     BEGIN { section="" }
     /^window /           { section="window" }
     /^#input$/           { section="input" }
