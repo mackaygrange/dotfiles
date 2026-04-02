@@ -23,6 +23,7 @@ require("lazy").setup({
     { import = "mgrange.modules" },
   },
   ui = {
+    border = "rounded",
     icons = {
       cmd = "⌘",
       config = "🛠",

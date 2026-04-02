@@ -86,6 +86,7 @@ function SetColors(color)
   vim.api.nvim_set_hl(0, "NormalNC", { bg = "none" })
   vim.api.nvim_set_hl(0, "StatusLineNC", { bg = "none" })
   vim.api.nvim_set_hl(0, "VertSplit", { bg = "none" })
+  vim.api.nvim_set_hl(0, "FloatBorder", { bg = "none" })
 end
 
 SetColors()
