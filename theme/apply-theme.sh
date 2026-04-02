@@ -482,6 +482,19 @@ if command -v i3-msg &>/dev/null && i3-msg -t get_version &>/dev/null; then
     i3-msg reload &>/dev/null && echo "  [↻] i3 reloaded"
 fi
 
+# --- background (regenerate gradient wallpaper and apply with hsetroot) ---
+: "${GRADIENT_CENTER:=$IRIS}"
+WALLPAPER="${DOTFILES_DIR}/wallpapers/gradient.png"
+if command -v convert &>/dev/null && command -v hsetroot &>/dev/null; then
+    convert -size 5360x1440 \
+        -define gradient:radii=2440,720 \
+        -define gradient:angle=20 \
+        radial-gradient:"#${GRADIENT_CENTER}"-"#${BASE}" \
+        "$WALLPAPER" \
+    && hsetroot -root -fill "$WALLPAPER" \
+    && echo "  [↻] background wallpaper updated"
+fi
+
 # --- Hyprland (auto-reloads on config save — no action needed) ---
 
 # --- dunst (restart notification daemon) ---
