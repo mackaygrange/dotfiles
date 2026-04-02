@@ -127,7 +127,11 @@ end)
 -- MASON SETUP (Package Manager for LSP Servers)
 -- ============================================================================
 -- Mason automatically installs and manages LSP servers, formatters, and linters
-require('mason').setup({})
+require('mason').setup({
+  ui = {
+    border = 'rounded',
+  },
+})
 
 -- ============================================================================
 -- MASON-LSPCONFIG SETUP
