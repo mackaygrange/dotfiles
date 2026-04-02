@@ -5,26 +5,10 @@
 -- for package management and automatic installation of LSP servers.
 
 local lsp_zero = require('lsp-zero')
-local lsp_config = require('lspconfig')
 
 -- ============================================================================
--- DIAGNOSTIC SIGNS & APPEARANCE
+-- DIAGNOSTIC CONFIGURATION (single authoritative source)
 -- ============================================================================
--- Customize diagnostic signs shown in the sign column
-local sign = function(opts)
-  vim.fn.sign_define(opts.name, {
-    texthl = opts.name,
-    text = opts.text,
-    numhl = ''
-  })
-end
-
-sign({ name = 'DiagnosticSignError', text = '✘' })
-sign({ name = 'DiagnosticSignWarn', text = '▲' })
-sign({ name = 'DiagnosticSignHint', text = '⚡' })
-sign({ name = 'DiagnosticSignInfo', text = 'ℹ' })
-
--- Configure diagnostic display options
 vim.diagnostic.config({
   virtual_text = true,
   severity_sort = true,
@@ -33,6 +17,26 @@ vim.diagnostic.config({
     source = true,
     header = '',
     prefix = '',
+  },
+  signs = {
+    text = {
+      [vim.diagnostic.severity.ERROR] = ' ',
+      [vim.diagnostic.severity.WARN] = ' ',
+      [vim.diagnostic.severity.INFO] = ' ',
+      [vim.diagnostic.severity.HINT] = '󰌵',
+    },
+    linehl = {
+      [vim.diagnostic.severity.ERROR] = 'DiagnosticSignError',
+      [vim.diagnostic.severity.WARN] = 'DiagnosticSignWarn',
+      [vim.diagnostic.severity.INFO] = 'DiagnosticSignInfo',
+      [vim.diagnostic.severity.HINT] = 'DiagnosticSignHint',
+    },
+    numhl = {
+      [vim.diagnostic.severity.ERROR] = 'DiagnosticSignError',
+      [vim.diagnostic.severity.WARN] = 'DiagnosticSignWarn',
+      [vim.diagnostic.severity.INFO] = 'DiagnosticSignInfo',
+      [vim.diagnostic.severity.HINT] = 'DiagnosticSignHint',
+    },
   },
 })
 

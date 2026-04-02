@@ -108,7 +108,9 @@ vim.g.mapleader = " " -- Set space as leader key
 
 local my_group = vim.api.nvim_create_augroup("MG", { clear = true })
 
-vim.api.nvim_create_autocmd({ "BufWrite" }, {
+vim.api.nvim_create_autocmd({ "BufWritePre" }, {
+  group = my_group,
+  pattern = { "*.rs" },
   callback = function() vim.lsp.buf.format() end,
-  desc = "Format Rust Files on Save",
+  desc = "Format Rust files on save",
 })

@@ -1,9 +1,6 @@
+-- Afterglow colorscheme (available but not auto-activated; rose-pine is primary)
 return
 {
   "danilo-augusto/vim-afterglow",
-  lazy = false,
-  priority = 1000,
-  config = function()
-    vim.cmd([[colorscheme afterglow]])
-  end,
+  lazy = true,
 }
