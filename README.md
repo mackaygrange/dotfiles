@@ -51,7 +51,7 @@ Personal configuration files for Linux (i3/Hyprland) and Windows (PowerShell) en
 
 ## Color Palette
 
-All configurations use the **Rosé Pine** colorscheme. See [`rosepine-palette.md`](rosepine-palette.md) for the full color reference.
+All configurations use the **Rosé Pine** colorscheme. See [`palettes/rosepine-palette.md`](palettes/rosepine-palette.md) for the full color reference.
 
 ### Switching Themes
 

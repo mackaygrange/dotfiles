@@ -461,10 +461,10 @@ fi
 # =====================================================================
 # 12. Update palette .md reference with current variant
 # =====================================================================
-PALETTE_MD="$DOTFILES_DIR/rosepine-palette.md"
-WOODLAND_MD="$DOTFILES_DIR/woodland-palette.md"
+PALETTE_MD="$DOTFILES_DIR/palettes/rosepine-palette.md"
+WOODLAND_MD="$DOTFILES_DIR/palettes/woodland-palette.md"
 if [[ -f "$PALETTE_MD" ]]; then
-    echo "  [+] rosepine-palette.md"
+    echo "  [+] palettes/rosepine-palette.md"
     sed_replace "$PALETTE_MD" \
         '^# Rosé Pine .* — Color Palette Reference' \
         "# Rosé Pine $(echo "${VARIANT}" | sed 's/./\U&/') — Color Palette Reference"
