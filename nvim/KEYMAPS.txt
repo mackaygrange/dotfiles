@@ -1,137 +1,408 @@
-#TODO: 
-
-                                        -- NVIM KEYMAP TRACKER --
-
--- MODIFIER: <LEADER>
-
-    --MODE: <NORMAL>
-
-        -- NEOTREE
-        <t> = toggle tree on left sidebar
-
-        -- TELESCOPE
-        <pf> = open telescope project files
-        <gf> = open telescope git files
-        <ps> = grep search for string
-        
-        -- HARPOON
-        <e> = toggle harpoon gui
-        <a> = add buffer to harpoon
-        <1> = navigate to file 1
-        <2> = navigate to file 2
-        <3> = navigate to file 3
-
-        -- FUGITIVE
-        <gs> = open git menu
-
-        -- GENERAL
-        <.> = open netrw
-        <f> = format selected text
-        <s> = replace/edit/modify current word across the whole buffer
-        <x> = add user permission to execute in current repository
-        <y> = copy selection to system buffer
-        <p> =
-        <d> =
-        <k> =
-        <j> =
+╔══════════════════════════════════════════════════════════════════════════════╗
+║                         NEOVIM KEYMAP REFERENCE                            ║
+║                         Leader key: <Space>                                ║
+╚══════════════════════════════════════════════════════════════════════════════╝
 
 
-    --MODE: <VISUAL>
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ §1  FILE NAVIGATION & MANAGEMENT
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-    --MODE: <INSERT>
+  ┌─────────────────┬──────────────────────────────────────────┬──────────┐
+  │ Key             │ Action                                   │ Mode     │
+  ├─────────────────┼──────────────────────────────────────────┼──────────┤
+  │ <leader>.       │ Open netrw file explorer                 │ Normal   │
+  │ <leader>t       │ Toggle Neo-tree sidebar (right)          │ Normal   │
+  │ \               │ Reveal current file in Neo-tree          │ Normal   │
+  └─────────────────┴──────────────────────────────────────────┴──────────┘
 
-    --MODE: <COMMAND>
+  Telescope ─────────────────────────────────────────────────────────────
 
+  ┌─────────────────┬──────────────────────────────────────────┬──────────┐
+  │ <leader>pf      │ Find files (project)                     │ Normal   │
+  │ <leader>gf      │ Find files (git tracked)                 │ Normal   │
+  │ <leader>ps      │ Grep search for string                   │ Normal   │
+  └─────────────────┴──────────────────────────────────────────┴──────────┘
 
+  Harpoon ───────────────────────────────────────────────────────────────
 
--- MODIFIER: <CONTROL>
-
-    --MODE: <NORMAL>
-
-    --MODE: <VISUAL>
-
-    --MODE: <INSERT>
-
-    --MODE: <COMMAND>
-
-
-
--- MODIFIER: <SHIFT>
-
-    --MODE: <NORMAL>
-
-    --MODE: <VISUAL>
-
-    --MODE: <INSERT>
-
-    --MODE: <COMMAND>
-
-
-
--- MODIFIER: <NONE>
-
-    --MODE: <NORMAL>
-        <j> = cursor down
-        <k> = cursor up
-        <h> = cursor left
-        <l> = cursor right
-        <p> = paste
-
-    --MODE: <VISUAL>
-        <y> = yank (copy)
-        <p> = paste
-        <>
+  ┌─────────────────┬──────────────────────────────────────────┬──────────┐
+  │ <leader>a       │ Add current buffer to Harpoon            │ Normal   │
+  │ <leader>e       │ Toggle Harpoon quick menu                │ Normal   │
+  │ <leader>1       │ Jump to Harpoon file 1                   │ Normal   │
+  │ <leader>2       │ Jump to Harpoon file 2                   │ Normal   │
+  │ <leader>3       │ Jump to Harpoon file 3                   │ Normal   │
+  └─────────────────┴──────────────────────────────────────────┴──────────┘
 
 
-    --MODE: <INSERT>
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ §2  LSP — CODE NAVIGATION
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-    --MODE: <COMMAND>
+  Go-to ─────────────────────────────────────────────────────────────────
 
+  ┌─────────────────┬──────────────────────────────────────────┬──────────┐
+  │ Key             │ Action                                   │ Mode     │
+  ├─────────────────┼──────────────────────────────────────────┼──────────┤
+  │ gd              │ Go to definition                         │ Normal   │
+  │ gD              │ Go to declaration                        │ Normal   │
+  │ gi              │ Go to implementation                     │ Normal   │
+  │ gt              │ Go to type definition                    │ Normal   │
+  │ gr              │ List all references                      │ Normal   │
+  └─────────────────┴──────────────────────────────────────────┴──────────┘
 
+  Diagnostics ───────────────────────────────────────────────────────────
 
--- MISC:
+  ┌─────────────────┬──────────────────────────────────────────┬──────────┐
+  │ ]d              │ Jump to next diagnostic                  │ Normal   │
+  │ [d              │ Jump to previous diagnostic              │ Normal   │
+  │ <leader>vd      │ Show diagnostic in floating window       │ Normal   │
+  │ <leader>dl      │ Send diagnostics to location list        │ Normal   │
+  └─────────────────┴──────────────────────────────────────────┴──────────┘
 
-    --NEOTREE KEYBINDINGS
+  Hover & Signatures ────────────────────────────────────────────────────
 
-        --GLOBAL
-        <A> = add directory 
-        <d> = delete
-        <r> = rename
-        <m> = move
-        <i> = show file details
-        <?> = show help:w
+  ┌─────────────────┬──────────────────────────────────────────┬──────────┐
+  │ K               │ Hover documentation                      │ Normal   │
+  │ <leader>sh      │ Signature help                           │ Normal   │
+  │ <C-s>           │ Signature help                           │ Insert   │
+  └─────────────────┴──────────────────────────────────────────┴──────────┘
 
-        <q> = close window
-        <y> = copy to clipboard
-        <x> = cut to clipboard
-        <p> = paste from clipboard
-        
-        <<> = show previous source
-        <>> = show next source
+  Symbols & Call Hierarchy ──────────────────────────────────────────────
 
-        <z> = close all nodes
-        <Z> = open all nodes
-        <R> = refresh
-
-        --FILESYSTEM
-
-        --BUFFERS
-
-        --GIT
-
-        
-        <> = 
-        <> = 
-        <> = 
-        <> = 
-        <> =
-        <> = 
-
-        <> = 
-        <> = 
-        <> =
-        <> = 
+  ┌─────────────────┬──────────────────────────────────────────┬──────────┐
+  │ <leader>ds      │ Document symbols (outline)               │ Normal   │
+  │ <leader>ws      │ Workspace symbol search                  │ Normal   │
+  │ <leader>ci      │ Incoming calls (who calls this?)         │ Normal   │
+  │ <leader>co      │ Outgoing calls (what does this call?)    │ Normal   │
+  └─────────────────┴──────────────────────────────────────────┴──────────┘
 
 
-    --GLOBAL LUA FUNCTIONS (:lua <function>)
-        <SetColors()> = update colorscheme application for nvim
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ §3  LSP — CODE ACTIONS & REFACTORING
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ┌─────────────────┬──────────────────────────────────────────┬──────────┐
+  │ Key             │ Action                                   │ Mode     │
+  ├─────────────────┼──────────────────────────────────────────┼──────────┤
+  │ <leader>ca      │ Code action                              │ N / V    │
+  │ <leader>rn      │ Rename symbol under cursor               │ Normal   │
+  │ <leader>f       │ Format current buffer                    │ Normal   │
+  └─────────────────┴──────────────────────────────────────────┴──────────┘
+
+  Workspace Management ──────────────────────────────────────────────────
+
+  ┌─────────────────┬──────────────────────────────────────────┬──────────┐
+  │ <leader>wa      │ Add workspace folder                     │ Normal   │
+  │ <leader>wr      │ Remove workspace folder                  │ Normal   │
+  │ <leader>wl      │ List workspace folders                   │ Normal   │
+  └─────────────────┴──────────────────────────────────────────┴──────────┘
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ §4  RUST (rustaceanvim) — only active in Rust buffers
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ┌─────────────────┬──────────────────────────────────────────┬──────────┐
+  │ Key             │ Action                                   │ Mode     │
+  ├─────────────────┼──────────────────────────────────────────┼──────────┤
+  │ <leader>rh      │ Hover actions (Rust-enhanced)            │ Normal   │
+  │ <leader>re      │ Explain error under cursor               │ Normal   │
+  │ <leader>rd      │ Render full diagnostic                   │ Normal   │
+  │ <leader>rm      │ Expand macro recursively                 │ Normal   │
+  │ <leader>rp      │ Go to parent module                      │ Normal   │
+  │ <leader>rc      │ Open Cargo.toml                          │ Normal   │
+  │ <leader>rj      │ Smart join lines                         │ Normal   │
+  │ <leader>rr      │ Run runnables (tests, binaries)          │ Normal   │
+  │ <leader>rb      │ Run debuggables                          │ Normal   │
+  └─────────────────┴──────────────────────────────────────────┴──────────┘
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ §5  GIT
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ┌─────────────────┬──────────────────────────────────────────┬──────────┐
+  │ Key             │ Action                                   │ Mode     │
+  ├─────────────────┼──────────────────────────────────────────┼──────────┤
+  │ <leader>gs      │ Open Fugitive git status                 │ Normal   │
+  │ <leader>lg      │ Open LazyGit                             │ Normal   │
+  └─────────────────┴──────────────────────────────────────────┴──────────┘
+
+  Gitsigns (in-buffer git indicators) ───────────────────────────────────
+
+  ┌─────────────────┬──────────────────────────────────────────┬──────────┐
+  │ ]h              │ Next git hunk                            │ Normal   │
+  │ [h              │ Previous git hunk                        │ Normal   │
+  │ <leader>hs      │ Stage hunk                               │ N / V    │
+  │ <leader>hr      │ Reset hunk                               │ N / V    │
+  │ <leader>hS      │ Stage entire buffer                      │ Normal   │
+  │ <leader>hR      │ Reset entire buffer                      │ Normal   │
+  │ <leader>hu      │ Undo stage hunk                          │ Normal   │
+  │ <leader>hp      │ Preview hunk                             │ Normal   │
+  │ <leader>hb      │ Blame line (full)                        │ Normal   │
+  │ <leader>hd      │ Diff this file                           │ Normal   │
+  │ <leader>hD      │ Diff against ~                           │ Normal   │
+  │ <leader>tb      │ Toggle inline blame                      │ Normal   │
+  └─────────────────┴──────────────────────────────────────────┴──────────┘
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ §6  TROUBLE — diagnostics & quickfix panel
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ┌─────────────────┬──────────────────────────────────────────┬──────────┐
+  │ Key             │ Action                                   │ Mode     │
+  ├─────────────────┼──────────────────────────────────────────┼──────────┤
+  │ <leader>xx      │ Toggle diagnostics (all files)           │ Normal   │
+  │ <leader>xX      │ Toggle diagnostics (current buffer)      │ Normal   │
+  │ <leader>xs      │ Toggle symbols                           │ Normal   │
+  │ <leader>xl      │ Toggle location list                     │ Normal   │
+  │ <leader>xq      │ Toggle quickfix list                     │ Normal   │
+  │ <leader>xt      │ Toggle todo comments list                │ Normal   │
+  └─────────────────┴──────────────────────────────────────────┴──────────┘
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ §7  TREESITTER TEXT OBJECTS — structural code navigation
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  Selection ─────────────────────────────────────────────────────────────
+
+  ┌─────────────────┬──────────────────────────────────────────┬──────────┐
+  │ Key             │ Action                                   │ Mode     │
+  ├─────────────────┼──────────────────────────────────────────┼──────────┤
+  │ af              │ Select around function                   │ V / O    │
+  │ if              │ Select inside function                   │ V / O    │
+  │ ac              │ Select around class                      │ V / O    │
+  │ ic              │ Select inside class                      │ V / O    │
+  │ aa              │ Select around argument/parameter         │ V / O    │
+  │ ia              │ Select inside argument/parameter         │ V / O    │
+  └─────────────────┴──────────────────────────────────────────┴──────────┘
+
+  Movement ──────────────────────────────────────────────────────────────
+
+  ┌─────────────────┬──────────────────────────────────────────┬──────────┐
+  │ ]m              │ Next function start                      │ Normal   │
+  │ ]M              │ Next function end                        │ Normal   │
+  │ ]]              │ Next class start                         │ Normal   │
+  │ ][              │ Next class end                           │ Normal   │
+  │ [m              │ Previous function start                  │ Normal   │
+  │ [M              │ Previous function end                    │ Normal   │
+  │ [[              │ Previous class start                     │ Normal   │
+  │ []              │ Previous class end                       │ Normal   │
+  └─────────────────┴──────────────────────────────────────────┴──────────┘
+
+  Swap ──────────────────────────────────────────────────────────────────
+
+  ┌─────────────────┬──────────────────────────────────────────┬──────────┐
+  │ <leader>sn      │ Swap parameter with next                 │ Normal   │
+  │ <leader>sp      │ Swap parameter with previous             │ Normal   │
+  └─────────────────┴──────────────────────────────────────────┴──────────┘
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ §8  CRATES (Cargo.toml) — only active in Cargo.toml
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ┌─────────────────┬──────────────────────────────────────────┬──────────┐
+  │ Key             │ Action                                   │ Mode     │
+  ├─────────────────┼──────────────────────────────────────────┼──────────┤
+  │ <leader>ct      │ Toggle crate info                        │ Normal   │
+  │ <leader>cr      │ Reload crate data                        │ Normal   │
+  │ <leader>cv      │ Show versions popup                      │ Normal   │
+  │ <leader>cf      │ Show features popup                      │ Normal   │
+  │ <leader>cd      │ Show dependencies popup                  │ Normal   │
+  │ <leader>cu      │ Update crate / selected crates           │ N / V    │
+  │ <leader>cU      │ Upgrade crate / selected crates          │ N / V    │
+  └─────────────────┴──────────────────────────────────────────┴──────────┘
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ §9  TODO COMMENTS & ILLUMINATE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ┌─────────────────┬──────────────────────────────────────────┬──────────┐
+  │ Key             │ Action                                   │ Mode     │
+  ├─────────────────┼──────────────────────────────────────────┼──────────┤
+  │ ]t              │ Next TODO comment                        │ Normal   │
+  │ [t              │ Previous TODO comment                    │ Normal   │
+  │ <leader>st      │ Search TODOs with Telescope              │ Normal   │
+  │ <leader>]       │ Next illuminated reference               │ Normal   │
+  │ <leader>[       │ Previous illuminated reference           │ Normal   │
+  └─────────────────┴──────────────────────────────────────────┴──────────┘
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ §10  EDITING & TEXT MANIPULATION
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ┌─────────────────┬──────────────────────────────────────────┬──────────┐
+  │ Key             │ Action                                   │ Mode     │
+  ├─────────────────┼──────────────────────────────────────────┼──────────┤
+  │ J               │ Join line below (cursor stays put)       │ Normal   │
+  │ J / K           │ Move highlighted lines down / up         │ Visual   │
+  │ <leader>s       │ Search & replace word under cursor       │ Normal   │
+  │ <leader>p       │ Paste without overwriting register       │ Visual   │
+  │ <leader>d       │ Delete without overwriting register      │ N / V    │
+  │ <leader>y       │ Yank to system clipboard                 │ N / V    │
+  │ <leader>Y       │ Yank line to system clipboard            │ Normal   │
+  │ <C-a>           │ Select all & copy to system clipboard    │ N/V/I    │
+  │ gcc             │ Toggle line comment                      │ Normal   │
+  │ gc              │ Toggle comment on selection               │ Visual   │
+  └─────────────────┴──────────────────────────────────────────┴──────────┘
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ §11  MOVEMENT & SCROLLING
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ┌─────────────────┬──────────────────────────────────────────┬──────────┐
+  │ Key             │ Action                                   │ Mode     │
+  ├─────────────────┼──────────────────────────────────────────┼──────────┤
+  │ <C-d>           │ Half-page down (cursor centered)         │ Normal   │
+  │ <C-u>           │ Half-page up (cursor centered)           │ Normal   │
+  │ n / N           │ Next / prev search match (centered)      │ Normal   │
+  │ <C-k>           │ Next item in quickfix list               │ Normal   │
+  │ <C-j>           │ Prev item in quickfix list               │ Normal   │
+  │ <leader>k       │ Next item in location list               │ Normal   │
+  │ <leader>j       │ Prev item in location list               │ Normal   │
+  └─────────────────┴──────────────────────────────────────────┴──────────┘
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ §12  FILE OPERATIONS & MISC
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ┌─────────────────┬──────────────────────────────────────────┬──────────┐
+  │ Key             │ Action                                   │ Mode     │
+  ├─────────────────┼──────────────────────────────────────────┼──────────┤
+  │ <leader>w       │ Save file                                │ N / V    │
+  │ <leader>q       │ Quit                                     │ N / V    │
+  │ <leader>wq      │ Save and quit                            │ N / V    │
+  │ <leader>wqa     │ Save and quit all                        │ N / V    │
+  │ <leader>x       │ chmod +x on current file                 │ Normal   │
+  │ <C-f>           │ Open new tmux session (tmux-sessionizer) │ Normal   │
+  │ <C-c>           │ Escape (alternative to <Esc>)            │ Insert   │
+  │ Q               │ Disabled (no-op)                         │ Normal   │
+  │ <leader>?       │ Show which-key (buffer-local keymaps)    │ Normal   │
+  └─────────────────┴──────────────────────────────────────────┴──────────┘
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ §13  BUILD & RUN
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ┌─────────────────┬──────────────────────────────────────────┬──────────┐
+  │ Key             │ Action                                   │ Mode     │
+  ├─────────────────┼──────────────────────────────────────────┼──────────┤
+  │ <F9>            │ Save & run current Python script         │ N/V/I    │
+  │ <F8>            │ Save & build+run C project (Makefile)    │ N/V/I    │
+  └─────────────────┴──────────────────────────────────────────┴──────────┘
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ §14  COMPLETION (nvim-cmp) — active in insert mode
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ┌─────────────────┬──────────────────────────────────────────┬──────────┐
+  │ Key             │ Action                                   │ Mode     │
+  ├─────────────────┼──────────────────────────────────────────┼──────────┤
+  │ <C-p>           │ Previous item in completion menu         │ Insert   │
+  │ <C-n>           │ Next item in completion menu             │ Insert   │
+  │ <C-y> / <CR>    │ Confirm selection                        │ Insert   │
+  │ <C-e>           │ Abort / dismiss completion               │ Insert   │
+  │ <C-Space>       │ Manually trigger completion              │ Insert   │
+  │ <C-l>           │ Jump forward in snippet                  │ I / S    │
+  │ <C-h>           │ Jump backward in snippet                 │ I / S    │
+  └─────────────────┴──────────────────────────────────────────┴──────────┘
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ §15  NEO-TREE — keybindings inside the tree window
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  General ───────────────────────────────────────────────────────────────
+
+  ┌─────────────────┬──────────────────────────────────────────┐
+  │ <Space>         │ Toggle node expand / collapse            │
+  │ <CR>            │ Open file / directory                    │
+  │ <Esc>           │ Cancel / close preview                   │
+  │ P               │ Toggle preview (floating)                │
+  │ l               │ Focus preview                            │
+  │ S               │ Open in horizontal split                 │
+  │ s               │ Open in vertical split                   │
+  │ t               │ Open in new tab                          │
+  │ w               │ Open with window picker                  │
+  │ q               │ Close Neo-tree window                    │
+  │ ?               │ Show help                                │
+  │ R               │ Refresh tree                             │
+  └─────────────────┴──────────────────────────────────────────┘
+
+  File Operations ───────────────────────────────────────────────────────
+
+  ┌─────────────────┬──────────────────────────────────────────┐
+  │ a               │ Add file                                 │
+  │ A               │ Add directory                            │
+  │ d               │ Delete                                   │
+  │ r               │ Rename                                   │
+  │ m               │ Move                                     │
+  │ c               │ Copy (to destination)                    │
+  │ y               │ Copy to clipboard                        │
+  │ x               │ Cut to clipboard                         │
+  │ p               │ Paste from clipboard                     │
+  │ i               │ Show file details                        │
+  └─────────────────┴──────────────────────────────────────────┘
+
+  Tree Navigation ───────────────────────────────────────────────────────
+
+  ┌─────────────────┬──────────────────────────────────────────┐
+  │ C               │ Close node                               │
+  │ z               │ Close all nodes                          │
+  │ Z               │ Expand all nodes                         │
+  │ <               │ Previous source tab                      │
+  │ >               │ Next source tab                          │
+  └─────────────────┴──────────────────────────────────────────┘
+
+  Filesystem-specific ───────────────────────────────────────────────────
+
+  ┌─────────────────┬──────────────────────────────────────────┐
+  │ <BS>            │ Navigate up (parent directory)           │
+  │ .               │ Set root to current directory            │
+  │ H               │ Toggle hidden files                      │
+  │ /               │ Fuzzy finder                             │
+  │ D               │ Fuzzy finder (directories)               │
+  │ #               │ Fuzzy sorter                             │
+  │ f               │ Filter on submit                         │
+  │ <C-x>           │ Clear filter                             │
+  │ [g / ]g         │ Prev / next git modified file            │
+  │ o + c/d/g/m/n/… │ Order by created/diag/git/mod/name/…    │
+  └─────────────────┴──────────────────────────────────────────┘
+
+  Git Status panel ──────────────────────────────────────────────────────
+
+  ┌─────────────────┬──────────────────────────────────────────┐
+  │ A               │ Git add all                              │
+  │ ga              │ Git add file                             │
+  │ gu              │ Git unstage file                         │
+  │ gr              │ Git revert file                          │
+  │ gc              │ Git commit                               │
+  │ gp              │ Git push                                 │
+  │ gg              │ Git commit and push                      │
+  └─────────────────┴──────────────────────────────────────────┘
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ §16  COMMANDS & LUA FUNCTIONS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ┌──────────────────────────┬─────────────────────────────────────────┐
+  │ :lua SetColors()         │ Reset colorscheme (rose-pine moon)     │
+  │ :lua SetColors("name")   │ Switch to colorscheme "name"           │
+  │ :LazyGit                 │ Open LazyGit                           │
+  │ :CopilotChat             │ Open Copilot Chat                      │
+  │ :Lazy                    │ Open Lazy plugin manager                │
+  │ :Mason                   │ Open Mason LSP/tool manager             │
+  │ :Trouble                 │ Open Trouble diagnostics panel          │
+  │ :TodoTelescope           │ Search TODO/FIXME/HACK comments        │
+  └──────────────────────────┴─────────────────────────────────────────┘

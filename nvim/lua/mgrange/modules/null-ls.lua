@@ -45,9 +45,9 @@ return {
     -- =====================================================================
     -- FORMATTER KEYBINDING
     -- =====================================================================
-    -- Manual format with <leader>f (handled in remap.lua as well)
-    vim.keymap.set('n', '<leader>gf', function()
+    -- Manual format with <leader>bf (buffer format)
+    vim.keymap.set('n', '<leader>bf', function()
       vim.lsp.buf.format()
-    end, { noremap = true, silent = true })
+    end, { noremap = true, silent = true, desc = 'Format buffer (null-ls)' })
   end
 }

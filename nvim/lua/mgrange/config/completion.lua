@@ -13,6 +13,12 @@ local luasnip = require('luasnip')
 local lsp_zero = require('lsp-zero')
 
 -- ============================================================================
+-- COMPLETION BEHAVIOR OPTIONS
+-- ============================================================================
+-- Preset completion selection options for consistency
+local cmp_select_opts = { behavior = cmp.SelectBehavior.Select }
+
+-- ============================================================================
 -- LUASNIP SETUP
 -- ============================================================================
 -- Configure LuaSnip for snippet expansion
@@ -153,9 +159,3 @@ cmp.setup.cmdline(':', {
     { name = 'cmdline' }
   })
 })
-
--- ============================================================================
--- COMPLETION BEHAVIOR OPTIONS
--- ============================================================================
--- Preset completion selection options for consistency
-local cmp_select_opts = { behavior = cmp.SelectBehavior.Select }

@@ -36,7 +36,7 @@ require('lualine').setup
           error = 'DiagnosticError',
           warn = 'DiagnosticWarn',
           info = 'DiagnosticInfo',
-          hint = 'DiagnosticHing',
+          hint = 'DiagnosticHint',
         },
         symbols =
         {
