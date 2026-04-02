@@ -26,7 +26,7 @@ VARIANT="${1:-moon}"
 PALETTE="$SCRIPT_DIR/${VARIANT}.sh"
 if [[ ! -f "$PALETTE" ]]; then
     echo "[!] Unknown variant: $VARIANT"
-    echo "    Available: moon, main, dawn"
+    echo "    Available: moon, main, dawn, woodland"
     exit 1
 fi
 
@@ -367,38 +367,105 @@ fi
 
 # =====================================================================
 # 10. Neovim — update variant in rose-pine setup
+#     Built-in variants (main/moon/dawn) just set the variant name.
+#     Custom palettes override colors via the palette = {} block.
 # =====================================================================
 NVIM_COLORS="$DOTFILES_DIR/nvim/lua/mgrange/config/colors.lua"
 if [[ -f "$NVIM_COLORS" ]]; then
     echo "  [+] nvim/lua/mgrange/config/colors.lua"
+
+    # Determine the closest rose-pine base variant for the plugin
+    case "$VARIANT" in
+        main|moon|dawn) RP_VARIANT="$VARIANT" ;;
+        *)              RP_VARIANT="moon" ;;  # dark custom themes use moon as base
+    esac
+
     sed_replace "$NVIM_COLORS" \
         'variant = ".*"' \
-        "variant = \"${VARIANT}\""
+        "variant = \"${RP_VARIANT}\""
     sed_replace "$NVIM_COLORS" \
         'dark_variant = ".*"' \
-        "dark_variant = \"${VARIANT}\""
+        "dark_variant = \"${RP_VARIANT}\""
+
+    # For custom themes, populate the palette override block
+    if [[ "$VARIANT" != "main" && "$VARIANT" != "moon" && "$VARIANT" != "dawn" ]]; then
+        local_nvim_tmp=$(mktemp)
+        awk -v rp_var="$RP_VARIANT" \
+            -v base="$BASE" -v surface="$SURFACE" -v overlay="$OVERLAY" \
+            -v muted="$MUTED" -v subtle="$SUBTLE" -v text="$TEXT" \
+            -v love="$LOVE" -v gold="$GOLD" -v rose="$ROSE" \
+            -v pine="$PINE" -v foam="$FOAM" -v iris="$IRIS" \
+            -v hl_low="$HIGHLIGHT_LOW" -v hl_med="$HIGHLIGHT_MED" -v hl_high="$HIGHLIGHT_HIGH" '
+        /^  palette = \{/ {
+            print
+            printf "    %s = {\n", rp_var
+            printf "      base = '\''#%s'\'',\n", base
+            printf "      surface = '\''#%s'\'',\n", surface
+            printf "      overlay = '\''#%s'\'',\n", overlay
+            printf "      muted = '\''#%s'\'',\n", muted
+            printf "      subtle = '\''#%s'\'',\n", subtle
+            printf "      text = '\''#%s'\'',\n", text
+            printf "      love = '\''#%s'\'',\n", love
+            printf "      gold = '\''#%s'\'',\n", gold
+            printf "      rose = '\''#%s'\'',\n", rose
+            printf "      pine = '\''#%s'\'',\n", pine
+            printf "      foam = '\''#%s'\'',\n", foam
+            printf "      iris = '\''#%s'\'',\n", iris
+            printf "      highlight_low = '\''#%s'\'',\n", hl_low
+            printf "      highlight_med = '\''#%s'\'',\n", hl_med
+            printf "      highlight_high = '\''#%s'\'',\n", hl_high
+            printf "    },\n"
+            # Skip any existing content until closing },
+            skip = 1
+            next
+        }
+        skip && /^  \},/ { skip = 0; print; next }
+        skip { next }
+        { print }
+        ' "$NVIM_COLORS" > "$local_nvim_tmp" && mv "$local_nvim_tmp" "$NVIM_COLORS"
+    else
+        # For built-in variants, clear any previous custom palette overrides
+        local_nvim_tmp=$(mktemp)
+        awk '
+        /^  palette = \{/ {
+            print
+            skip = 1
+            next
+        }
+        skip && /^  \},/ { skip = 0; print; next }
+        skip { next }
+        { print }
+        ' "$NVIM_COLORS" > "$local_nvim_tmp" && mv "$local_nvim_tmp" "$NVIM_COLORS"
+    fi
 fi
 
 # =====================================================================
 # 11. tmux — update variant
+#     The rose-pine tmux plugin only supports main/moon/dawn.
+#     Custom themes use the closest dark base variant.
 # =====================================================================
 TMUX_CONF="$DOTFILES_DIR/tmux/.tmux.conf"
 if [[ -f "$TMUX_CONF" ]]; then
     echo "  [+] tmux/.tmux.conf"
+    case "$VARIANT" in
+        main|moon|dawn) TMUX_VARIANT="$VARIANT" ;;
+        *)              TMUX_VARIANT="moon" ;;  # dark custom themes use moon as base
+    esac
     sed_replace "$TMUX_CONF" \
         "@rose_pine_variant '.*'" \
-        "@rose_pine_variant '${VARIANT}' # Options are 'main', 'moon' or 'dawn'"
+        "@rose_pine_variant '${TMUX_VARIANT}' # Options are 'main', 'moon' or 'dawn'"
 fi
 
 # =====================================================================
-# 12. Update rosepine-palette.md with current variant
+# 12. Update palette .md reference with current variant
 # =====================================================================
 PALETTE_MD="$DOTFILES_DIR/rosepine-palette.md"
+WOODLAND_MD="$DOTFILES_DIR/woodland-palette.md"
 if [[ -f "$PALETTE_MD" ]]; then
     echo "  [+] rosepine-palette.md"
     sed_replace "$PALETTE_MD" \
         '^# Rosé Pine .* — Color Palette Reference' \
-        "# Rosé Pine $(echo "$VARIANT" | sed 's/./\U&/') — Color Palette Reference"
+        "# Rosé Pine $(echo "${VARIANT}" | sed 's/./\U&/') — Color Palette Reference"
 fi
 
 # =====================================================================
