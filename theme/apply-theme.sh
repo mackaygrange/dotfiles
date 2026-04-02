@@ -479,7 +479,7 @@ echo ""
 
 # --- i3 (send reload via IPC if i3 is running) ---
 if command -v i3-msg &>/dev/null && i3-msg -t get_version &>/dev/null; then
-    i3-msg reload &>/dev/null && echo "  [↻] i3 reloaded"
+    i3-msg restart &>/dev/null && echo "  [↻] i3 restarted"
 fi
 
 # --- background (regenerate gradient wallpaper and apply with hsetroot) ---
