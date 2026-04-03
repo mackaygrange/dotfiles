@@ -1,9 +1,17 @@
 #!/bin/bash
 #
-# apply-theme.sh — Apply a Rosé Pine color variant across all dotfiles
+# apply-theme.sh — Apply a color variant across all dotfiles
 #
 # Usage:
-#   ./theme/apply-theme.sh [moon|main|dawn]
+#   ./theme/apply-theme.sh <variant>
+#
+# Built-in Rosé Pine variants:
+#   moon, main, dawn
+#
+# Custom themes:
+#   woodland, catppuccin-mocha, dracula, gruvbox-dark, nord,
+#   solarized-dark, tokyonight, onedark, kanagawa, everforest,
+#   synthwave84, ayu-dark, monokai-pro, github-dark
 #
 # This script reads a palette from theme/<variant>.sh and writes the
 # appropriate color values into every configuration file that uses
@@ -26,14 +34,17 @@ VARIANT="${1:-moon}"
 PALETTE="$SCRIPT_DIR/${VARIANT}.sh"
 if [[ ! -f "$PALETTE" ]]; then
     echo "[!] Unknown variant: $VARIANT"
-    echo "    Available: moon, main, dawn, woodland"
+    echo "    Available: moon, main, dawn, woodland, catppuccin-mocha, dracula,"
+    echo "               gruvbox-dark, nord, solarized-dark, tokyonight, onedark,"
+    echo "               kanagawa, everforest, synthwave84, ayu-dark, monokai-pro,"
+    echo "               github-dark"
     exit 1
 fi
 
 # shellcheck source=moon.sh
 source "$PALETTE"
 
-echo "[*] Applying Rosé Pine '$VARIANT' theme..."
+echo "[*] Applying '$VARIANT' theme..."
 
 # ---------------------------------------------------------------------------
 # Helper: Replace a line matching a pattern with a new line
