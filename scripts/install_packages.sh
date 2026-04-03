@@ -73,7 +73,7 @@ install_nvm() {
 	else
 		echo "[!] Curl not installed! Skipping install."
 	fi
-
+}
 
 install_npm() {
 	echo ""
