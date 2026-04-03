@@ -70,6 +70,16 @@ fi
 
 # Hopefully we always have git but just in case:
 if command -v git &>/dev/null; then
+	alias gl="git log --oneline"
+	alias gs="git status"
+	alias gd="git diff"
+	alias gurlg="git remote get-url --all origin"
+	alias gurls="git remote set-url --add origin"
+	alias gcb="git checkout --branch"
+	alias gc="git checkout"
+	alias gps="git push"
+	alias gpl="git pull"
+	alias gf="git fetch"
 	alias gsu="git submodule update --init --recursive"
 fi
 
