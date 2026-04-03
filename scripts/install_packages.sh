@@ -65,7 +65,7 @@ install_nvm() {
 	echo ""
 	echo "[*] Installing node version manager from github..."
 	if command -v curl &>/dev/null 2>&1; then
-		if [ command -v nvm &>/dev/null 2>&1 ] || [ -d "${HOME}/.nvm/.git" ]; then
+		if [ -d "${HOME}/.nvm/.git" ]; then
 			echo "[-] Node version manager is already installed!"
 		else
 			curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.4/install.sh | bash
@@ -80,7 +80,7 @@ install_nvm() {
 install_npm() {
 	echo ""
 	echo "[*] Installing node package manager with node version manager..."
-	if command -v nvm &>/dev/null 2>&1; then
+	if [ -d "${HOME}/.nvm/.git" ]; then
 		if command -v npm &>/dev/null 2>&1; then
 			echo "[-] Node package manager is already installed!"
 		else
