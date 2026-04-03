@@ -453,9 +453,10 @@ if [[ -f "$NVIM_COLORS" ]]; then
 fi
 
 # =====================================================================
-# 11. tmux — update variant
+# 11. tmux — update variant and status-bar colors
 #     The rose-pine tmux plugin only supports main/moon/dawn.
-#     Custom themes use the closest dark base variant.
+#     Custom themes use the closest dark variant *and* apply direct
+#     color overrides after plugins load so the bar matches the palette.
 # =====================================================================
 TMUX_CONF="$DOTFILES_DIR/tmux/.tmux.conf"
 if [[ -f "$TMUX_CONF" ]]; then
@@ -467,6 +468,23 @@ if [[ -f "$TMUX_CONF" ]]; then
     sed_replace "$TMUX_CONF" \
         "@rose_pine_variant '.*'" \
         "@rose_pine_variant '${TMUX_VARIANT}' # Options are 'main', 'moon' or 'dawn'"
+
+    # For custom themes, populate the override block with palette colors.
+    # For built-in rose-pine variants, clear it so the plugin handles colors.
+    if [[ "$VARIANT" != "main" && "$VARIANT" != "moon" && "$VARIANT" != "dawn" ]]; then
+        TMUX_THEME_BLOCK="set -g status-style \"bg=default,fg=#${TEXT}\"
+set -g message-style \"bg=#${SURFACE},fg=#${TEXT}\"
+set -g message-command-style \"bg=#${SURFACE},fg=#${TEXT}\"
+set -g pane-border-style \"fg=#${HIGHLIGHT_MED}\"
+set -g pane-active-border-style \"fg=#${IRIS}\"
+set -g mode-style \"bg=#${HIGHLIGHT_MED},fg=#${TEXT}\"
+set -g window-status-style \"fg=#${SUBTLE}\"
+set -g window-status-current-style \"fg=#${ROSE},bold\"
+set -g window-status-activity-style \"fg=#${GOLD}\""
+    else
+        TMUX_THEME_BLOCK="# (Populated by apply-theme.sh for non-rosé-pine themes)"
+    fi
+    replace_block "$TMUX_CONF" "# BEGIN_TMUX_THEME" "# END_TMUX_THEME" "$TMUX_THEME_BLOCK"
 fi
 
 # =====================================================================
@@ -488,9 +506,16 @@ echo ""
 echo "[OK] Theme '$VARIANT' applied to all configuration files."
 echo ""
 
-# --- i3 (send reload via IPC if i3 is running) ---
-if command -v i3-msg &>/dev/null && i3-msg -t get_version &>/dev/null; then
-    i3-msg restart &>/dev/null && echo "  [↻] i3 restarted"
+# --- i3 (reload config, then restart to fully refresh i3bar colors) ---
+if command -v i3-msg &>/dev/null && i3-msg -t get_version &>/dev/null 2>&1; then
+    i3-msg reload 2>/dev/null && echo "  [↻] i3 config reloaded"
+    # i3-msg restart causes i3 to re-exec, which may drop the IPC connection
+    # before returning.  Run it in the background after a short delay so the
+    # bar fully reinitialises with the new colors.
+    ( sleep 0.5 && i3-msg restart ) &>/dev/null &
+    echo "  [↻] i3 restart scheduled"
+    # Also refresh i3status so status indicators pick up new colors
+    killall -SIGUSR1 i3status 2>/dev/null && echo "  [↻] i3status refreshed"
 fi
 
 # --- background (regenerate gradient wallpaper and apply with hsetroot) ---
