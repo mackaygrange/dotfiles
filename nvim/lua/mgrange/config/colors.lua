@@ -48,6 +48,23 @@ require("rose-pine").setup({
   },
 
   palette = {
+    moon = {
+      base = '#262335',
+      surface = '#2e2a3e',
+      overlay = '#3b3654',
+      muted = '#6c6783',
+      subtle = '#848bbd',
+      text = '#e0d9f5',
+      love = '#fe4450',
+      gold = '#fede5d',
+      rose = '#ff7edb',
+      pine = '#36f9f6',
+      foam = '#72f1b8',
+      iris = '#b893ce',
+      highlight_low = '#2e2a3e',
+      highlight_med = '#3f3a56',
+      highlight_high = '#504a6e',
+    },
   },
 
   -- NOTE: Highlight groups are extended (merged) by default. Disable this
