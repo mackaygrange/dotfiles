@@ -10,8 +10,6 @@ CONFIG_DIR="${HOME}/.config"
 HELP_FLAG=0
 INSTALL_FLAG=0
 
-
-
 # ============================================================================
 # UTILITY FUNCTIONS
 # ============================================================================
@@ -94,6 +92,9 @@ install_npm() {
 
 # Array containing the apt packages to download for ubuntu:
 declare -a ubuntu_apt_packages=(
+	"fd"
+	"ripgrep"
+	"fzf"
 	"ssh"
 	"git"
 	"curl"
@@ -128,57 +129,55 @@ declare -a ubuntu_apt_packages=(
 
 # Array containing the snap packeges to download for ubuntu:
 declare -a ubuntu_snap_packages=(
-  "nvim"
+	"nvim"
 )
 
 declare -a arch_pacman_packages=(
-  "wofi"
-  "hyprland"
-  "waybar"
+	"wofi"
+	"hyprland"
+	"waybar"
 )
 
 install_ubuntu_packages() {
-  echo ""
-  echo "[*] Installing Ubuntu packages..."
+	echo ""
+	echo "[*] Installing Ubuntu packages..."
 
-  for pkg in "${ubuntu_apt_packages[@]}"; do
-    sudo apt-get install -y "$pkg"
-  done
+	for pkg in "${ubuntu_apt_packages[@]}"; do
+		sudo apt-get install -y "$pkg"
+	done
 
-  for pkg in "${ubuntu_snap_packages[@]}"; do
-    sudo snap install "$pkg" --classic
-  done
+	for pkg in "${ubuntu_snap_packages[@]}"; do
+		sudo snap install "$pkg" --classic
+	done
 
-  echo "[+] Installation of Ubuntu packages complete!"
+	echo "[+] Installation of Ubuntu packages complete!"
 }
 
 install_arch_packages() {
-  echo ""
-  echo "[*] Installing Arch packages..."
+	echo ""
+	echo "[*] Installing Arch packages..."
 
-  echo "[!] Installation of Arch packages complete!"
+	echo "[!] Installation of Arch packages complete!"
 }
 
 # ============================================================================
 # MAIN SETUP
 # ============================================================================
 
-
-
 while getopts "hi" flag; do
-  case "${flag}" in
-    h) HELP_FLAG=1 ;;
-    i) INSTALL_FLAG=1 ;;
-  esac
+	case "${flag}" in
+	h) HELP_FLAG=1 ;;
+	i) INSTALL_FLAG=1 ;;
+	esac
 done
 
 if [[ "$HELP_FLAG" == 1 ]]; then
-  echo "Usage: ./install_packages.sh [options]"
-  echo ""
-  echo "Options:"
-  echo "  -h, --help    Show this help message"
-  echo "  -i, --install Install Packages"
-  exit 0
+	echo "Usage: ./install_packages.sh [options]"
+	echo ""
+	echo "Options:"
+	echo "  -h, --help    Show this help message"
+	echo "  -i, --install Install Packages"
+	exit 0
 fi
 
 detect_os_and_distro
@@ -186,26 +185,26 @@ detect_os_and_distro
 echo "[== [+] RUNNING PACKAGE INSTALLATION SCRIPT ==]"
 echo "  Detected OS: $OS"
 if [ -n "$DISTRO" ]; then
-  echo "  Detected Distro: $DISTRO"
+	echo "  Detected Distro: $DISTRO"
 fi
 echo ""
 
 # Install packages depending on the distro being used:
 # TODO: Add support for more distros and complete arch package list:
 if [ $EUID -ne 0 ]; then
-  if [ "$INSTALL_FLAG" == 1  ]; then
-    echo "[*] Installing packages..."
-    if [ "$DISTRO" == "ubuntu" ]; then
-      install_ubuntu_packages
-    elif [ "$DISTRO" == "arch" ]; then
-      install_arch_packages
-    else
-      echo "[!] $DISTRO distribution is not yet supported!"
-    fi
-  fi
+	if [ "$INSTALL_FLAG" == 1 ]; then
+		echo "[*] Installing packages..."
+		if [ "$DISTRO" == "ubuntu" ]; then
+			install_ubuntu_packages
+		elif [ "$DISTRO" == "arch" ]; then
+			install_arch_packages
+		else
+			echo "[!] $DISTRO distribution is not yet supported!"
+		fi
+	fi
 else
-  echo "[!] Do not run this script with sudo privileges, unexpected behaviour will occur"
-  exit 1
+	echo "[!] Do not run this script with sudo privileges, unexpected behaviour will occur"
+	exit 1
 fi
 
 # These can be installed regardless of distro:
