@@ -107,21 +107,21 @@ bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOU
 # ==-- i3 Appearance Settings --== #
 font pango:Cascadia Code NF 8
 
-set $base           #232136A8
-set $surface        #2a273fA8
-set $overlay        #393552A8
-set $muted          #6e6a8666
-set $subtle         #908caa66
-set $text           #e0def4FF
-set $love           #eb6f92A8
-set $gold           #f6c177FF
-set $rose           #ea9a97A8
-set $pine           #3e8fb0A8
-set $foam           #9ccfd8A8
-set $iris           #c4a7e7A8
-set $highlightlow   #2a283e66
-set $highlightmed   #44415a66
-set $highlighthigh  #56526e66
+set $base           #262335A8
+set $surface        #2e2a3eA8
+set $overlay        #3b3654A8
+set $muted          #6c678366
+set $subtle         #848bbd66
+set $text           #e0d9f5FF
+set $love           #fe4450A8
+set $gold           #fede5dFF
+set $rose           #ff7edbA8
+set $pine           #36f9f6A8
+set $foam           #72f1b8A8
+set $iris           #b893ceA8
+set $highlightlow   #2e2a3e66
+set $highlightmed   #3f3a5666
+set $highlighthigh  #504a6e66
 
 # target                title          bg             text     indicator border
 client.focused          $highlightlow  $highlightlow  $text    $iris     $highlightlow
@@ -150,7 +150,7 @@ exec_always xrandr --output HDMI-2 --mode 3440x1440 --primary
 
 # Set background: 
 # Possible to play with these settings to acheive a desired effect.
-exec --no-startup-id convert -size 5360x1440 -define gradient:radii=2440,720 -define gradient:angle=20 radial-gradient:"#c4a7e7"-"#232136" $HOME/repos/dotfiles/wallpapers/gradient.png && hsetroot -root -fill $HOME/repos/dotfiles/wallpapers/gradient.png
+exec --no-startup-id convert -size 5360x1440 -define gradient:radii=2440,720 -define gradient:angle=20 radial-gradient:"#ff7edb"-"#262335" $HOME/repos/dotfiles/wallpapers/gradient.png && hsetroot -root -fill $HOME/repos/dotfiles/wallpapers/gradient.png
 
 # Initial Desktop Apps:
 assign [window_role="browser"] $ws1
