@@ -1,12 +1,10 @@
-#!bash
+#!/bin/bash
 
 # Source Vivado and Vitis if they are installed:
 if [ -d "/tools/Xilinx/" ]; then
 	source /tools/Xilinx/Vivado/2024.2/settings64.sh
 	source /tools/Xilinx/Vitis/2024.2/settings64.sh
 fi
-
-alias login-lab="kitty +kitten ssh -Y 192.168.66.53 -l mgrange"
 
 # Source cargo if it is installed:
 if [ -d "$HOME/.cargo" ]; then

@@ -48,11 +48,6 @@ require("rose-pine").setup({
   },
 
   palette = {
-    -- Override the builtin palette per variant
-    -- moon = {
-    --     base = '#18191a',
-    --     overlay = '#363738',
-    -- },
   },
 
   -- NOTE: Highlight groups are extended (merged) by default. Disable this

@@ -231,11 +231,11 @@
         "format": "{}",
         "rotate": 0,
         "exec": "echo ; echo 󰆊 switch wallpaper",
-        "on-click": "swww img --transition-type grow --transition-pos 0.071,0.988 --transition-step 255 --transition-fps 60 /home/anik/Downloads/skyway.jpg",
-        "on-click-right": "swww img --transition-type grow --transition-pos 0.071,0.988 --transition-step 255 --transition-fps 60 /home/anik/Downloads/cloud.png",
-        "on-click-middle": "swww img --transition-type grow --transition-pos 0.071,0.988 --transition-step 255 --transition-fps 60 /home/anik/Downloads/gradient.jpg",
-        "on-scroll-up": "swww img --transition-type grow --transition-pos 0.071,0.988 --transition-step 255 --transition-fps 60 /home/anik/Downloads/torvalds.png",
-        "on-scroll-down": "swww img --transition-type grow --transition-pos 0.071,0.988 --transition-step 255 --transition-fps 60 /home/anik/Downloads/night.png",
+        "on-click": "swww img --transition-type grow --transition-pos 0.071,0.988 --transition-step 255 --transition-fps 60 $HOME/Downloads/skyway.jpg",
+        "on-click-right": "swww img --transition-type grow --transition-pos 0.071,0.988 --transition-step 255 --transition-fps 60 $HOME/Downloads/cloud.png",
+        "on-click-middle": "swww img --transition-type grow --transition-pos 0.071,0.988 --transition-step 255 --transition-fps 60 $HOME/Downloads/gradient.jpg",
+        "on-scroll-up": "swww img --transition-type grow --transition-pos 0.071,0.988 --transition-step 255 --transition-fps 60 $HOME/Downloads/torvalds.png",
+        "on-scroll-down": "swww img --transition-type grow --transition-pos 0.071,0.988 --transition-step 255 --transition-fps 60 $HOME/Downloads/night.png",
         "interval" : 86400, // once every day
         "tooltip": true
     },

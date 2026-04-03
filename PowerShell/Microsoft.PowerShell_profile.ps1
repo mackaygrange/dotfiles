@@ -47,8 +47,10 @@ function cds
 	fd -td --max-results=1 $dirname | cd
 }
 
-Import-Module $env:ChocolateyInstall\helpers\chocolateyProfile.psm1
-refreshenv
+if ($env:ChocolateyInstall -and (Test-Path "$env:ChocolateyInstall\helpers\chocolateyProfile.psm1")) {
+    Import-Module $env:ChocolateyInstall\helpers\chocolateyProfile.psm1
+    refreshenv
+}
 
 cls
 

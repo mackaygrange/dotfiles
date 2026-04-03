@@ -3,7 +3,7 @@
     shrink = false
     transparency = 25
     notification_height = 50
-    seperator_height = 10 
+    separator_height = 10 
     padding = 10
     horizontal_padding = 10
     frame_width = 0
@@ -20,21 +20,21 @@
     foreground = "#ffffff"
 
 [urgency_low]
-    background = "#393955"
+    background = "#393552"
     highlight = "#ffffff"
     frame_color = "#3e8fb0"
     default_icon = "dialog-information"
     format = "<b><span foreground='#ffffff'>%s</span></b>\n%b"
 
 [urgency_normal]
-    background = "#443c53"
+    background = "#393552"
     highlight = "#ffffff"
     frame_color = "#f6c177"
     default_icon = "dialog-warning"
     format = "<b><span foreground='#ffffff'>%s</span></b>\n%b"
 
 [urgency_critical]
-    background = "#433754"
+    background = "#393552"
     highlight = "#ffffff"
     frame_color = "#eb6f92"
     default_icon = "dialog-error"

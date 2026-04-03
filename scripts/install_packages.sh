@@ -51,7 +51,7 @@ install_zoxide() {
 # Install tpm: 
 install_tpm() {
   echo ""
-  echo "[*] Installing tmux package mangager from github..."
+  echo "[*] Installing tmux package manager from github..."
   if [ ! -d "$HOME/.tmux/plugins/tpm" ]; then
     git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
     echo "[+] Installed tmux package manager!"
@@ -115,7 +115,7 @@ install_ubuntu_packages() {
   done
 
   for pkg in "${ubuntu_snap_packages[@]}"; do
-    sudo snap install -y "$pkg" --classic
+    sudo snap install "$pkg" --classic
   done
 
   echo "[+] Installation of Ubuntu packages complete!"
@@ -173,7 +173,7 @@ if [ $EUID -ne 0 ]; then
     fi
   fi 
 else
-  echo "[!] Do not run this script with sudo privledges, unexpected behaviour will occur"
+  echo "[!] Do not run this script with sudo privileges, unexpected behaviour will occur"
   exit 1
 fi
 
