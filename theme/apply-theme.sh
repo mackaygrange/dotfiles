@@ -167,13 +167,13 @@ color5     #${TERM_MAGENTA}
 color6     #${TERM_CYAN}
 color7     #${TERM_WHITE}
 color8     #${TERM_BRIGHT_BLACK}
-color9     #${TERM_RED}
-color10    #${TERM_GREEN}
-color11    #${TERM_YELLOW}
-color12    #${TERM_BLUE}
-color13    #${TERM_MAGENTA}
-color14    #${TERM_CYAN}
-color15    #${TERM_WHITE}
+color9     #${TERM_BRIGHT_RED}
+color10    #${TERM_BRIGHT_GREEN}
+color11    #${TERM_BRIGHT_YELLOW}
+color12    #${TERM_BRIGHT_BLUE}
+color13    #${TERM_BRIGHT_MAGENTA}
+color14    #${TERM_BRIGHT_CYAN}
+color15    #${TERM_BRIGHT_WHITE}
 
 background_opacity 0.8"
     replace_block "$KITTY" "# BEGIN_KITTY_COLORS" "# END_KITTY_COLORS" "$KITTY_COLORS"
