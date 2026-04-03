@@ -34,6 +34,18 @@ vim.diagnostic.config({
 })
 
 -- ============================================================================
+-- LSP FLOATING WINDOW BORDERS
+-- ============================================================================
+-- Configure rounded borders for LSP hover and signature help floating windows
+vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
+  vim.lsp.handlers.hover, { border = "rounded" }
+)
+
+vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(
+  vim.lsp.handlers.signature_help, { border = "rounded" }
+)
+
+-- ============================================================================
 -- LSP KEYBINDINGS & ATTACH
 -- ============================================================================
 -- This runs when an LSP server attaches to a buffer
@@ -53,7 +65,11 @@ end)
 -- MASON SETUP (Package Manager for LSP Servers)
 -- ============================================================================
 -- Mason automatically installs and manages LSP servers, formatters, and linters
-require('mason').setup({})
+require('mason').setup({
+  ui = {
+    border = "rounded",
+  },
+})
 
 -- ============================================================================
 -- MASON-LSPCONFIG SETUP
