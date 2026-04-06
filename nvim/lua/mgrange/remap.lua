@@ -95,19 +95,3 @@ vim.keymap.set('i', '<F8>', function()
   local dir_name = vim.fn.fnamemodify(vim.fn.expand('%:p:h'), ':t')
   vim.fn.system('make && ' .. dir_name)
 end, { noremap = true, silent = true })
-
--- Quick save file
-vim.keymap.set('n', '<leader>w', function() vim.cmd.write() end, { noremap = true, silent = true })
-vim.keymap.set('v', '<leader>w', function() vim.cmd.write() end, { noremap = true, silent = true })
-
--- Quick quit
-vim.keymap.set('n', '<leader>q', function() vim.cmd.quit() end, { noremap = true, silent = true })
-vim.keymap.set('v', '<leader>q', function() vim.cmd.quit() end, { noremap = true, silent = true })
-
--- Quick savequit
-vim.keymap.set('n', '<leader>wq', function() vim.cmd.wq() end, { noremap = true, silent = true })
-vim.keymap.set('v', '<leader>wq', function() vim.cmd.wq() end, { noremap = true, silent = true })
-
--- Quick savequit all
-vim.keymap.set('n', '<leader>wqa', function() vim.cmd.wqa() end, { noremap = true, silent = true })
-vim.keymap.set('v', '<leader>wqa', function() vim.cmd.wqa() end, { noremap = true, silent = true })
