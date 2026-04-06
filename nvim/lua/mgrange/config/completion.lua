@@ -133,9 +133,17 @@ cmp.setup({
   -- ========================================================================
   -- COMPLETION MENU APPEARANCE
   -- ========================================================================
+  -- Telescope-style floating windows: use NormalFloat (overlay bg) instead
+  -- of Normal (transparent) so completion popups have a visible panel
   window = {
-    completion = cmp.config.window.bordered(),
-    documentation = cmp.config.window.bordered(),
+    completion = {
+      border = 'rounded',
+      winhighlight = 'Normal:NormalFloat,FloatBorder:FloatBorder,CursorLine:Visual,Search:None',
+    },
+    documentation = {
+      border = 'rounded',
+      winhighlight = 'Normal:NormalFloat,FloatBorder:FloatBorder,CursorLine:Visual,Search:None',
+    },
   },
 })
 

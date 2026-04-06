@@ -70,10 +70,10 @@ require("rose-pine").setup({
   -- NOTE: Highlight groups are extended (merged) by default. Disable this
   -- per group via `inherit = false`
   highlight_groups = {
-    -- Comment = { fg = "foam" },
-    -- StatusLine = { fg = "love", bg = "love", blend = 15 },
-    -- VertSplit = { fg = "muted", bg = "muted" },
-    -- Visual = { fg = "base", bg = "text", inherit = false },
+    -- Telescope-style floating window borders: panel background with muted border
+    NormalFloat = { bg = "overlay" },
+    FloatBorder = { fg = "muted", bg = "overlay" },
+    FloatTitle = { fg = "foam", bg = "overlay", bold = true },
   },
 
   before_highlight = function(group, highlight, palette)
@@ -94,11 +94,9 @@ function SetColors(color)
   vim.cmd.colorscheme(color)
 
   vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
-  vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
   vim.api.nvim_set_hl(0, "NormalNC", { bg = "none" })
   vim.api.nvim_set_hl(0, "StatusLineNC", { bg = "none" })
   vim.api.nvim_set_hl(0, "VertSplit", { bg = "none" })
-  vim.api.nvim_set_hl(0, "FloatBorder", { bg = "none" })
 end
 
 SetColors()
