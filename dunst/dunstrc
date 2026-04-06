@@ -1,9 +1,16 @@
+#      _                 _
+#     | |               | |
+#   __| |_   _ _ __  ___| |_ _ __ ___
+#  / _` | | | | '_ \/ __| __| '__/ __|
+# | (_| | |_| | | | \__ \ |_| | | (__
+#  \__,_|\__,_|_| |_|___/\__|_|  \___|
+
 [global]
     geometry = "512x3-10+10"
     shrink = false
     transparency = 25
     notification_height = 50
-    separator_height = 10 
+    separator_height = 10
     padding = 10
     horizontal_padding = 10
     frame_width = 0
