@@ -20,8 +20,8 @@ Personal configuration files for Linux (i3/Hyprland) and Windows (PowerShell) en
 | `picom/`        | X11 compositor                         |
 | `PowerShell/`   | Windows PowerShell profile             |
 | `rofi/`         | Application launcher (X11)             |
-| `scripts/`      | Setup, symlink, and package install scripts |
-| `theme/`        | Centralized color palette and `apply-theme.sh` script |
+| `scripts/`      | Setup, symlink, package install, and theme scripts |
+| `theme/`        | Centralized color palettes and reference docs |
 | `tmux/`         | tmux terminal multiplexer              |
 | `uwsm/`        | Universal Wayland Session Manager      |
 | `wallpapers/`   | Desktop wallpapers                     |
@@ -51,7 +51,7 @@ Personal configuration files for Linux (i3/Hyprland) and Windows (PowerShell) en
 
 ## Color Palette
 
-All configurations use the **Rosé Pine** colorscheme. See [`palettes/rosepine-palette.md`](palettes/rosepine-palette.md) for the full color reference.
+All configurations use the **Rosé Pine** colorscheme. See [`theme/palettes/rosepine-palette.md`](theme/palettes/rosepine-palette.md) for the full color reference.
 
 ### Switching Themes
 
@@ -59,12 +59,12 @@ A single script applies any Rosé Pine variant across **all** config files at on
 
 ```bash
 # Available variants: moon (default), main, dawn
-bash theme/apply-theme.sh moon   # dark – muted
-bash theme/apply-theme.sh main   # dark – vivid
-bash theme/apply-theme.sh dawn   # light
+bash scripts/apply-theme.sh moon   # dark – muted
+bash scripts/apply-theme.sh main   # dark – vivid
+bash scripts/apply-theme.sh dawn   # light
 ```
 
-The script updates: i3, i3status, kitty, dunst, hyprland, picom, rofi, wofi, waybar, Neovim, and tmux. Palette definitions live in `theme/<variant>.sh`.
+The script updates: i3, i3status, kitty, dunst, hyprland, picom, rofi, wofi, waybar, Neovim, and tmux. Palette definitions live in `theme/palettes/<variant>.sh`.
 
 ## Notes
 

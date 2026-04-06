@@ -3,7 +3,7 @@
 # apply-theme.sh — Apply a color variant across all dotfiles
 #
 # Usage:
-#   ./theme/apply-theme.sh <variant>
+#   ./scripts/apply-theme.sh <variant>
 #
 # Built-in Rosé Pine variants:
 #   moon, main, dawn
@@ -13,7 +13,7 @@
 #   solarized-dark, tokyonight, onedark, kanagawa, everforest,
 #   synthwave84, ayu-dark, monokai-pro, github-dark
 #
-# This script reads a palette from theme/<variant>.sh and writes the
+# This script reads a palette from theme/palettes/<variant>.sh and writes the
 # appropriate color values into every configuration file that uses
 # hardcoded colors.  Files that use a plugin-based theme (Neovim,
 # tmux) are updated to select the correct variant instead.
@@ -31,7 +31,7 @@ DOTFILES_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
 # ---------------------------------------------------------------------------
 VARIANT="${1:-moon}"
 
-PALETTE="$SCRIPT_DIR/${VARIANT}.sh"
+PALETTE="$DOTFILES_DIR/theme/palettes/${VARIANT}.sh"
 if [[ ! -f "$PALETTE" ]]; then
     echo "[!] Unknown variant: $VARIANT"
     echo "    Available: moon, main, dawn, woodland, catppuccin-mocha, dracula,"
@@ -41,7 +41,7 @@ if [[ ! -f "$PALETTE" ]]; then
     exit 1
 fi
 
-# shellcheck source=moon.sh
+# shellcheck source=../theme/palettes/moon.sh
 source "$PALETTE"
 
 echo "[*] Applying '$VARIANT' theme..."
@@ -476,7 +476,7 @@ if [[ -f "$TMUX_CONF" ]]; then
         "@rose_pine_variant '.*'" \
         "@rose_pine_variant '${TMUX_VARIANT}' # Options are 'main', 'moon' or 'dawn'"
 
-    OVERRIDE_SCRIPT="$SCRIPT_DIR/.tmux-override-colors.sh"
+    OVERRIDE_SCRIPT="$DOTFILES_DIR/theme/.tmux-override-colors.sh"
 
     # For custom themes, populate the override block with palette colors.
     # For built-in rose-pine variants, clear it so the plugin handles colors.
@@ -595,10 +595,10 @@ fi
 # =====================================================================
 # 12. Update palette .md reference with current variant
 # =====================================================================
-PALETTE_MD="$DOTFILES_DIR/palettes/rosepine-palette.md"
-WOODLAND_MD="$DOTFILES_DIR/palettes/woodland-palette.md"
+PALETTE_MD="$DOTFILES_DIR/theme/palettes/rosepine-palette.md"
+WOODLAND_MD="$DOTFILES_DIR/theme/palettes/woodland-palette.md"
 if [[ -f "$PALETTE_MD" ]]; then
-    echo "  [+] palettes/rosepine-palette.md"
+    echo "  [+] theme/palettes/rosepine-palette.md"
     sed_replace "$PALETTE_MD" \
         '^# Rosé Pine .* — Color Palette Reference' \
         "# Rosé Pine $(echo "${VARIANT}" | sed 's/./\U&/') — Color Palette Reference"
