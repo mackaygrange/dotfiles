@@ -1,16 +1,12 @@
-#    __                        __
-#    /\ \                      /\ \
-#    \ \ \____     __      ____\ \ \___   _ __   ___
-#     \ \ '__`\  /'__`\   /',__\\ \  _ `\/\`'__\/'___\
-#    __\ \ \L\ \/\ \L\.\_/\__, `\\ \ \ \ \ \ \//\ \__/
-#   /\_\\ \_,__/\ \__/.\_\/\____/ \ \_\ \_\ \_\\ \____\
-#   \/_/ \/___/  \/__/\/_/\/___/   \/_/\/_/\/_/ \/____/
+#    _               _
+#   | |             | |
+#   | |__   __ _ ___| |__  _ __ ___
+#   | '_ \ / _` / __| '_ \| '__/ __|
+#  _| |_) | (_| \__ \ | | | | | (__
+# (_)_.__/ \__,_|___/_| |_|_|  \___|
 
 # If not running interactively, don't do anything:
 [[ $- != *i* ]] && return
-
-source "$HOME/repos/dotfiles/bash/work-env.sh"
-export PATH="$HOME/.luarocks/bin/:$PATH"
 
 # History Configuration
 HISTSIZE=10000
@@ -87,6 +83,9 @@ fi
 export HISTFILE="${XDG_CONFIG_HOME:-$HOME}/.bash_history"
 export INPUTRC="${XDG_CONFIG_HOME:-$HOME}/.inputrc"
 
+# Add luarocks to path: (TODO: need to add gaurds)
+# export PATH="$HOME/.luarocks/bin/:$PATH"
+
 # Less/Man page colors:
 export LESS_TERMCAP_mb=$'\e[1;36m'   # Begin bold
 export LESS_TERMCAP_md=$'\e[1;36m'   # Begin blink
@@ -142,3 +141,6 @@ fi
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# External Modules:
+source "$HOME/repos/dotfiles/bash/work-env.sh"
