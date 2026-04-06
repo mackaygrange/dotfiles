@@ -1,4 +1,11 @@
-#!/bin/bash
+#                     _                         _
+#                    | |                       | |
+# __      _____  _ __| | __  ___ _ ____   _____| |__
+# \ \ /\ / / _ \| '__| |/ / / _ \ '_ \ \ / / __| '_ \
+#  \ V  V / (_) | |  |   < |  __/ | | \ V /\__ \ | | |
+#   \_/\_/ \___/|_|  |_|\_\ \___|_| |_|\_(_)___/_| |_|
+#                      ______
+#                     |______|
 
 # Source Vivado and Vitis if they are installed:
 if [ -d "/tools/Xilinx/" ]; then
@@ -6,10 +13,7 @@ if [ -d "/tools/Xilinx/" ]; then
 	source /tools/Xilinx/Vitis/2024.2/settings64.sh
 fi
 
-# Source cargo if it is installed:
-if [ -d "$HOME/.cargo" ]; then
-	source $HOME/.cargo/env
-fi
+alias login-lab="kitty +kitten ssh -Y 192.168.66.53 -l mgrange"
 
 # Only useful if we have kitty installed:
 if command -v kitty >/dev/null 2>&1; then

@@ -98,7 +98,6 @@ vim.opt.completeopt = { "menuone", "noselect", "popup" }
 -- MISCELLANEOUS
 -- ============================================================================
 vim.opt.grepformat = "%f%l%c%m" -- Format for grep output parsing
-
 vim.opt.clipboard:append({ 'unnamed', 'unnamedplus' })
 
 -- ============================================================================

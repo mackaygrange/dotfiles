@@ -1,4 +1,5 @@
 /nvim/undo/**
+package-lock.json
 
 # Auto-generated tmux color override script (created by apply-theme.sh)
 /theme/.tmux-override-colors.sh

@@ -38,6 +38,10 @@ require("lazy").setup({
       task = "📌",
     },
   },
+  rocks = {
+    enabled = false,
+    hererocks = false,
+  },
   performance = {
     rtp = {
       disabled_plugins = {

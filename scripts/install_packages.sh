@@ -34,8 +34,8 @@ detect_os_and_distro() {
 install_zoxide() {
 	echo ""
 	echo "[*] Installing zoxide from cargo..."
-	if command -v cargo &>/dev/null 2>&1; then
-		if command -v zoxide &>/dev/null 2>&1; then
+	if command -v cargo &>/dev/null; then
+		if command -v zoxide &>/dev/null; then
 			echo "[-] Zoxide is already installed!"
 		else
 			cargo install zoxide
@@ -62,7 +62,7 @@ install_tpm() {
 install_nvm() {
 	echo ""
 	echo "[*] Installing node version manager from github..."
-	if command -v curl &>/dev/null 2>&1; then
+	if command -v curl &>/dev/null; then
 		if [ -d "${HOME}/.nvm/.git" ]; then
 			echo "[-] Node version manager is already installed!"
 		else
@@ -79,7 +79,7 @@ install_npm() {
 	echo ""
 	echo "[*] Installing node package manager with node version manager..."
 	if [ -d "${HOME}/.nvm/.git" ]; then
-		if command -v npm &>/dev/null 2>&1; then
+		if command -v npm &>/dev/null; then
 			echo "[-] Node package manager is already installed!"
 		else
 			nvm install --lts
