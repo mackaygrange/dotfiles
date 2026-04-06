@@ -23,7 +23,7 @@ declare -a config_dirs=(
 	"i3|$CONFIG_DIR/i3|"
 	"i3status|$CONFIG_DIR/i3status|"
 	"picom|$CONFIG_DIR/picom|"
-        "dunst|$CONFIG_DIR/dunst|"
+	"dunst|$CONFIG_DIR/dunst|"
 	"fonts|$HOME/.fonts|"
 	"icons|$HOME/.icons|"
 )
@@ -31,10 +31,10 @@ declare -a config_dirs=(
 # Home directory files: source_file|destination
 declare -a home_files=(
 	"bash/.bashrc|$HOME/.bashrc"
-        "bash/.inputrc|$HOME/.inputrc"
-        "bash/.bash_profile|$HOME/.bash_profile"
-        "bash/.bash_logout|$HOME/.bash_logout"
-        "git/.gitconfig|$HOME/.gitconfig"
+	"bash/.inputrc|$HOME/.inputrc"
+	"bash/.bash_profile|$HOME/.bash_profile"
+	"bash/.bash_logout|$HOME/.bash_logout"
+	"git/.gitconfig|$HOME/.gitconfig"
 	"user-dirs.dirs|$CONFIG_DIR/user-dirs.dirs"
 	"tmux/.tmux.conf|$HOME/.tmux.conf"
 )
@@ -122,7 +122,6 @@ for config_entry in "${config_dirs[@]}"; do
 	create_symlink "$DOTFILES_DIR/$config_name" "$dest" "$config_name"
 done
 
-
 echo ""
 echo "[*] Setting up home directory files..."
 for file_entry in "${home_files[@]}"; do
@@ -135,6 +134,11 @@ for file_entry in "${home_files[@]}"; do
 		echo "[!] Not found: $DOTFILES_DIR/$src_file"
 	fi
 done
+
+#Configure Git:
+echo "[*] Setting up .gitignore_global!"
+git config --global core.excludesfile ~/.gitignore_global
+echo "[+] .gitignore_global has been setup!"
 
 echo ""
 echo "[OK] Dotfile symlink setup is complete!"
