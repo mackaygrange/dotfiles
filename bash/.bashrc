@@ -83,8 +83,10 @@ fi
 export HISTFILE="${XDG_CONFIG_HOME:-$HOME}/.bash_history"
 export INPUTRC="${XDG_CONFIG_HOME:-$HOME}/.inputrc"
 
-# Add luarocks to path: (TODO: need to add gaurds)
-# export PATH="$HOME/.luarocks/bin/:$PATH"
+# Add luarocks to path if it is installed:
+if [ -d "$HOME/.luarocks" ]; then
+	export PATH="$HOME/.luarocks/bin/:$PATH"
+fi
 
 # Less/Man page colors:
 export LESS_TERMCAP_mb=$'\e[1;36m'   # Begin bold
@@ -139,8 +141,8 @@ if command -v neofetch &>/dev/null; then
 fi
 
 export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"                   # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" # This loads nvm bash_completion
 
 # External Modules:
 source "$HOME/repos/dotfiles/bash/work_env.sh"
