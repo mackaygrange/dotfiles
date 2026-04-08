@@ -15,8 +15,8 @@
 
 window#waybar 
 {
-    background: rgba(38, 35, 58, 0.40);
-    border: 3px solid rgba(110, 106, 134, 0.40);
+    background: rgba(38, 35, 53, 0.40);
+    border: 3px solid rgba(108, 103, 131, 0.40);
     border-radius: 5px;
 }
 
@@ -56,7 +56,7 @@ tooltip
 #workspaces button.active 
 {
     border: none;
-    color: rgba(224, 222, 244, 1.0);   
+    color: rgba(224, 217, 245, 1.0);   
     transition: all 0.3s ease;
 }
 
@@ -184,7 +184,7 @@ tooltip
 
 #clock
 {
-    color: rgba(224, 222, 244, 1.0);
+    color: rgba(224, 217, 245, 1.0);
     font-size: 18px;
     font-weight: 900;
     font-family: "CaskaydiaCove Nerd Font Mono", "JetBrains Mono Nerd Font";
@@ -212,7 +212,7 @@ tooltip
 {
     font-weight: normal;
     font-size: 32px;
-    color: #EBBCBA;
+    color: #FF7EDB;
     padding-left: 5px;
     padding-right: 5px;
 }
@@ -235,7 +235,7 @@ tooltip
 {
     font-weight: normal;
     font-size: 32px;
-    color: #31748F;
+    color: #36F9F6;
     padding-left: 5px;
     padding-right: 5px;
 }
@@ -285,7 +285,7 @@ tooltip
 #custom-wbar,
 #window
 {
-    color: rgba(224, 222, 244, 1);
+    color: rgba(224, 217, 245, 1);
     font-family: "CaskaydiaCove Nerd Font Mono", "JetBrains Mono Nerd Font";
 }
 

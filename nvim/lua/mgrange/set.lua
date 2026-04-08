@@ -1,3 +1,10 @@
+--             _               __       _     _
+--            (_)             / /      | |   | |
+--  _ ____   ___ _ __ ___    / /__  ___| |_  | |_   _  __ _
+-- | '_ \ \ / / | '_ ` _ \  / / __|/ _ \ __| | | | | |/ _` |
+-- | | | \ V /| | | | | | |/ /\__ \  __/ |_ _| | |_| | (_| |
+-- |_| |_|\_/ |_|_| |_| |_/_/ |___/\___|\__(_)_|\__,_|\__,_|
+
 -- ============================================================================
 -- NEOVIM OPTIONS CONFIGURATION
 -- ============================================================================
@@ -98,7 +105,6 @@ vim.opt.completeopt = { "menuone", "noselect", "popup" }
 -- MISCELLANEOUS
 -- ============================================================================
 vim.opt.grepformat = "%f%l%c%m" -- Format for grep output parsing
-
 vim.opt.clipboard:append({ 'unnamed', 'unnamedplus' })
 
 -- ============================================================================
@@ -108,7 +114,9 @@ vim.g.mapleader = " " -- Set space as leader key
 
 local my_group = vim.api.nvim_create_augroup("MG", { clear = true })
 
-vim.api.nvim_create_autocmd({ "BufWrite" }, {
+vim.api.nvim_create_autocmd({ "BufWritePre" }, {
+  group = my_group,
+  pattern = { "*.rs" },
   callback = function() vim.lsp.buf.format() end,
-  desc = "Format Rust Files on Save",
+  desc = "Format Rust files on save",
 })

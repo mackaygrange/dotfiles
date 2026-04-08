@@ -1,3 +1,12 @@
+#           _                                    _ _       _              _
+#          | |                                  | (_)     | |            | |
+#  ___  ___| |_ _   _ _ __   ___ _   _ _ __ ___ | |_ _ __ | | _____   ___| |__
+# / __|/ _ \ __| | | | '_ \ / __| | | | '_ ` _ \| | | '_ \| |/ / __| / __| '_ \
+# \__ \  __/ |_| |_| | |_) |\__ \ |_| | | | | | | | | | | |   <\__ \_\__ \ | | |
+# |___/\___|\__|\__,_| .__/ |___/\__, |_| |_| |_|_|_|_| |_|_|\_\___(_)___/_| |_|
+#                    | |______    __/ |
+#                    |_|______|  |___/
+
 #!/bin/bash
 
 # Linux dotfiles setup script
@@ -23,7 +32,7 @@ declare -a config_dirs=(
 	"i3|$CONFIG_DIR/i3|"
 	"i3status|$CONFIG_DIR/i3status|"
 	"picom|$CONFIG_DIR/picom|"
-        "dunst|$CONFIG_DIR/dunst|"
+	"dunst|$CONFIG_DIR/dunst|"
 	"fonts|$HOME/.fonts|"
 	"icons|$HOME/.icons|"
 )
@@ -31,10 +40,10 @@ declare -a config_dirs=(
 # Home directory files: source_file|destination
 declare -a home_files=(
 	"bash/.bashrc|$HOME/.bashrc"
-        "bash/.inputrc|$HOME/.inputrc"
-        "bash/.bash_profile|$HOME/.bash_profile"
-        "bash/.bash_logout|$HOME/.bash_logout"
-        "git/.gitconfig|$HOME/.gitconfig"
+	"bash/.inputrc|$HOME/.inputrc"
+	"bash/.bash_profile|$HOME/.bash_profile"
+	"bash/.bash_logout|$HOME/.bash_logout"
+	"git/.gitconfig|$HOME/.gitconfig"
 	"user-dirs.dirs|$CONFIG_DIR/user-dirs.dirs"
 	"tmux/.tmux.conf|$HOME/.tmux.conf"
 )
@@ -119,12 +128,8 @@ echo ""
 echo "[*] Setting up configuration folders..."
 for config_entry in "${config_dirs[@]}"; do
 	IFS='|' read -r config_name dest distro_req <<<"$config_entry"
-	if [ ! -d "$dest" ]; then
-		mkdir $dest
-	fi
 	create_symlink "$DOTFILES_DIR/$config_name" "$dest" "$config_name"
 done
-
 
 echo ""
 echo "[*] Setting up home directory files..."
@@ -138,6 +143,11 @@ for file_entry in "${home_files[@]}"; do
 		echo "[!] Not found: $DOTFILES_DIR/$src_file"
 	fi
 done
+
+#Configure Git:
+echo "[*] Setting up .gitignore_global!"
+git config --global core.excludesfile ~/.gitignore_global
+echo "[+] .gitignore_global has been setup!"
 
 echo ""
 echo "[OK] Dotfile symlink setup is complete!"
@@ -157,4 +167,4 @@ fi
 
 echo ""
 echo "[== [-] SYMLINK SETUP SCRIPT COMPLETE ==]"
-echo "[*] Any changnes you make will be reflected in both locations."
+echo "[*] Any changes you make will be reflected in both locations."

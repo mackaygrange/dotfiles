@@ -1,3 +1,10 @@
+--             _               ___       _ _     _
+--            (_)             / (_)     (_) |   | |
+--  _ ____   ___ _ __ ___    / / _ _ __  _| |_  | |_   _  __ _
+-- | '_ \ \ / / | '_ ` _ \  / / | | '_ \| | __| | | | | |/ _` |
+-- | | | \ V /| | | | | | |/ /  | | | | | | |_ _| | |_| | (_| |
+-- |_| |_|\_/ |_|_| |_| |_/_/   |_|_| |_|_|\__(_)_|\__,_|\__,_|
+
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
   vim.fn.system({
@@ -23,6 +30,7 @@ require("lazy").setup({
     { import = "mgrange.modules" },
   },
   ui = {
+    border = "rounded",
     icons = {
       cmd = "⌘",
       config = "🛠",
@@ -36,6 +44,10 @@ require("lazy").setup({
       start = "🚀",
       task = "📌",
     },
+  },
+  rocks = {
+    enabled = false,
+    hererocks = false,
   },
   performance = {
     rtp = {

@@ -1,16 +1,12 @@
-#    __                        __
-#    /\ \                      /\ \
-#    \ \ \____     __      ____\ \ \___   _ __   ___
-#     \ \ '__`\  /'__`\   /',__\\ \  _ `\/\`'__\/'___\
-#    __\ \ \L\ \/\ \L\.\_/\__, `\\ \ \ \ \ \ \//\ \__/
-#   /\_\\ \_,__/\ \__/.\_\/\____/ \ \_\ \_\ \_\\ \____\
-#   \/_/ \/___/  \/__/\/_/\/___/   \/_/\/_/\/_/ \/____/
+#    _               _
+#   | |             | |
+#   | |__   __ _ ___| |__  _ __ ___
+#   | '_ \ / _` / __| '_ \| '__/ __|
+#  _| |_) | (_| \__ \ | | | | | (__
+# (_)_.__/ \__,_|___/_| |_|_|  \___|
 
 # If not running interactively, don't do anything:
 [[ $- != *i* ]] && return
-
-source "$HOME/repos/dotfiles/bash/work-env.sh"
-export PATH="/home/mgrange/.luarocks/bin/:$PATH"
 
 # History Configuration
 HISTSIZE=10000
@@ -43,7 +39,7 @@ alias cls='clear'
 alias clr='clear'
 
 # Use lsd instead of ls if lsd is installed:
-if command -v lsd &>/dev/null 2>&1; then
+if command -v lsd &>/dev/null; then
 	alias ls='lsd --color=auto --human-readable --group-dirs first'
 	alias la='lsd --color=auto --human-readable --almost-all --group-dirs first'
 	alias ll='lsd --color=auto --human-readable --almost-all --long --group-dirs first'
@@ -51,15 +47,15 @@ if command -v lsd &>/dev/null 2>&1; then
 	alias ld='lsd --color=auto --human-readable --almost-all --tree --group-dirs first --depth'
 fi
 
-# Use neovim instead of vim if vim is installed:
-if command -v nvim &>/dev/null 2>&1; then
+# Use neovim instead of vim if nvim is installed:
+if command -v nvim &>/dev/null; then
 	alias vim='nvim'
-	export EDITOR="nvim -u ${XDG_CONFIG_HOME:-$HOME/.config}/nvim/init.lua"
-	export VISUAL="nvim -u ${XDG_CONFIG_HOME:-$HOME/.config}/nvim/init.lua"
+	export EDITOR="nvim"
+	export VISUAL="nvim"
 fi
 
 # Only useful if we have tmux:
-if command -v tmux &>/dev/null 2>&1; then
+if command -v tmux &>/dev/null; then
 	alias tmux-attach='source ~/scripts/tmux-attach.sh'
 fi
 
@@ -69,13 +65,28 @@ if [ -d "$HOME/repos/dotfiles" ]; then
 fi
 
 # Hopefully we always have git but just in case:
-if command -v tmux &>/dev/null 2>&1; then
+if command -v git &>/dev/null; then
+	alias gl="git log --oneline"
+	alias gs="git status"
+	alias gd="git diff"
+	alias gurlg="git remote get-url --all origin"
+	alias gurls="git remote set-url --add origin"
+	alias gcb="git checkout --branch"
+	alias gc="git checkout"
+	alias gps="git push"
+	alias gpl="git pull"
+	alias gf="git fetch"
 	alias gsu="git submodule update --init --recursive"
 fi
 
 # Exports:
 export HISTFILE="${XDG_CONFIG_HOME:-$HOME}/.bash_history"
 export INPUTRC="${XDG_CONFIG_HOME:-$HOME}/.inputrc"
+
+# Add luarocks to path if it is installed:
+if [ -d "$HOME/.luarocks" ]; then
+	export PATH="$HOME/.luarocks/bin/:$PATH"
+fi
 
 # Less/Man page colors:
 export LESS_TERMCAP_mb=$'\e[1;36m'   # Begin bold
@@ -115,16 +126,23 @@ fi
 
 # If shell is being accessed via SSH, make sure our DISPLAY var is set correctly to forward X11.
 # This is supposed to work automatically but I have had issues and this fixes it.
-if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_CLIENT" ]; then
+if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_CONNECTION" ]; then
 	export DISPLAY='localhost:10.0'
 fi
 
 # If zoxide is installed, remap cd to zoxide:
-if command -v zoxide &>/dev/null 2>&1; then
+if command -v zoxide &>/dev/null; then
 	eval "$(zoxide init bash --cmd cd)"
 fi
 
 # Pretty Boot:
-if command -v neofetch &>/dev/null 2>&1; then
+if command -v neofetch &>/dev/null; then
 	neofetch
 fi
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"                   # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" # This loads nvm bash_completion
+
+# External Modules:
+source "$HOME/repos/dotfiles/bash/work_env.sh"

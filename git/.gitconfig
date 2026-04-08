@@ -1,5 +1,31 @@
-# This is Git's per-user configuration file.
+#         _ _                     __ _       
+#        (_) |                   / _(_)      
+#    __ _ _| |_   ___ ___  _ __ | |_ _  __ _ 
+#   / _` | | __| / __/ _ \| '_ \|  _| |/ _` |
+#  | (_| | | |_ | (_| (_) | | | | | | | (_| |
+# (_)__, |_|\__| \___\___/|_| |_|_| |_|\__, |
+#    __/ |   ______                     __/ |
+#   |___/   |______|                   |___/ 
+
 [user]
-# Please adapt and uncomment the following lines:
 name = Mackay Grange
 email = mackay.grange@gmail.com
+
+[core]
+editor = nvim
+	excludesfile = /home/mgrange/.gitignore_global
+
+[init]
+defaultBranch = master
+
+[pull]
+rebase = true
+
+[alias]
+st = status
+co = checkout
+br = branch
+cm = commit
+lg = log --oneline --graph --decorate --all
+df = diff
+ds = diff --staged

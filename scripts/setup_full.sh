@@ -1,3 +1,12 @@
+#           _                 __       _ _       _
+#          | |               / _|     | | |     | |
+#  ___  ___| |_ _   _ _ __  | |_ _   _| | |  ___| |__
+# / __|/ _ \ __| | | | '_ \ |  _| | | | | | / __| '_ \
+# \__ \  __/ |_| |_| | |_) || | | |_| | | |_\__ \ | | |
+# |___/\___|\__|\__,_| .__/ |_|  \__,_|_|_(_)___/_| |_|
+#                    | |______
+#                    |_|______|
+
 #!/bin/bash
 
 # Linux dotfiles setup script
@@ -54,7 +63,7 @@ while [[ $# -gt 0 ]]; do
 		echo "Existing configurations will be backed up to a timestamped directory."
 		echo "This script will also download all of the necessary packages depending on the distro."
 		echo ""
-        echo "Options:"
+		echo "Options:"
 		echo "  -h, --help    Show this help message"
 		exit 0
 		;;
@@ -67,7 +76,7 @@ done
 echo "[== [+] RUNNING FULL SETUP SCRIPT ==]"
 echo ""
 
-$DOTFILES_DIR/scripts/install_packages.sh 
+$DOTFILES_DIR/scripts/install_packages.sh
 $DOTFILES_DIR/scripts/setup_symlinks.sh
 
 echo "[== [-] FULL SETUP SCRIPT COMPLETE ==]"

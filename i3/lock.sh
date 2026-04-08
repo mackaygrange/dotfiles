@@ -1,5 +1,20 @@
 #!/bin/bash
 
+#  _  _____    ___            _          _
+# (_)|____ |  / / |          | |        | |
+#  _     / / / /| | ___   ___| | __  ___| |__
+# | |    \ \/ / | |/ _ \ / __| |/ / / __| '_ \
+# | |.___/ / /  | | (_) | (__|   < _\__ \ | | |
+# |_|\____/_/   |_|\___/ \___|_|\_(_)___/_| |_|
+
+# Verify required dependencies are installed
+for cmd in scrot convert i3lock; do
+	if ! command -v "$cmd" &>/dev/null; then
+		echo "[!] $cmd is not installed. Cannot lock screen." >&2
+		exit 1
+	fi
+done
+
 img="$HOME/.cache/i3lock.png"
 scrot -o $img
 
