@@ -75,6 +75,8 @@
 # | |/ / \ \/ / / __| '_ \
 # |   <| |>  < _\__ \ | | |
 # |_|\_\_/_/\_(_)___/_| |_|
+#
+# V1.1
 
 # NOTE: You will need to edit the ARGS_* env vars to reflect the interfaces / IP addresses for your specific board
 # NOTE: Reach out to Mackay Grange if you have any features for the script you want me to add or if changes to the
@@ -83,7 +85,14 @@
 set -Eeu -o pipefail
 shopt -s inherit_errexit
 
-# Declare Default Var Values:
+# User dependent vars: (Set these manually based on your board)
+IF_RED_CNTL="enx00e04c351a8d"
+IF_RED_DATA="enx00e04c682293"
+IF_BLACK_DATA="enx00e04c680e70"
+IP_BOARD="172.26.72.1"
+IP_OTNK="172.16.0.1"
+
+# Declare default var values:
 KIP_DIR=""
 
 FLAG_COMPILE=false
@@ -110,15 +119,15 @@ PATH_ZEROIZE=""
 ARGS_COMPILE=(--features nic-forensics)
 ARGS_BUILD=(--features nic-forensics)
 ARGS_LAUNCH=()
-ARGS_E2E=(172.26.72.1 172.16.0.1 hardware enx00e04c682293 enx00e04c351a8d)
+ARGS_E2E=($IP_BOARD $IP_OTNK hardware $IF_RED_DATA $IF_BLACK_DATA)
 ARGS_UNIT=()
 ARGS_SIPE=(--all)
-ARGS_KG42=(--red-if enx00e04c682293 --black-if enx00e04c680e70)
-ARGS_ESP=(--red-if enx00e04c682293 --black-if enx00e04c680e70)
+ARGS_KG42=(--red-if $IF_RED_DATA --black-if $IF_BLACK_DATA)
+ARGS_ESP=(--red-if $IF_RED_DATA --black-if $IF_BLACK_DATA)
 ARGS_CONF=(--configure-board)
-ARGS_ZEROIZE=(--device-ip 172.26.72.1)
+ARGS_ZEROIZE=(--device-ip $IP_BOARD)
 
-# Usage Info:
+# Usage info:
 usage() {
 	echo "Usage: $0 [-h] [-c] [-b] [-l] [-t] [-u] [-s] [-k] [-e] [-i] [-z]"
 	echo ""
@@ -139,7 +148,7 @@ usage() {
 	exit 2
 }
 
-# Handle Arg Parsing:
+# Handle arg parsing:
 parse_args() {
 	if [ "$#" -eq 0 ]; then
 		usage
@@ -170,9 +179,9 @@ parse_args() {
 	done
 }
 
-# Prepare Necessary Paths:
+# Prepare necessary paths:
 set_paths() {
-	# Locate KIP Repository:
+	# Locate KIP repository:
 	echo "[*] Finding KIP Directory!"
 	KIP_DIR=$(find "$HOME" -maxdepth 3 -type d -name "KIP" -print -quit)
 	if [ -d "$KIP_DIR" ]; then
@@ -182,7 +191,7 @@ set_paths() {
 		exit 1
 	fi
 
-	# Set Paths:
+	# Set paths:
 	PATH_COMPILE="$KIP_DIR/scripts/kix-runtime-setup/compile-kix-runtime.sh"
 	PATH_BUILD="$KIP_DIR/scripts/kix-runtime-setup/build-rpu.sh"
 	PATH_LAUNCH="$KIP_DIR/scripts/kix-runtime-setup/launch-kix-runtime.sh"

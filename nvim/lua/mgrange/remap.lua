@@ -14,15 +14,10 @@ vim.keymap.set("n", "<leader>.", vim.cmd.Ex)
 vim.keymap.set("v", "J", ":m'>+1 <CR> gv=gv")
 vim.keymap.set("v", "K", ":m'<-2 <CR> gv=gv")
 
--- vim.keymap.set("n", "<C-a>", "ggVGy")
--- vim.keymap.set("v", "<C-a>", "ggVGy")
--- vim.keymap.set("i", "<C-a>", "<Esc>ggVGy")
-
 -- Control a to copy entire file.
 vim.keymap.set("n", "<C-a>", "ggVG\"+y")
 vim.keymap.set("v", "<C-a>", "ggVG\"+y")
 vim.keymap.set("i", "<C-a>", "<Esc>ggVG\"+y")
-
 
 -- Keeps cursor centered while navigating with jumps or searches
 vim.keymap.set("n", "J", "mzJ`z")
@@ -48,7 +43,7 @@ vim.keymap.set("i", "<C-c>", "<Esc>")
 vim.keymap.set("n", "Q", "<nop>")
 
 -- <command>f to open new tmux session
-vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>")
+vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux new tmux-sessionizer<CR>")
 
 -- <leader>f to format current buffer
 vim.keymap.set("n", "<leader>f", function() vim.lsp.buf.format() end)
@@ -67,6 +62,9 @@ vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true })
 
 -- Neotree Keymaps
 vim.keymap.set("n", "<leader>t", ":Neotree action=show source=filesystem toggle=true reveal=true<cr>", { silent = true })
+
+-- Remove trailing whitespace from buffer
+vim.keymap.set("n", "<leader>cc", ":%s/\\s\\+$//e<CR>", { silent = true })
 
 -- Run Current Python Script
 -- Uses function callback for better control and error handling
@@ -104,3 +102,53 @@ vim.keymap.set('i', '<F8>', function()
   local dir_name = vim.fn.fnamemodify(vim.fn.expand('%:p:h'), ':t')
   vim.fn.system('make && ' .. dir_name)
 end, { noremap = true, silent = true })
+
+-- ============================================================================
+-- LSP KEYBINDINGS
+-- ============================================================================
+
+-- ========================================================================
+-- HOVER & DOCUMENTATION
+-- ========================================================================
+vim.keymap.set('n', 'K', vim.lsp.buf.hover, { desc = 'LSP: Hover documentation', } )
+vim.keymap.set('n', '<leader>sh', vim.lsp.buf.signature_help, { desc = 'LSP: Signature help', } )
+vim.keymap.set('i', '<C-s>', vim.lsp.buf.signature_help, { desc = 'LSP: Signature help (insert)', } )
+
+-- ========================================================================
+-- CODE NAVIGATION
+-- ========================================================================
+vim.keymap.set('n', 'gd', vim.lsp.buf.definition, { desc = 'LSP: Go to definition', } )
+vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, { desc = 'LSP: Go to declaration', } )
+vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, { desc = 'LSP: Go to implementation', } )
+vim.keymap.set('n', 'gt', vim.lsp.buf.type_definition, { desc = 'LSP: Go to type definition', } )
+vim.keymap.set('n', 'gr', vim.lsp.buf.references, { desc = 'LSP: List references', } )
+
+-- ========================================================================
+-- DIAGNOSTICS NAVIGATION
+-- ========================================================================
+vim.keymap.set('n', '<leader>vd', vim.diagnostic.open_float, { desc = 'LSP: Show diagnostic float', } )
+vim.keymap.set('n', '<leader>dl', vim.diagnostic.setloclist, { desc = 'LSP: Diagnostics to location list', } )
+
+-- ========================================================================
+-- CODE ACTIONS & REFACTORING
+-- ========================================================================
+vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, { desc = 'LSP: Rename symbol', } )
+vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, { desc = 'LSP: Code action', } )
+vim.keymap.set('v', '<leader>ca', vim.lsp.buf.code_action, { desc = 'LSP: Code action (visual)', } )
+
+-- ========================================================================
+-- WORKSPACE & SYMBOL SEARCH
+-- ========================================================================
+vim.keymap.set('n', '<leader>ds', vim.lsp.buf.document_symbol, { desc = 'LSP: Document symbols', } )
+vim.keymap.set('n', '<leader>ws', vim.lsp.buf.workspace_symbol, { desc = 'LSP: Workspace symbols', } )
+vim.keymap.set('n', '<leader>wa', vim.lsp.buf.add_workspace_folder, { desc = 'LSP: Add workspace folder', } )
+vim.keymap.set('n', '<leader>wr', vim.lsp.buf.remove_workspace_folder, { desc = 'LSP: Remove workspace folder', } )
+vim.keymap.set('n', '<leader>wl', function()
+  print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+end, { desc = 'LSP: List workspace folders', } )
+
+-- ========================================================================
+-- INCOMING / OUTGOING CALLS (useful for tracing code in large codebases)
+-- ========================================================================
+vim.keymap.set('n', '<leader>ci', vim.lsp.buf.incoming_calls, { desc = 'LSP: Incoming calls', } )
+vim.keymap.set('n', '<leader>co', vim.lsp.buf.outgoing_calls, { desc = 'LSP: Outgoing calls', } )
