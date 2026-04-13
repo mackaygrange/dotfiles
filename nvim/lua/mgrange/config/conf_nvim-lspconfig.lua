@@ -71,9 +71,13 @@ vim.lsp.config('pylsp', {
     pylsp = {
       plugins = {
         pycodestyle = {
-          ignore = {'W391'},
+          ignore = {'W391', 'E128', 'E203', 'E225', 'E302', 'E251', 'E252', 'E501', 'E701',},
           maxLineLength = 120
         },
+        pydocstyle = { enabled = false },
+        rope_completion = { enabled = false },
+        rope_autoimport = { enabled = false },
+        yapf = { enabled = false }
       }
     }
   }
