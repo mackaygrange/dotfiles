@@ -48,7 +48,6 @@ bindsym $mod+Shift+6 move container to workspace number $ws6
 bindsym $mod+Shift+7 move container to workspace number $ws7
 bindsym $mod+Shift+8 move container to workspace number $ws8
 bindsym $mod+Shift+9 move container to workspace number $ws9
-    "TP 3.7 and TP 3.9 Tests": (lambda: ip_range_traffic_selector_test(num_ips=2), True),
 bindsym $mod+Shift+0 move container to workspace number $ws10
 
 # Screenshot bindings:
