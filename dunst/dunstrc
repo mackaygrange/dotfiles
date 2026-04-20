@@ -6,44 +6,51 @@
 #  \__,_|\__,_|_| |_|___/\__|_|  \___|
 
 [global]
+    markup = full
+    show_indicators = yes
     geometry = "512x3-10+10"
     shrink = false
     transparency = 25
     notification_height = 50
-    separator_height = 10
-    padding = 10
-    horizontal_padding = 10
-    frame_width = 0
-    font = "Cascadia Code NF 12"
-    line_height = 2
-    alignment = center
+    separator_height = 5
+    padding = 5
+    horizontal_padding = 5
+    frame_width = 2
+    font = Cascadia Code NF 12
+    line_height = 1
+    alignment = right
     vertical_alignment = center
     word_wrap = true
-    icon_position = off
-    corner_radius = 5
-    enable_recursive_icon_lookup = true
-    icon_theme = "Adwaita"
+    corner_radius = 2
+    timeout = 10
+
+    icon_position = left
+    icon_path = "/home/mgrange/.icons/rose-pine-moon-icons/32x32/status/:/home/mgrange/.icons/rose-pine-moon-icons/32x32/devices/"
+    min_icon_size = 16
+    max_icon_size = 32
+
     background = "#393552"
     foreground = "#ffffff"
+    format = "<b><span foreground='#ffffff'>%s</span></b>\n%b"
 
 [urgency_low]
     background = "#393552"
     highlight = "#ffffff"
     frame_color = "#3e8fb0"
-    default_icon = "dialog-information"
+    default_icon = /home/mgrange/.icons/rose-pine-moon-icons/32x32/status/dialog-information.svg
     format = "<b><span foreground='#ffffff'>%s</span></b>\n%b"
 
 [urgency_normal]
     background = "#393552"
     highlight = "#ffffff"
     frame_color = "#f6c177"
-    default_icon = "dialog-warning"
+    default_icon = /home/mgrange/.icons/rose-pine-moon-icons/32x32/status/dialog-warning.svg
     format = "<b><span foreground='#ffffff'>%s</span></b>\n%b"
 
 [urgency_critical]
     background = "#393552"
     highlight = "#ffffff"
     frame_color = "#eb6f92"
-    default_icon = "dialog-error"
+    default_icon = /home/mgrange/.icons/rose-pine-moon-icons/32x32/status/dialog-error.svg
     format = "<b><span foreground='#ffffff'>%s</span></b>\n%b"
 

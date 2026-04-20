@@ -5,6 +5,8 @@
 -- | | | \ V /| | | | | | |/ /  | | | | | | |_ _| | |_| | (_| |
 -- |_| |_|\_/ |_|_| |_| |_/_/   |_|_| |_|_|\__(_)_|\__,_|\__,_|
 
+require("mgrange")
+
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
   vim.fn.system({
@@ -17,8 +19,6 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
   })
 end
 vim.opt.rtp:prepend(lazypath)
-
-require("mgrange")
 
 -- Custom setup copied from LazyVim starter
 -- https://github.com/LazyVim/starter/blob/main/lua/config/lazy.lua

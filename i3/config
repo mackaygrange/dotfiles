@@ -11,16 +11,16 @@
 set $mod Mod4
 set $terminal kitty
 
-set $ws1 "1:_Browser"
-set $ws2 "2:_Local-Terminal"
-set $ws3 "3:_SSH-Terminal"
-set $ws4 "4:_Misc"
-set $ws5 "5:_"
-set $ws6 "6:_"
-set $ws7 "7:_"
-set $ws8 "8:_"
-set $ws9 "9:_"
-set $ws10 "10:_Costpoint"
+set $ws1 "1:Browser"
+set $ws2 "2:Local-Terminal"
+set $ws3 "3:SSH-Terminal"
+set $ws4 "4:Misc"
+set $ws5 "5:"
+set $ws6 "6:"
+set $ws7 "7:"
+set $ws8 "8:"
+set $ws9 "9:"
+set $ws10 "10:Costpoint"
 
 set $refresh_i3status killall -SIGUSR1 i3status
 floating_modifier $mod
@@ -101,7 +101,7 @@ mode "resize" {
         bindsym Right resize grow width 10 px or 10 ppt
         bindsym Return mode "default"
         bindsym Escape mode "default"
-        binddsym $mod+m mode "default"
+        bindsym $mod+m mode "default"
 }
 
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_i3status
@@ -130,7 +130,7 @@ set $highlightmed   #3f3a5666
 set $highlighthigh  #504a6e66
 
 # target                title          bg             text     indicator border
-client.focused          $highlightlow  $highlightlow  $text    $iris     $highlightlow
+client.focused          $highlightlow  $highlightlow  $text    $iris     $iris
 client.focused_inactive $muted         $muted         $subtle  $muted    $muted
 client.unfocused        $muted         $muted         $subtle  $muted    $muted
 client.urgent           $highlightlow  $subtle        $text    $base     $rose
@@ -146,8 +146,8 @@ gaps outer 5px
 # ==-- i3 Startup Settings --== #
 # Initial Background Apps:
 exec --no-startup-id picom --config ~/repos/dotfiles/picom/picom.conf -b
-exec --no-startup-id dunst -config ~/.config/dunst/dunstrc &
-exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
+exec --no-startup-id dunst -conf ~/repos/dotfiles/dunst/dunstrc &
+exec --no-startup-id xss-lock --transfer-sleep-lock ~/repos/dotfiles/i3/lock.sh --nofork
 
 #Initial Linux Configurations:
 exec --no-startup-id xset r rate 200 50
@@ -156,7 +156,7 @@ exec_always xrandr --output HDMI-2 --mode 3440x1440 --primary
 
 # Set background:
 # Possible to play with these settings to acheive a desired effect.
-exec --no-startup-id convert -size 5360x1440 -define gradient:radii=2440,720 -define gradient:angle=20 radial-gradient:"#ff7edb"-"#262335" $HOME/repos/dotfiles/wallpapers/gradient.png && hsetroot -root -fill $HOME/repos/dotfiles/wallpapers/gradient.png
+exec --no-startup-id convert -size 5360x1440 -define gradient:radii=2440,720 -define gradient:angle=30 radial-gradient:"#ff7edb"-"#262335" $HOME/repos/dotfiles/wallpapers/gradient.png && hsetroot -root -fill $HOME/repos/dotfiles/wallpapers/gradient.png
 
 # Initial Desktop Apps:
 assign [window_role="browser"] $ws1
@@ -193,21 +193,22 @@ bar {
     status_command i3status -c /home/$USER/.config/i3status/i3status.conf
 
     font pango:Cascadia Code NF Semibold 8
-#   separator_symbol " ❱❱ "
-#   separator_symbol " ✞ "
-#   separator_symbol " ♾ "
-#   separator_symbol " ⇒ "
-#   separator_symbol " ☽ ☾ "
-    separator_symbol " ♦ "
-
+    separator_symbol " 〈 "
+    separator_symbol " ≬ "
+    # separator_symbol " ✞ "
+    # separator_symbol " ♾ "
+    # separator_symbol " ⇒ "
+    # separator_symbol " ☽ ☾ "
+    # separator_symbol " ♦ "
     workspace_buttons yes
     workspace_min_width 50
+
 
     position bottom
 
     padding 2px
 
-    output primary
+    # output primary
 
     tray_output none
     tray_padding 0
