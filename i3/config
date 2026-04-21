@@ -111,7 +111,7 @@ bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOU
 
 
 # ==-- i3 Appearance Settings --== #
-font pango:Cascadia Code NF 8
+font pango:FiraCode Nerd Font 9
 
 set $base           #262335A8
 set $surface        #2e2a3eA8
