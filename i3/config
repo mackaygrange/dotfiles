@@ -191,28 +191,21 @@ exec --no-startup-id kitty --hold --title "Remote-Dev" /usr/bin/kitty +kitten ss
 bar {
     i3bar_command i3bar --transparency
     status_command i3status -c /home/$USER/.config/i3status/i3status.conf
-
-    font pango:Cascadia Code NF Semibold 8
-    separator_symbol " 〈 "
-    separator_symbol " ≬ "
+    font pango:FiraCode Nerd Font Propo Semibold 9
+    # separator_symbol " 〈 "
+    # separator_symbol " ≬ "
     # separator_symbol " ✞ "
     # separator_symbol " ♾ "
-    # separator_symbol " ⇒ "
+    separator_symbol " <=> "
     # separator_symbol " ☽ ☾ "
     # separator_symbol " ♦ "
     workspace_buttons yes
     workspace_min_width 50
-
-
     position bottom
-
     padding 2px
-
-    # output primary
-
+    output primary
     tray_output none
     tray_padding 0
-
     colors {
       background $base
       statusline $text

@@ -9,7 +9,7 @@
 
 configuration {
 modi: "window,run,ssh,drun";
-font: "Cascadia Code NF 10";
+font: "FiraCode Nerd Font 10";
 show-icons: true;
 terminal: "kitty";
   timeout {

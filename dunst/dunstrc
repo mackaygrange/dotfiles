@@ -16,9 +16,9 @@
     padding = 5
     horizontal_padding = 5
     frame_width = 2
-    font = Cascadia Code NF 12
+    font = FiraCode Nerd Font 12
     line_height = 1
-    alignment = right
+    alignment = left
     vertical_alignment = center
     word_wrap = true
     corner_radius = 2
@@ -31,26 +31,26 @@
 
     background = "#393552"
     foreground = "#ffffff"
-    format = "<b><span foreground='#ffffff'>%s</span></b>\n%b"
+    format = "<b><u><span foreground='#ffffff'><u>%s</u></span></b>\n%b"
 
 [urgency_low]
     background = "#393552"
     highlight = "#ffffff"
     frame_color = "#3e8fb0"
     default_icon = /home/mgrange/.icons/rose-pine-moon-icons/32x32/status/dialog-information.svg
-    format = "<b><span foreground='#ffffff'>%s</span></b>\n%b"
+    format = "<b><span foreground='#ffffff'><u>%s</u></span></b>\n%b"
 
 [urgency_normal]
     background = "#393552"
     highlight = "#ffffff"
     frame_color = "#f6c177"
     default_icon = /home/mgrange/.icons/rose-pine-moon-icons/32x32/status/dialog-warning.svg
-    format = "<b><span foreground='#ffffff'>%s</span></b>\n%b"
+    format = "<b><span foreground='#ffffff'><u>%s</u></span></b>\n%b"
 
 [urgency_critical]
     background = "#393552"
     highlight = "#ffffff"
     frame_color = "#eb6f92"
     default_icon = /home/mgrange/.icons/rose-pine-moon-icons/32x32/status/dialog-error.svg
-    format = "<b><span foreground='#ffffff'>%s</span></b>\n%b"
+    format = "<b><u><span foreground='#ffffff'><u>%s</u></span></u></b>\n%b"
 
