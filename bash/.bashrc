@@ -112,7 +112,7 @@ __ps1_git_branch() {
 }
 
 # Prompt: user@host [cwd] (branch) on two lines with colors handled in PS1:
-export PS1='\n\[\e[0;36m\]┌─[\[\e[0;32m\]\u\[\e[0;36m\]@\[\e[0;32m\]\h\[\e[0;36m\]]\[\e[0m\] \[\e[0;35m\]\w\[\e[0m\]\[\e[0;33m\]$(__ps1_git_branch)\[\e[0m\]\n\[\e[0;36m\]└─>\e[0m\] '
+export PS1='\n\[\e[0;36m\]┌─[\[\e[0;32m\]\u\[\e[0;36m\]@\[\e[0;32m\]\h\[\e[0;36m\]]\[\e[0m\] \[\e[0;35m\]\w\[\e[0m\]\[\e[0;33m\]$(__ps1_git_branch)\[\e[0m\]\n\[\e[0;36m\]└─>\[\e[0m\] '
 
 # If we have uwsm installed and we are using it as a session manager we can start the daemon.
 if command -v uwsm &>/dev/null && uwsm check may-start && uwsm select; then

@@ -44,6 +44,7 @@ declare -a home_files=(
 	"bash/.bash_profile|$HOME/.bash_profile"
 	"bash/.bash_logout|$HOME/.bash_logout"
 	"git/.gitconfig|$HOME/.gitconfig"
+	"git/.gitignore_global|$HOME/.gitignore_global"
 	"user-dirs.dirs|$CONFIG_DIR/user-dirs.dirs"
 	"tmux/.tmux.conf|$HOME/.tmux.conf"
 )

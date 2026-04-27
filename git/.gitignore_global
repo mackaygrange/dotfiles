@@ -12,6 +12,11 @@ __pycache__/
 .vscode/
 .idea/
 build/
+new_build/
+lsp_build/
 
+seq_num_counter.txt
+compile_commands.json
+*.cap
 *.log
 *.tmp

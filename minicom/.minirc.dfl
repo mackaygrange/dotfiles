@@ -1,0 +1,12 @@
+pu port         /dev/ttyUSB0
+pu baudrate     115200
+pu bits         8
+pu stopbits     1
+pu parity       None
+pu rtscts       No
+pu xonxoff      No
+pu linewrap     No
+pu backspace    BS
+pu localecho    No
+pu addcarreturn No
+pu statusline   No
