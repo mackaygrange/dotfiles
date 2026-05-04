@@ -9,6 +9,7 @@ require("mgrange.config.conf_telescope")
 require("mgrange.config.conf_rust-tools")
 require("mgrange.config.conf_which-key")
 require("mgrange.config.conf_treesitter")
+require("mgrange.config.conf_dap")
 
 -- require("mgrange.config.conf_lspzero")
 -- require("mgrange.config.conf_bufferline")

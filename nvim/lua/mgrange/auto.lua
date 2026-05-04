@@ -1,5 +1,12 @@
 local my_group = vim.api.nvim_create_augroup("MG", { clear = true })
 
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "rust",
+  callback = function()
+    vim.opt_local.textwidth = 120
+  end,
+})
+
 vim.api.nvim_create_autocmd({ "BufWritePre" }, {
   desc = "Format Rust files on save",
   group = my_group,

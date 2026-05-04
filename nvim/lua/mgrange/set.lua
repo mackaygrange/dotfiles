@@ -28,6 +28,7 @@ vim.opt.scrolloff = 8         -- Minimum lines to keep above/below cursor when s
 vim.opt.virtualedit = "block" -- Allow cursor to move to non-existent places in block selection mode
 vim.opt.signcolumn = "yes"    -- Always show sign column (for diagnostics, breakpoints, etc.)
 vim.opt.termguicolors = true  -- Enable 24-bit RGB colors in terminal
+vim.opt.winborder = "rounded"
 
 -- ============================================================================
 -- LIST CHARACTERS & LINE WRAPPING
