@@ -146,4 +146,3 @@ export NVM_DIR="$HOME/.nvm"
 
 # External Modules:
 source "$HOME/repos/dotfiles/bash/work_env.sh"
-export PATH=${PATH}:/home/mgrange/slinstallation
