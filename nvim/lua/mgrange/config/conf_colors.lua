@@ -71,9 +71,9 @@ require("rose-pine").setup({
   -- per group via `inherit = false`
   highlight_groups = {
     -- Telescope-style floating window borders: panel background with muted border
-    NormalFloat = { bg = "overlay" },
-    FloatBorder = { fg = "muted", bg = "overlay" },
-    FloatTitle = { fg = "foam", bg = "overlay", bold = true },
+    NormalFloat = { bg = "none" },
+    FloatBorder = { fg = "muted", bg = "none" },
+    FloatTitle = { fg = "foam", bg = "none", bold = true },
   },
 
   before_highlight = function(group, highlight, palette)
@@ -92,6 +92,7 @@ require("rose-pine").setup({
 function SetColors(color)
   color = color or "rose-pine"
   vim.cmd.colorscheme(color)
+
 
   vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
   vim.api.nvim_set_hl(0, "NormalNC", { bg = "none" })

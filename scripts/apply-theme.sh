@@ -383,9 +383,9 @@ fi
 #     Built-in variants (main/moon/dawn) just set the variant name.
 #     Custom palettes override colors via the palette = {} block.
 # =====================================================================
-NVIM_COLORS="$DOTFILES_DIR/nvim/lua/mgrange/config/colors.lua"
+NVIM_COLORS="$DOTFILES_DIR/nvim/lua/mgrange/config/conf_colors.lua"
 if [[ -f "$NVIM_COLORS" ]]; then
-    echo "  [+] nvim/lua/mgrange/config/colors.lua"
+    echo "  [+] nvim/lua/mgrange/config/conf_colors.lua"
 
     # Determine the closest rose-pine base variant for the plugin
     case "$VARIANT" in
