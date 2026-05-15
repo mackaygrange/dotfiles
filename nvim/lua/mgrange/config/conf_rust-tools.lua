@@ -95,7 +95,19 @@ vim.g.rustaceanvim = {
     adapter = {
       type = "executable",
       command = "gdb",
-      args = {},
+      args = {"-i", "dap"},
+    },
+    configuration = {
+      {
+        name = "Attach to remote GDB",
+        type = "gdb",
+        request = "attach",
+        program = function()
+          return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
+        end,
+        target = "172.26.72.1::22",
+        cwd = '{workspaceFolder}',
+      },
     },
   },
 }

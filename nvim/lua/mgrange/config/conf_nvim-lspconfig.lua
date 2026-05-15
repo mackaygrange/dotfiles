@@ -58,6 +58,7 @@ require('mason-lspconfig').setup({
     'bashls',
     'clangd',
     'pylsp',
+    'pyright',
   },
   automatic_enable = false,
 })
@@ -65,26 +66,40 @@ require('mason-lspconfig').setup({
 -- ============================================================================
 -- NVIM-LSPCONFIG SETUP
 -- ============================================================================
--- Pylsp Config:
-vim.lsp.config('pylsp', {
+-- -- Pylsp Config:
+-- vim.lsp.config('pylsp', {
+--   settings = {
+--     pylsp = {
+--       plugins = {
+--         pycodestyle = {
+--           ignore = {'W391', 'E128', 'E203', 'E225', 'E302', 'E251', 'E252', 'E501', 'E701',},
+--           maxLineLength = 120
+--         },
+--         pydocstyle = { enabled = false },
+--         rope_completion = { enabled = false },
+--         rope_autoimport = { enabled = false },
+--         yapf = { enabled = false }
+--       }
+--     }
+--   }
+-- })
+--
+-- -- Activate Pylsp
+-- vim.lsp.enable('pylsp')
+
+-- Pyright Config:
+vim.lsp.config('pyright', {
   settings = {
-    pylsp = {
-      plugins = {
-        pycodestyle = {
-          ignore = {'W391', 'E128', 'E203', 'E225', 'E302', 'E251', 'E252', 'E501', 'E701',},
-          maxLineLength = 120
-        },
-        pydocstyle = { enabled = false },
-        rope_completion = { enabled = false },
-        rope_autoimport = { enabled = false },
-        yapf = { enabled = false }
+    python = {
+      analysis = {
+
       }
     }
   }
 })
 
--- Activate Pylsp
-vim.lsp.enable('pylsp')
+-- Activate Pyright
+vim.lsp.enable('pyright')
 
 -- Lua_Ls Config:
 vim.lsp.config('lua_ls', {

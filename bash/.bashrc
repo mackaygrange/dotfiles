@@ -131,6 +131,7 @@ if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_CONNECTION" ]; then
 fi
 
 # If zoxide is installed, remap cd to zoxide:
+export PATH="$HOME/.cargo/bin:$PATH"
 if command -v zoxide &>/dev/null; then
 	eval "$(zoxide init bash --cmd cd)"
 fi
