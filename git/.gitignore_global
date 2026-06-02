@@ -12,7 +12,10 @@ __pycache__/
 .vscode/
 .idea/
 build/
-new_build/
+build_coverity/
+build_deps/
+build_dynamic/
+build_tidy/
 lsp_build/
 
 seq_num_counter.txt

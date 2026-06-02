@@ -105,6 +105,17 @@ vim.keymap.set('i', '<F8>', function()
   vim.fn.system('make && ' .. dir_name)
 end, { noremap = true, silent = true })
 
+local bytes_toggle = false
+vim.keymap.set('n', '<leader>b', function()
+  if not bytes_toggle then
+    vim.cmd("%!xxd")
+    bytes_toggle = true
+  else
+    vim.cmd("%!xxd -r")
+    bytes_toggle = false
+  end
+end, { desc = 'View raw file in hexadecimal format', })
+
 -- ============================================================================
 -- LSP KEYBINDINGS
 -- ============================================================================
