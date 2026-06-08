@@ -201,9 +201,11 @@ bar {
     # separator_symbol " ♦ "
     workspace_buttons yes
     workspace_min_width 50
+    mode hide
+    hidden_state hide
     position bottom
     padding 2px
-    output primary
+    # output primary
     tray_output none
     tray_padding 0
     colors {
