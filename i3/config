@@ -11,6 +11,9 @@
 set $mod Mod4
 set $terminal kitty
 
+set $primary_display HDMI-1
+set $secondary_display HDMI-2
+
 set $ws1 "1:Browser"
 set $ws2 "2:Local-Terminal"
 set $ws3 "3:SSH-Terminal"
@@ -27,16 +30,16 @@ floating_modifier $mod
 
 # ==-- i3 Keybindings --== #
 # Jump to workspace:
-bindsym $mod+1 workspace number $ws1; bar mode dock
-bindsym $mod+2 workspace number $ws2; bar mode dock
-bindsym $mod+3 workspace number $ws3; bar mode dock
-bindsym $mod+4 workspace number $ws4; bar mode dock
-bindsym $mod+5 workspace number $ws5; bar mode dock
-bindsym $mod+6 workspace number $ws6; bar mode dock
-bindsym $mod+7 workspace number $ws7; bar mode dock
-bindsym $mod+8 workspace number $ws8; bar mode dock
-bindsym $mod+9 workspace number $ws9; bar mode dock
-bindsym $mod+0 workspace number $ws10; bar mode dock
+bindsym $mod+1 workspace number $ws1; bar mode hide
+bindsym $mod+2 workspace number $ws2; bar mode hide
+bindsym $mod+3 workspace number $ws3; bar mode hide
+bindsym $mod+4 workspace number $ws4; bar mode hide
+bindsym $mod+5 workspace number $ws5; bar mode hide
+bindsym $mod+6 workspace number $ws6; bar mode hide
+bindsym $mod+7 workspace number $ws7; bar mode hide
+bindsym $mod+8 workspace number $ws8; bar mode hide
+bindsym $mod+9 workspace number $ws9; bar mode hide
+bindsym $mod+0 workspace number $ws10; bar mode hide
 
 # Move focused container to workspace:
 bindsym $mod+Shift+1 move container to workspace number $ws1
@@ -109,7 +112,6 @@ bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
 bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
 
-
 # ==-- i3 Appearance Settings --== #
 font pango:FiraCode Nerd Font Propo Semibold 9
 
@@ -150,9 +152,9 @@ exec --no-startup-id dunst -conf ~/repos/dotfiles/dunst/dunstrc &
 exec --no-startup-id xss-lock --transfer-sleep-lock ~/repos/dotfiles/i3/lock.sh --nofork
 
 #Initial Linux Configurations:
-exec --no-startup-id xset r rate 200 50
-exec_always xrandr --output HDMI-1 --mode 1920x1080
-exec_always xrandr --output HDMI-2 --mode 3440x1440 --primary
+exec --no-startup-id xset r rate 200 100
+exec_always xrandr --output $primary_display --auto --primary
+exec_always xrandr --output $secondary_display --auto --left-of HDMI-1
 
 # Set background:
 # Possible to play with these settings to acheive a desired effect.
@@ -166,14 +168,13 @@ assign [title="Remote-Dev"] $ws3
 for_window [title="Costpoint 8"] move to workspace number $ws10
 for_window [title="Local-Dev"] move to workspace number $ws2
 for_window [title="Remote-Dev"] move to workspace number $ws3
-# assign [class="kitty"] $ws2
 
-workspace $ws1 output HDMI-1
-workspace $ws10 output HDMI-1
-workspace $ws2 output HDMI-2
-workspace $ws3 output HDMI-2
-workspace $ws4 output HDMI-2
-workspace $ws5 output HDMI-2
+workspace $ws1 output $secondary_display
+workspace $ws10 output $secondary_display
+workspace $ws2 output $primary_display
+workspace $ws3 output $primary_display
+workspace $ws4 output $primary_display
+workspace $ws5 output $primary_display
 
 # Screen 1:
 exec --no-startup-id i3-msg "focus workspace number $ws1"
@@ -193,11 +194,7 @@ bar {
     status_command i3status -c /home/$USER/.config/i3status/i3status.conf
     font pango:FiraCode Nerd Font Propo Semibold 9
     # separator_symbol " 〈 "
-    # separator_symbol " ≬ "
-    # separator_symbol " ✞ "
-    # separator_symbol " ♾ "
     separator_symbol " <=> "
-    # separator_symbol " ☽ ☾ "
     # separator_symbol " ♦ "
     workspace_buttons yes
     workspace_min_width 50
@@ -205,7 +202,6 @@ bar {
     hidden_state hide
     position bottom
     padding 2px
-    # output primary
     tray_output none
     tray_padding 0
     colors {
