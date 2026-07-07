@@ -46,8 +46,8 @@ vim.opt.colorcolumn = "+1" -- Show visual guide at textwidth + 1
 -- ============================================================================
 vim.opt.expandtab = true   -- Convert tabs to spaces
 vim.opt.tabstop = 4        -- How many spaces a tab character represents (display)
-vim.opt.softtabstop = 2    -- How many spaces soft tabs (insert) represent
-vim.opt.shiftwidth = 2     -- Number of spaces for auto-indent and shift operations
+vim.opt.softtabstop = 4    -- How many spaces soft tabs (insert) represent
+vim.opt.shiftwidth = 4     -- Number of spaces for auto-indent and shift operations
 vim.opt.shiftround = true  -- Round indent to multiple of shiftwidth
 vim.opt.breakindent = true -- Preserve indentation when wrapping lines
 vim.opt.smartindent = true -- Intelligently auto-indent based on code syntax
@@ -81,7 +81,7 @@ vim.opt.splitright = true -- New vertical splits appear to the right of current 
 vim.opt.ignorecase = true -- Case-insensitive search by default
 vim.opt.smartcase = true  -- Case-sensitive if search contains uppercase letters
 vim.opt.wrapscan = true   -- Search wraps around end of file
-vim.opt.hlsearch = false  -- Don't highlight all search matches (can toggle with vim.opt.hlsearch)
+vim.opt.hlsearch = false  -- Highlight all search matches (can toggle with vim.opt.hlsearch)
 vim.opt.incsearch = true  -- Show matches while typing search pattern
 
 -- ============================================================================

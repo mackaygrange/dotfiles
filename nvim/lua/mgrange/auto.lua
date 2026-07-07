@@ -11,7 +11,28 @@ vim.api.nvim_create_autocmd({ "BufWritePre" }, {
   desc = "Format Rust files on save",
   group = my_group,
   pattern = { "*.rs" },
+  callback = function() vim.cmd([[ %s/\s\+$//e ]]) end,
+})
+
+vim.api.nvim_create_autocmd({ "BufWritePre" }, {
+  desc = "Remove trailing whitespace on save",
+  group = my_group,
+  pattern = {},
   callback = function() vim.lsp.buf.format() end,
+})
+
+-- Auto-open diagnostic float on hover
+vim.api.nvim_create_autocmd("CursorHold", {
+  callback = function()
+    vim.diagnostic.open_float(nil, {
+      focusable = false,
+      close_events = { "BufLeave", "CursorMoved", "InsertEnter", "FocusLost" },
+      border = "rounded",
+      source = "if_many",
+      prefix = "",
+      scope = "cursor",
+    })
+  end,
 })
 
 vim.api.nvim_create_autocmd("FileType", {

@@ -145,7 +145,7 @@ require('mason-lspconfig').setup({
     'pylsp',
   },
   automatic_enable = false,
-}
+})
 
 
 

@@ -8,7 +8,8 @@
 -- DIAGNOSTIC CONFIGURATION (single authoritative source)
 -- ============================================================================
 vim.diagnostic.config({
-  virtual_text = true,
+  virtual_text = false,
+  underline = true,
   severity_sort = true,
   float = {
     border = 'rounded',
@@ -25,9 +26,9 @@ vim.diagnostic.config({
     },
     linehl = {
       [vim.diagnostic.severity.ERROR] = 'DiagnosticSignError',
-      [vim.diagnostic.severity.WARN] = 'DiagnosticSignWarn',
-      [vim.diagnostic.severity.INFO] = 'DiagnosticSignInfo',
-      [vim.diagnostic.severity.HINT] = 'DiagnosticSignHint',
+      -- [vim.diagnostic.severity.WARN] = 'DiagnosticSignWarn',
+      -- [vim.diagnostic.severity.INFO] = 'DiagnosticSignInfo',
+      -- [vim.diagnostic.severity.HINT] = 'DiagnosticSignHint',
     },
     numhl = {
       [vim.diagnostic.severity.ERROR] = 'DiagnosticSignError',

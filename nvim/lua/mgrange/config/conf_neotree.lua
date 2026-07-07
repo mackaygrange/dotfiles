@@ -361,8 +361,6 @@ local config = function()
         }
       }
     })
-
-  vim.cmd([[nnoremap \ :Neotree reveal<cr>]])
 end
 
 return { config() }

@@ -17,6 +17,8 @@ build_deps/
 build_dynamic/
 build_tidy/
 lsp_build/
+build_lsp/
+target/
 
 seq_num_counter.txt
 compile_commands.json
