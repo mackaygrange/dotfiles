@@ -8,16 +8,16 @@
 //                                        |_|
 
 * {
-	bg: #262335A8;
-	cur: #2e2a3eA8;
-	fgd: #e0d9f5;
-	cmt: #6c6783;
-	cya: #72f1b8;
-	grn: #36f9f6;
-	ora: #ff7edb;
-	pur: #b893ce;
-	red: #fe4450;
-	yel: #fede5d;
+	bg: #282828A8;
+	cur: #3c3836A8;
+	fgd: #ebdbb2;
+	cmt: #928374;
+	cya: #8ec07c;
+	grn: #b8bb26;
+	ora: #fe8019;
+	pur: #d3869b;
+	red: #fb4934;
+	yel: #fabd2f;
 
 	font: "Cascadia Code NF 10";
 
