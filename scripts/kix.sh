@@ -171,7 +171,7 @@ parse_args() {
 		a)
 			FLAG_COMPILE=true
 			FLAG_LAUNCH=true
-			FLAG_E2E=true
+			FLAG_E2E=tru
 			FLAG_UNIT=true
 			;;
 		\?) usage ;;

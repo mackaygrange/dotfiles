@@ -8,9 +8,9 @@
 #                     |______|
 
 # Source Vivado and Vitis if they are installed:
-if [ -d "/tools/Xilinx/" ]; then
-	source /tools/Xilinx/Vivado/2024.2/settings64.sh
-	source /tools/Xilinx/Vitis/2024.2/settings64.sh
+if [ -d "/tools/2025.2/" ]; then
+	source /tools/2025.2/Vivado/settings64.sh
+	source /tools/2025.2/Vitis/settings64.sh
 fi
 
 alias login-lab="kitty +kitten ssh -Y 192.168.66.53 -l mgrange"
