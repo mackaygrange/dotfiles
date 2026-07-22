@@ -9,10 +9,11 @@
 
 # Source Vivado and Vitis if they are installed:
 if [ -d "/tools/2025.2/" ]; then
-	source /tools/2025.2/Vivado/settings64.sh
-	source /tools/2025.2/Vitis/settings64.sh
+	source /tools/Xilinx/2025.2/Vivado/settings64.sh
+	source /tools/Xilinx/2025.2/Vitis/settings64.sh
 fi
 
+alias kip-serial="tail -F -n 10 /home/mgrange/repos/KIP/deploy-kip-workspace/serial.log /home/mgrange/repos/KIP/deploy-kip-workspace/kip.log"
 alias login-lab="kitty +kitten ssh -Y 192.168.66.53 -l mgrange"
 
 # Only useful if we have kitty installed:
@@ -22,7 +23,7 @@ fi
 
 # Only useful if we have the KIP repo installed:
 if [ -d "$HOME/repos/KIP/" ]; then
-	alias kix="$HOME/repos/dotfiles/scripts/kix.sh"
+	alias kip="$HOME/repos/dotfiles/scripts/kip.sh"
 fi
 
 # If we are not on a work machine then we wont have this:
