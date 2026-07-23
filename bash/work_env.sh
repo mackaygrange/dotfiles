@@ -8,7 +8,7 @@
 #                     |______|
 
 # Source Vivado and Vitis if they are installed:
-if [ -d "/tools/2025.2/" ]; then
+if [ -d "/tools/Xilinx/2025.2/" ]; then
 	source /tools/Xilinx/2025.2/Vivado/settings64.sh
 	source /tools/Xilinx/2025.2/Vitis/settings64.sh
 fi
