@@ -29,28 +29,28 @@
     min_icon_size = 16
     max_icon_size = 32
 
-    background = "#393552"
+    background = "#504945"
     foreground = "#ffffff"
     format = "<b>%s</b>\n%b"
 
 [urgency_low]
-    background = "#393552"
+    background = "#504945"
     highlight = "#ffffff"
-    frame_color = "#3e8fb0"
+    frame_color = "#b8bb26"
     default_icon = /home/mgrange/.icons/rose-pine-moon-icons/32x32/status/dialog-information.svg
     format = "<b>%s</b>\n%b"
 
 [urgency_normal]
-    background = "#393552"
+    background = "#504945"
     highlight = "#ffffff"
-    frame_color = "#f6c177"
+    frame_color = "#fabd2f"
     default_icon = /home/mgrange/.icons/rose-pine-moon-icons/32x32/status/dialog-warning.svg
     format = "<b>%s</b>\n%b"
 
 [urgency_critical]
-    background = "#393552"
+    background = "#504945"
     highlight = "#ffffff"
-    frame_color = "#eb6f92"
+    frame_color = "#fb4934"
     default_icon = /home/mgrange/.icons/rose-pine-moon-icons/32x32/status/dialog-error.svg
     format = "<b>%s</b>\n%b"
 

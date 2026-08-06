@@ -78,7 +78,7 @@
 #        | |
 #        |_|
 #
-# V1.1
+# V1.2
 
 # NOTE: You will need to edit the ARGS_* env vars to reflect the interfaces / IP addresses for your specific board
 # NOTE: Reach out to Mackay Grange if you have any features for the script you want me to add or if changes to the
@@ -89,10 +89,10 @@ shopt -s inherit_errexit
 
 # User dependent vars: (Set these manually based on your board)
 IF_RED_CNTL="enx00e04c351a8d"
-IF_RED_DATA="enx00e04c682293"
-IF_BLACK_DATA="enx00e04c680e70"
+IF_RED_DATA="ens4f0np0"
+IF_BLACK_DATA="ens4f1np1"
 IP_BOARD="192.168.2.3"
-IP_OTNK="192.168.79.13"
+IP_OTNK="192.168.2.2"
 
 DEVICE_USER="amd-edf"
 DEVICE_USER_PASSWORD="a"
@@ -197,9 +197,9 @@ set_paths() {
 	fi
 
 	# Set paths:
-	PATH_COMPILE="$KIP_DIR/scripts/kix-runtime-setup/compile-kix-runtime.sh"
-	PATH_BUILD="$KIP_DIR/scripts/kix-runtime-setup/build-rpu.sh"
-	PATH_DEPLOY="$KIP_DIR/scripts/kix-runtime-setup/deploy_kip.py"
+	PATH_COMPILE="$KIP_DIR/scripts/kip-runtime-setup/compile-kip-runtime.sh"
+	PATH_BUILD="$KIP_DIR/scripts/kip-runtime-setup/build-rpu.sh"
+	PATH_DEPLOY="$KIP_DIR/scripts/kip-runtime-setup/deploy_kip.py"
 	PATH_E2E="$KIP_DIR/e2etests/run-tests.sh"
 	PATH_UNIT="$KIP_DIR/e2etests/JTAG-RPU-Tests.sh"
 	PATH_SIPE="$KIP_DIR/e2etests/verification_tests/scripts/sipe_config_tests.py"
