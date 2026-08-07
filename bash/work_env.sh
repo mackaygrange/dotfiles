@@ -13,7 +13,7 @@ if [ -d "/tools/Xilinx/2025.2/" ]; then
 	source /tools/Xilinx/2025.2/Vitis/settings64.sh
 fi
 
-alias kip-logs="tail -F -n 10 /home/mgrange/repos/KIP/deploy-kip-workspace/serial.log /home/mgrange/repos/KIP/deploy-kip-workspace/kip.log /home/mgrange/repos/KIP/e2etests/logs/otnk_headless.log /home/mgrange/repos/KIP/e2etests/logs/rpu-unit-tests-serial.log"
+alias kip-logs="tail -F -n 10 $HOME/repos/KIP/deploy-kip-workspace/serial.log $HOME/repos/KIP/deploy-kip-workspace/kip.log $HOME/repos/KIP/e2etests/logs/otnk_headless.log $HOME/repos/KIP/e2etests/logs/rpu-unit-tests-serial.log"
 
 # Only useful if we have kitty installed:
 if command -v kitty >/dev/null 2>&1; then
@@ -26,6 +26,6 @@ if [ -d "$HOME/repos/KIP/" ]; then
 fi
 
 # If we are not on a work machine then we wont have this:
-if [ -f /home/mgrange/.arkham-env/arkham-user-environment.sh ]; then
-	. /home/mgrange/.arkham-env/arkham-user-environment.sh
+if [ -f "$HOME/.arkham-env/arkham-user-environment.sh" ]; then
+	. "$HOME/.arkham-env/arkham-user-environment.sh"
 fi

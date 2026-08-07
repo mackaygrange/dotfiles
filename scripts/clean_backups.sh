@@ -1,3 +1,5 @@
+#!/bin/bash
+
 #       _                    _                _                          _
 #      | |                  | |              | |                        | |
 #   ___| | ___  __ _ _ __   | |__   __ _  ___| | ___   _ _ __  ___   ___| |__
@@ -7,7 +9,7 @@
 #                       ______                          | |
 #                      |______|                         |_|
 
-#!/bin/bash
+set -e
 
 # Script to remove all .bak-* directories in the home folder
 echo "[*] Searching for .dotfiles_backup_* directories in $HOME..."
