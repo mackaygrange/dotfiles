@@ -2,7 +2,7 @@
 
 set -e
 
-PID=$(pidof "$1")
+PID=$(pidof "$1") || true
 
 if [ -z "$PID" ]; then
     tmux new-session -d -s main ;
