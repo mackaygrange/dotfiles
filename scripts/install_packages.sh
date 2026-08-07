@@ -1,3 +1,5 @@
+#!/bin/bash
+
 #  _           _        _ _                      _                               _
 # (_)         | |      | | |                    | |                             | |
 #  _ _ __  ___| |_ __ _| | |    _ __   __ _  ___| | ____ _  __ _  ___  ___   ___| |__
@@ -6,8 +8,6 @@
 # |_|_| |_|___/\__\__,_|_|_|   | .__/ \__,_|\___|_|\_\__,_|\__, |\___||___(_)___/_| |_|
 #                        ______| |                          __/ |
 #                       |______|_|                         |___/
-
-#!/bin/bash
 
 # Linux package install script
 # Usage: ./install_packages.sh
@@ -67,7 +67,7 @@ install_tpm() {
 	fi
 }
 
-# Install_nvm:""
+# Install_nvm:
 install_nvm() {
 	echo ""
 	echo "[*] Installing node version manager from github..."
@@ -83,7 +83,7 @@ install_nvm() {
 	fi
 }
 
-# Instapp npm:
+# Install npm:
 install_npm() {
 	echo ""
 	echo "[*] Installing node package manager with node version manager..."

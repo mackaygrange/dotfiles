@@ -148,6 +148,6 @@ export NVM_DIR="$HOME/.nvm"
 # External Modules:
 source "$HOME/repos/dotfiles/bash/work_env.sh"
 
-if [ -f /home/mgrange/.arkham-env/arkham-user-environment.sh ]; then
-    . /home/mgrange/.arkham-env/arkham-user-environment.sh
+if [ -f "$HOME/.arkham-env/arkham-user-environment.sh" ]; then
+    . "$HOME/.arkham-env/arkham-user-environment.sh"
 fi

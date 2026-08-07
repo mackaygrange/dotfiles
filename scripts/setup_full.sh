@@ -1,3 +1,5 @@
+#!/bin/bash
+
 #           _                 __       _ _       _
 #          | |               / _|     | | |     | |
 #  ___  ___| |_ _   _ _ __  | |_ _   _| | |  ___| |__
@@ -6,8 +8,6 @@
 # |___/\___|\__|\__,_| .__/ |_|  \__,_|_|_(_)___/_| |_|
 #                    | |______
 #                    |_|______|
-
-#!/bin/bash
 
 # Linux dotfiles setup script
 # This script runs all of the subscripts TODO: Add flags to toggle certain steps
