@@ -126,9 +126,9 @@ fi
 
 # If shell is being accessed via SSH, make sure our DISPLAY var is set correctly to forward X11.
 # This is supposed to work automatically but I have had issues and this fixes it.
-if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_CONNECTION" ]; then
-	export DISPLAY='localhost:10.0'
-fi
+# if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_CONNECTION" ]; then
+#   export DISPLAY='localhost:10.0'
+# fi
 
 # If zoxide is installed, remap cd to zoxide:
 export PATH="$HOME/.cargo/bin:$PATH"

@@ -8,13 +8,12 @@
 #                     |______|
 
 # Source Vivado and Vitis if they are installed:
-if [ -d "/tools/2025.2/" ]; then
+if [ -d "/tools/Xilinx/2025.2/" ]; then
 	source /tools/Xilinx/2025.2/Vivado/settings64.sh
 	source /tools/Xilinx/2025.2/Vitis/settings64.sh
 fi
 
-alias kip-serial="tail -F -n 10 $HOME/repos/KIP/deploy-kip-workspace/serial.log $HOME/repos/KIP/deploy-kip-workspace/kip.log"
-alias login-lab="kitty +kitten ssh -Y 192.168.66.53 -l mgrange"
+alias kip-logs="tail -F -n 10 $HOME/repos/KIP/deploy-kip-workspace/serial.log $HOME/repos/KIP/deploy-kip-workspace/kip.log $HOME/repos/KIP/e2etests/logs/otnk_headless.log $HOME/repos/KIP/e2etests/logs/rpu-unit-tests-serial.log"
 
 # Only useful if we have kitty installed:
 if command -v kitty >/dev/null 2>&1; then
