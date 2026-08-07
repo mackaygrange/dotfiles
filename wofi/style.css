@@ -3,7 +3,7 @@ window
     font-family: 'CaskaydiaCove Nerd Font Mono';
     margin: 0px;
     border: 1px solid rgba(0, 0, 0, 0.9);
-    background-color: rgba(40, 40, 40, 0.95);
+    background-color: rgba(38, 35, 53, 0.95);
     border-radius: 10px;
 }
 
@@ -11,8 +11,8 @@ window
 {
     margin: 5px;
     border: none;
-    color: #ebdbb2;
-    background-color: rgba(60, 56, 54, 0.95);
+    color: #e0d9f5;
+    background-color: rgba(46, 42, 62, 0.95);
 }
 
 #inner-box
@@ -39,7 +39,7 @@ window
 {
     margin: 5px;
     border: none;
-    color: #a89984;
+    color: #848bbd;
 }
 
 #entry
@@ -54,7 +54,7 @@ window
 
 #entry:selected
 {
-    background-color: rgba(60, 56, 54, 0.95);
+    background-color: rgba(46, 42, 62, 0.95);
     border-radius: 5px;
     border: none;
 }

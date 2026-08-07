@@ -115,32 +115,32 @@ bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOU
 # ==-- i3 Appearance Settings --== #
 font pango:FiraCode Nerd Font Propo Semibold 9
 
-set $base           #282828A8
-set $surface        #3c3836A8
-set $overlay        #504945A8
-set $muted          #92837466
-set $subtle         #a8998466
-set $text           #ebdbb2FF
-set $love           #fb4934A8
-set $gold           #fabd2fFF
-set $rose           #fe8019A8
-set $pine           #b8bb26A8
-set $foam           #8ec07cA8
-set $iris           #d3869bA8
-set $highlightlow   #32302f66
-set $highlightmed   #50494566
-set $highlighthigh  #665c5466
+set $base           #262335A8
+set $surface        #2e2a3eA8
+set $overlay        #3b3654A8
+set $muted          #6c678366
+set $subtle         #848bbd66
+set $text           #e0d9f5FF
+set $love           #fe4450A8
+set $gold           #fede5dFF
+set $rose           #ff7edbA8
+set $pine           #36f9f6A8
+set $foam           #72f1b8A8
+set $iris           #b893ceA8
+set $highlightlow   #2e2a3e66
+set $highlightmed   #3f3a5666
+set $highlighthigh  #504a6e66
 
 # target                title          bg             text     indicator border
-client.focused          $highlightlow  $highlightlow  $text    $iris     $iris
+client.focused          $highlightlow  $highlightlow  $text    $iris     $gold
 client.focused_inactive $muted         $muted         $subtle  $muted    $muted
 client.unfocused        $muted         $muted         $subtle  $muted    $muted
 client.urgent           $highlightlow  $subtle        $text    $base     $rose
-client.placeholder      $base          $base          $text    $base     $base
+client.placeholder      $base          $base          $text    $base     $pine
 client.background       $base
 
 for_window [all] border pixel 0
-default_floating_border pixel 0px
+default_floating_border pixel 2px
 gaps inner 5px
 gaps outer 5px
 
@@ -157,8 +157,7 @@ exec_always xrandr --output $primary_display --auto --primary
 exec_always xrandr --output $secondary_display --auto --left-of HDMI-1
 
 # Set background:
-# Possible to play with these settings to acheive a desired effect.
-exec --no-startup-id convert -size 5360x1440 -define gradient:radii=2440,720 -define gradient:angle=30 radial-gradient:"#d3869b"-"#282828" $HOME/repos/dotfiles/wallpapers/gradient.png && hsetroot -root -fill $HOME/repos/dotfiles/wallpapers/gradient.png
+exec --no-startup-id ~/repos/dotfiles/i3/bg.sh
 
 # Initial Desktop Apps:
 assign [window_role="browser"] $ws1
@@ -187,7 +186,7 @@ exec --no-startup-id i3-msg "focus workspace number $ws1"
 exec --no-startup-id i3-msg "focus workspace number $ws2"
 exec --no-startup-id kitty --title "Local-Dev" /usr/bin/tmux new -sLocalDev
 exec --no-startup-id i3-msg "focus workspace number $ws3"
-exec --no-startup-id kitty --hold --title "Remote-Dev" /usr/bin/kitty +kitten ssh -X mgrange@192.168.66.158 -t 'tmux new -sRemote-Dev'
+exec --no-startup-id kitty --hold --title "Remote-Dev" /usr/bin/kitty +kitten ssh -X mgrange@192.168.66.101 -t 'tmux new -sPC-91'
 
 bar {
     i3bar_command i3bar --transparency

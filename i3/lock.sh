@@ -6,6 +6,7 @@
 # | |    \ \/ / | |/ _ \ / __| |/ / / __| '_ \
 # | |.___/ / /  | | (_) | (__|   < _\__ \ | | |
 # |_|\____/_/   |_|\___/ \___|_|\_(_)___/_| |_|
+# V1.0
 
 # Verify required dependencies are installed
 for cmd in scrot convert i3lock; do

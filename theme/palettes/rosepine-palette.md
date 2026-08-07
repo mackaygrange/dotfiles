@@ -1,4 +1,4 @@
-# Rosé Pine Gruvbox-dark — Color Palette Reference
+# Rosé Pine Synthwave84 — Color Palette Reference
 
 This file serves as a centralized reference for the Rosé Pine Moon colorscheme
 used across these dotfiles. Refer to this when adding or updating colors in any
