@@ -20,6 +20,11 @@ shopt -s histappend
 shopt -s checkwinsize
 shopt -s globstar
 
+# Source Cargo:
+if [ -f "${HOME}/.cargo/env" ]; then
+    . "${HOME}/.cargo/env"
+fi
+
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
 # sources /etc/bash.bashrc).
@@ -147,7 +152,3 @@ export NVM_DIR="$HOME/.nvm"
 
 # External Modules:
 source "$HOME/repos/dotfiles/bash/work_env.sh"
-
-if [ -f "$HOME/.arkham-env/arkham-user-environment.sh" ]; then
-    . "$HOME/.arkham-env/arkham-user-environment.sh"
-fi

@@ -26,6 +26,6 @@ convert "$img" -scale 10% -scale 1000% "$img"
 convert "$img" -blur 0x8 "$img"
 
 # Add text // George Deterrent
-# convert $img -fill red -font $HOME/.fonts/CaskaydiaCoveNerdFont-Bold.ttf -pointsize 200 -gravity NorthEast -annotate 0 'NOT TODAY GEORGE!' $img
+convert $img -fill white -font $HOME/.fonts/CaskaydiaCoveNerdFont-Bold.ttf -pointsize 200 -gravity NorthEast -annotate 0 'GONE FISHING' $img
 
 i3lock -uefi "$img"
