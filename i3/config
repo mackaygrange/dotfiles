@@ -55,7 +55,9 @@ bindsym $mod+Shift+0 move container to workspace number $ws10
 
 # Screenshot bindings:
 bindsym --release $mod+Shift+s exec --no-startup-id scrot -b -f -s -l style=dash'%Y-%m-%d_$wx$h.png' -e 'mv $f ~/screenshots'
-bindsym --release $mod+s exec --no-startup-id scrot -b -f -s -l style=dash - | xclip -selection clipboard -target image/png
+# bindsym --release $mod+s exec --no-startup-id scrot -b -f -s -l style=dash - | xclip -selection clipboard -t image/png
+bindsym --release $mod+s exec --no-startup-id bash -lc 'scrot -b -f -s - | xclip -selection clipboard -t image/png -i'
+
 
 # Misc bindings:
 bindsym $mod+Return exec $terminal
