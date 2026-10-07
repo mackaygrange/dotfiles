@@ -95,7 +95,7 @@ IP_BOARD="192.168.2.3"
 IP_OTNK="192.168.2.2"
 
 DEVICE_USER="amd-edf"
-DEVICE_USER_PASSWORD="a"
+DEVICE_USER_PASSWORD='1qaz@WSX3edc$RFV5tgb'
 
 # Declare default var values:
 KIP_DIR=""
@@ -121,8 +121,8 @@ PATH_KG42=""
 PATH_ESP=""
 PATH_ZEROIZE=""
 
-ARGS_COMPILE=(--features nic-forensics)
-ARGS_BUILD=(--features nic-forensics)
+ARGS_COMPILE=(--features "nic-forensics, esp, arkham-testing" )
+ARGS_BUILD=(--features "nic-forensics, esp, arkham-testing")
 ARGS_DEPLOY=($IP_BOARD $DEVICE_USER $DEVICE_USER_PASSWORD)
 ARGS_E2E=($IP_BOARD $IP_OTNK hardware $IF_RED_DATA $IF_BLACK_DATA)
 ARGS_UNIT=()
@@ -198,7 +198,7 @@ set_paths() {
 
 	# Set paths:
 	PATH_COMPILE="$KIP_DIR/scripts/kip-runtime-setup/compile-kip-runtime.sh"
-	PATH_BUILD="$KIP_DIR/scripts/kip-runtime-setup/build-rpu.sh"
+	PATH_BUILD="$KIP_DIR/rpu/"
 	PATH_DEPLOY="$KIP_DIR/scripts/kip-runtime-setup/deploy_kip.py"
 	PATH_E2E="$KIP_DIR/e2etests/run-tests.sh"
 	PATH_UNIT="$KIP_DIR/e2etests/JTAG-RPU-Tests.sh"
@@ -223,7 +223,9 @@ execute_commands() {
 		else
 			echo "[*] Building..."
 			echo "[+] Executing Command: $PATH_BUILD ${ARGS_BUILD[*]}"
-			"$PATH_BUILD" "${ARGS_BUILD[@]}"
+			(
+				cd $PATH_BUILD && cargo build "${ARGS_BUILD[@]}"
+			)
 			echo "[OK] RPU built successfully!"
 		fi
 	fi

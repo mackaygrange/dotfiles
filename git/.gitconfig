@@ -29,3 +29,5 @@ cm = commit
 lg = log --oneline --graph --decorate --all
 df = diff
 ds = diff --staged
+[color]
+	ui = auto
