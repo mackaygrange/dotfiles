@@ -68,6 +68,13 @@ vim.keymap.set("n", "\\", ":Neotree action=show source=filesystem toggle=true re
 -- Remove trailing whitespace from buffer
 vim.keymap.set("n", "<leader>cc", ":%s/\\s\\+$//e<CR>", { silent = true })
 
+vim.keymap.set("n", "<X2Mouse>", "<C-o>")
+vim.keymap.set("n", "<X1Mouse>", "<C-i>")
+vim.keymap.set("v", "<X2Mouse>", "<Esc><C-o>")
+vim.keymap.set("v", "<X1Mouse>", "<Esc><C-i>")
+vim.keymap.set("i", "<X2Mouse>", "<Esc><C-o>")
+vim.keymap.set("i", "<X1Mouse>", "<Esc><C-i>")
+
 -- Run Current Python Script
 -- Uses function callback for better control and error handling
 vim.keymap.set('n', '<F9>', function()
